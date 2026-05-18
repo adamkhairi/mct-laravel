@@ -84,7 +84,7 @@ test('admin can edit unpublished tours', function () {
     $response->assertInertia(fn ($page) => $page
         ->component('Admin/Tours/Edit')
         ->where('tour.slug', 'unpublished-tour')
-        ->where('tour.is_published', false)
+        ->where('tour.isPublished', false)
     );
 });
 

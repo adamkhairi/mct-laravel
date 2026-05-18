@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TourResource;
 use App\Models\Tour;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -14,7 +16,9 @@ class TourController extends Controller
     public function index(): Response
     {
         return Inertia::render('Admin/Tours/Index', [
-            'tours' => Tour::orderBy('updated_at', 'desc')->get(),
+            'tours' => TourResource::collection(
+                Tour::orderBy('updated_at', 'desc')->get()
+            )->resolve(),
         ]);
     }
 
@@ -38,7 +42,7 @@ class TourController extends Controller
             'excluded' => 'nullable|array',
         ]);
 
-        $validated['id'] = (string) \Illuminate\Support\Str::uuid();
+        $validated['id'] = (string) Str::uuid();
 
         Tour::create($validated);
 
@@ -48,7 +52,7 @@ class TourController extends Controller
     public function edit(Tour $tour): Response
     {
         return Inertia::render('Admin/Tours/Edit', [
-            'tour' => $tour,
+            'tour' => (new TourResource($tour))->resolve(),
         ]);
     }
 

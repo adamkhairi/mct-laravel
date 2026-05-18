@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TourResource;
 use App\Models\Tour;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -11,9 +12,11 @@ class TourController extends Controller
     public function index(): Response
     {
         return Inertia::render('Tours/Index', [
-            'tours' => Tour::published()
-                ->orderBy('title')
-                ->get(),
+            'tours' => TourResource::collection(
+                Tour::published()
+                    ->orderBy('title')
+                    ->get()
+            )->resolve(),
         ]);
     }
 
@@ -25,7 +28,7 @@ class TourController extends Controller
         }
 
         return Inertia::render('Tours/Show', [
-            'tour' => $tour,
+            'tour' => (new TourResource($tour))->resolve(),
         ]);
     }
 }

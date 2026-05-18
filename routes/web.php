@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\TourController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
+
+Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::inertia('/', 'welcome', [
     'canRegister' => Features::enabled(Features::registration()),

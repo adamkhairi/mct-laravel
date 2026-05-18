@@ -1,2 +1,8 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /dashboard
+Disallow: /settings/*
+
+Sitemap: https://www.moroccanclubtravel.com/sitemap.xml

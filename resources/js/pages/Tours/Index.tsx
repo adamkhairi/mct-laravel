@@ -13,6 +13,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import { MetaTags } from '@/components/site/MetaTags';
 
 const DESCRIPTION =
     "Discover our curated collection of bespoke journeys through Morocco's imperial cities, Sahara deserts, and mountain villages.";
@@ -132,6 +133,11 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
 
     return (
         <SiteLayout>
+            <MetaTags 
+                title="Bespoke Private Tour Collection" 
+                description={DESCRIPTION} 
+                url="https://www.moroccanclubtravel.com/tours" 
+            />
             <Header />
             <main className="px-6 pt-32 pb-24 md:px-10 md:pt-40 md:pb-32">
                 <div className="mx-auto max-w-7xl">
@@ -335,7 +341,7 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
                                                         {
                                                             tour.tripType.split(
                                                                 ',',
-                                                            )[0]
+                                                             )[0]
                                                         }
                                                     </span>
                                                 </div>
@@ -374,6 +380,50 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
                             );
                         })}
                     </div>
+
+                    {/* Dynamic Structured Data */}
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{
+                            __html: JSON.stringify({
+                                '@context': 'https://schema.org',
+                                '@type': 'ItemList',
+                                'itemListElement': tours.map((tour, index) => ({
+                                    '@type': 'ListItem',
+                                    'position': index + 1,
+                                    'url': `https://www.moroccanclubtravel.com/tours/${tour.slug}`,
+                                    'name': tour.title,
+                                    'description': tour.description,
+                                    'image': tour.image ? (tour.image.startsWith('/') ? tour.image : `/assets/${tour.image}`) : 'https://www.moroccanclubtravel.com/assets/tour-sahara-camp.jpg'
+                                }))
+                            })
+                        }}
+                    />
+
+                    {/* Breadcrumbs Structured Data */}
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{
+                            __html: JSON.stringify({
+                                '@context': 'https://schema.org',
+                                '@type': 'BreadcrumbList',
+                                'itemListElement': [
+                                    {
+                                        '@type': 'ListItem',
+                                        'position': 1,
+                                        'name': 'Home',
+                                        'item': 'https://www.moroccanclubtravel.com'
+                                    },
+                                    {
+                                        '@type': 'ListItem',
+                                        'position': 2,
+                                        'name': 'Tours',
+                                        'item': 'https://www.moroccanclubtravel.com/tours'
+                                    }
+                                ]
+                            })
+                        }}
+                    />
 
                     {/* Pagination */}
                     {hasMultiplePages && (

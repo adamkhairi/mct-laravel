@@ -1,4 +1,3 @@
-import { Head } from '@inertiajs/react';
 import SiteLayout from '@/layouts/site-layout';
 import { Toaster } from '@/components/ui/sonner';
 import { Header } from '@/components/site/Header';
@@ -11,6 +10,7 @@ import { FAQ } from '@/components/site/FAQ';
 import { Contact } from '@/components/site/Contact';
 import { Footer } from '@/components/site/Footer';
 import { tours } from '@/lib/tours';
+import { MetaTags } from '@/components/site/MetaTags';
 
 const DESCRIPTION =
     'A Marrakesh-based agency curating private tours through the Sahara, the High Atlas, the imperial cities and the Atlantic coast.';
@@ -18,7 +18,12 @@ const DESCRIPTION =
 export default function Welcome() {
     return (
         <SiteLayout>
-            <Head title="Moroccan Club Travel — Bespoke Journeys Through Morocco" />
+            <MetaTags 
+                title="Bespoke Journeys Through Morocco" 
+                description={DESCRIPTION} 
+                url="https://www.moroccanclubtravel.com" 
+                type="website" 
+            />
             <Header />
             <main>
                 <Hero />

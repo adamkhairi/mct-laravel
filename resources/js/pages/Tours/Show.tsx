@@ -18,14 +18,26 @@ import {
     CollapsibleContent,
 } from '@/components/ui/collapsible';
 import { ChevronDown } from 'lucide-react';
+import { MetaTags } from '@/components/site/MetaTags';
 
 export default function Show({ tour }: { tour: any }) {
     const itinerary = (tour.itinerary as any[]) || [];
     const included = (tour.included as string[]) || [];
     const excluded = (tour.excluded as string[]) || [];
 
+    const resolvedImage = tour.image 
+        ? (tour.image.startsWith('/') ? tour.image : `/assets/${tour.image}`)
+        : '/assets/tour-sahara-camp.jpg';
+
     return (
         <SiteLayout>
+            <MetaTags 
+                title={tour.title} 
+                description={tour.description} 
+                image={resolvedImage} 
+                url={`https://www.moroccanclubtravel.com/tours/${tour.slug}`} 
+                type="article"
+            />
             <Header />
             <main className="pt-32 pb-24 md:pt-40">
                 <div className="container mx-auto max-w-7xl px-4 md:px-8">
@@ -337,6 +349,79 @@ export default function Show({ tour }: { tour: any }) {
                 </div>
             </main>
             <Footer />
+
+            {/* TouristTrip Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'TouristTrip',
+                        'name': tour.title,
+                        'description': tour.description,
+                        'duration': tour.duration,
+                        'image': tour.image ? (tour.image.startsWith('/') ? tour.image : `/assets/${tour.image}`) : 'https://www.moroccanclubtravel.com/assets/tour-sahara-camp.jpg',
+                        'url': `https://www.moroccanclubtravel.com/tours/${tour.slug}`,
+                        'offers': {
+                            '@type': 'Offer',
+                            'price': tour.price || '0',
+                            'priceCurrency': 'EUR',
+                            'url': `https://www.moroccanclubtravel.com/tours/${tour.slug}`,
+                            'eligibleRegion': {
+                                '@type': 'Country',
+                                'name': 'MA'
+                            }
+                        },
+                        'itinerary': itinerary.map((item: any, idx: number) => ({
+                            '@type': 'HowToStep',
+                            'position': idx + 1,
+                            'name': item.day || `Day ${idx + 1}`,
+                            'itemListElement': [
+                                {
+                                    '@type': 'HowToDirection',
+                                    'text': `${item.title}: ${item.description}`
+                                }
+                            ]
+                        })),
+                        'provider': {
+                            '@type': 'TravelAgency',
+                            'name': 'Moroccan Club Travel',
+                            'url': 'https://www.moroccanclubtravel.com'
+                        }
+                    })
+                }}
+            />
+
+            {/* Breadcrumb Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'BreadcrumbList',
+                        'itemListElement': [
+                            {
+                                '@type': 'ListItem',
+                                'position': 1,
+                                'name': 'Home',
+                                'item': 'https://www.moroccanclubtravel.com'
+                            },
+                            {
+                                '@type': 'ListItem',
+                                'position': 2,
+                                'name': 'Tours',
+                                'item': 'https://www.moroccanclubtravel.com/tours'
+                            },
+                            {
+                                '@type': 'ListItem',
+                                'position': 3,
+                                'name': tour.title,
+                                'item': `https://www.moroccanclubtravel.com/tours/${tour.slug}`
+                            }
+                        ]
+                    })
+                }}
+            />
         </SiteLayout>
     );
 }

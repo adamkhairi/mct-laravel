@@ -29,7 +29,7 @@ test('admin tour index displays all tours regardless of publication status', fun
     // Verify both tours are present in the response
     $response->assertInertia(fn ($page) => $page
         ->component('Admin/Tours/Index')
-        ->has('tours', 2)
+        ->has('tours.data', 2)
     );
 
     // Verify the database has both tours
@@ -62,7 +62,7 @@ test('admin tour index shows unpublished tours', function () {
     $response->assertOk();
     $response->assertInertia(fn ($page) => $page
         ->component('Admin/Tours/Index')
-        ->has('tours', 2)
+        ->has('tours.data', 2)
     );
 });
 
@@ -121,6 +121,6 @@ test('admin tour index has no publication filtering applied', function () {
     $response->assertOk();
     $response->assertInertia(fn ($page) => $page
         ->component('Admin/Tours/Index')
-        ->has('tours', 5)
+        ->has('tours.data', 5)
     );
 });

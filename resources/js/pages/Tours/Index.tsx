@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Link } from '@inertiajs/react';
-import { Search, X, SlidersHorizontal } from 'lucide-react';
+import { Search, X, SlidersHorizontal, ChevronLeft, ChevronRight } from 'lucide-react';
 import SiteLayout from '@/layouts/site-layout';
 import { Header } from '@/components/site/Header';
 import { Footer } from '@/components/site/Footer';
@@ -53,7 +53,25 @@ function TourImage({
     return <img src={resolvedSrc} alt={alt} className={className} />;
 }
 
-export default function Index({ tours: initialTours }: { tours: any[] }) {
+interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
+interface PaginatedTours {
+    data: any[];
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+    links: PaginationLink[];
+}
+
+export default function Index({ tours: toursPaginated }: { tours: PaginatedTours }) {
+    const tours = toursPaginated?.data || [];
+    const hasMultiplePages = toursPaginated?.last_page > 1;
+
     const [searchQuery, setSearchQuery] = useState('');
     const [destination, setDestination] = useState<string>('all');
     const [tripType, setTripType] = useState<string>('all');
@@ -73,7 +91,7 @@ export default function Index({ tours: initialTours }: { tours: any[] }) {
     };
 
     const filteredTours = useMemo(() => {
-        return initialTours.filter((tour) => {
+        return tours.filter((tour) => {
             if (searchQuery) {
                 const query = searchQuery.toLowerCase();
                 const matchesTitle = tour.title.toLowerCase().includes(query);
@@ -90,8 +108,8 @@ export default function Index({ tours: initialTours }: { tours: any[] }) {
                 if (!tour.tripType) return false;
                 const types = tour.tripType
                     .split(',')
-                    .map((t: string) => t.trim());
-                if (!types.includes(tripType)) return false;
+                    .map((t: string) => t.trim().toLowerCase());
+                if (!types.includes(tripType.toLowerCase())) return false;
             }
 
             if (duration !== 'all') {
@@ -110,7 +128,7 @@ export default function Index({ tours: initialTours }: { tours: any[] }) {
 
             return true;
         });
-    }, [initialTours, searchQuery, destination, tripType, duration]);
+    }, [tours, searchQuery, destination, tripType, duration]);
 
     return (
         <SiteLayout>
@@ -356,6 +374,77 @@ export default function Index({ tours: initialTours }: { tours: any[] }) {
                             );
                         })}
                     </div>
+
+                    {/* Pagination */}
+                    {hasMultiplePages && (
+                        <div className="mt-20 flex items-center justify-center">
+                            <div className="flex items-center gap-2">
+                                {/* Previous Button */}
+                                <Link
+                                    href={toursPaginated.links[0].url || '#'}
+                                    preserveScroll
+                                    className={`group inline-flex items-center gap-2 border border-foreground/10 px-5 py-3 font-mono text-sm tracking-wide uppercase transition-all ${
+                                        !toursPaginated.links[0].url
+                                            ? 'cursor-not-allowed text-foreground/30'
+                                            : 'text-foreground/70 hover:border-terracotta hover:bg-terracotta/5 hover:text-terracotta'
+                                    }`}
+                                >
+                                    <ChevronLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+                                    <span className="hidden sm:inline">Previous</span>
+                                </Link>
+
+                                {/* Page Numbers */}
+                                <div className="flex items-center gap-2">
+                                    {toursPaginated.links.slice(1, -1).map((link, index) => {
+                                        // Parse the label to check if it's a number or ellipsis
+                                        const isEllipsis = link.label === '...';
+                                        
+                                        if (isEllipsis) {
+                                            return (
+                                                <span
+                                                    key={index}
+                                                    className="flex h-12 w-12 items-center justify-center text-foreground/40"
+                                                >
+                                                    ...
+                                                </span>
+                                            );
+                                        }
+
+                                        return (
+                                            <Link
+                                                key={index}
+                                                href={link.url || '#'}
+                                                preserveScroll
+                                                className={`flex h-12 w-12 items-center justify-center border font-mono text-sm transition-all ${
+                                                    link.active
+                                                        ? 'border-terracotta bg-terracotta text-ivory shadow-md'
+                                                        : link.url
+                                                        ? 'border-foreground/10 text-foreground/70 hover:border-terracotta hover:bg-terracotta/5 hover:text-terracotta'
+                                                        : 'cursor-not-allowed border-foreground/5 text-foreground/30'
+                                                }`}
+                                            >
+                                                {link.label}
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Next Button */}
+                                <Link
+                                    href={toursPaginated.links[toursPaginated.links.length - 1].url || '#'}
+                                    preserveScroll
+                                    className={`group inline-flex items-center gap-2 border border-foreground/10 px-5 py-3 font-mono text-sm tracking-wide uppercase transition-all ${
+                                        !toursPaginated.links[toursPaginated.links.length - 1].url
+                                            ? 'cursor-not-allowed text-foreground/30'
+                                            : 'text-foreground/70 hover:border-terracotta hover:bg-terracotta/5 hover:text-terracotta'
+                                    }`}
+                                >
+                                    <span className="hidden sm:inline">Next</span>
+                                    <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                                </Link>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </main>
             <Footer />

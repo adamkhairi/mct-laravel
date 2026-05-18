@@ -2,13 +2,13 @@ import * as React from 'react';
 import { SidebarInset } from '@/components/ui/sidebar';
 import type { AppVariant } from '@/types';
 
-type Props = React.ComponentProps<'main'> & {
+type Props = Omit<React.ComponentProps<'main'>, 'ref'> & {
     variant?: AppVariant;
 };
 
-export function AppContent({ variant = 'sidebar', children, ...props }: Props) {
+export function AppContent({ variant = 'sidebar', children, className, ...props }: Props) {
     if (variant === 'sidebar') {
-        return <SidebarInset {...props}>{children}</SidebarInset>;
+        return <SidebarInset className={`bg-ivory ${className || ''}`} {...props}>{children}</SidebarInset>;
     }
 
     return (

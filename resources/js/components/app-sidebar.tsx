@@ -11,15 +11,18 @@ import {
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { type User } from '@/types/auth';
+import { dashboard } from '@/routes';
+import admin from '@/routes/admin';
 
 export function AppSidebar() {
     const { auth } = usePage<{ auth: { user: User } }>().props;
+    const { url } = usePage();
     const user = auth.user;
 
     return (
         <Sidebar className="border-r border-indigo-ink/5 bg-sand">
             <SidebarHeader className="p-6">
-                <Link href="/admin" className="group flex items-center gap-3">
+                <Link href={dashboard().url} className="group flex items-center gap-3">
                     <img
                         src="/assets/logo-mark.png"
                         alt="Moroccan Club Travel"
@@ -41,28 +44,30 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton
                             asChild
-                            className="transition-all duration-300 hover:bg-ivory hover:text-terracotta"
+                            isActive={url === dashboard().url}
+                            className="font-sans text-xs font-bold uppercase tracking-widest text-indigo-ink/80 transition-all duration-300 hover:bg-ivory hover:text-terracotta data-[active=true]:bg-ivory data-[active=true]:text-terracotta"
                         >
                             <Link
-                                href="/admin"
+                                href={dashboard().url}
                                 className="flex items-center gap-3"
                             >
                                 <LayoutDashboard className="h-4 w-4" />
-                                <span className="font-medium">Dashboard</span>
+                                <span>Dashboard</span>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                         <SidebarMenuButton
                             asChild
-                            className="transition-all duration-300 hover:bg-ivory hover:text-terracotta"
+                            isActive={url.startsWith(admin.tours.index().url)}
+                            className="font-sans text-xs font-bold uppercase tracking-widest text-indigo-ink/80 transition-all duration-300 hover:bg-ivory hover:text-terracotta data-[active=true]:bg-ivory data-[active=true]:text-terracotta"
                         >
                             <Link
-                                href="/admin/tours"
+                                href={admin.tours.index().url}
                                 className="flex items-center gap-3"
                             >
                                 <Map className="h-4 w-4" />
-                                <span className="font-medium">Tours</span>
+                                <span>Tours</span>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -88,7 +93,7 @@ export function AppSidebar() {
                         href="/logout"
                         method="post"
                         as="button"
-                        className="flex w-full items-center justify-start rounded-md px-4 py-2 text-xs font-bold tracking-widest uppercase text-muted-foreground transition-colors hover:bg-destructive/5 hover:text-destructive"
+                        className="flex w-full items-center justify-start rounded-sm border border-indigo-ink/10 bg-white/40 px-4 py-2 text-xs font-bold uppercase tracking-widest text-indigo-ink/60 shadow-xs transition-all duration-300 hover:border-destructive/20 hover:bg-destructive/10 hover:text-destructive active:scale-[0.98]"
                     >
                         <LogOut className="mr-2 h-4 w-4" />
                         Sign Out

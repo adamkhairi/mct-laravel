@@ -17,8 +17,8 @@ class TourController extends Controller
     {
         return Inertia::render('Admin/Tours/Index', [
             'tours' => TourResource::collection(
-                Tour::orderBy('updated_at', 'desc')->get()
-            )->resolve(),
+                Tour::orderBy('updated_at', 'desc')->paginate(10)
+            ),
         ]);
     }
 
@@ -35,6 +35,7 @@ class TourController extends Controller
             'duration' => 'required|string|min:1',
             'nights' => 'required|string|min:1',
             'starting_point' => 'required|string|min:1',
+            'arrival_city' => 'nullable|string',
             'description' => 'required|string|min:10',
             'is_published' => 'boolean',
             'itinerary' => 'nullable|array',
@@ -64,6 +65,7 @@ class TourController extends Controller
             'duration' => 'required|string|min:1',
             'nights' => 'required|string|min:1',
             'starting_point' => 'required|string|min:1',
+            'arrival_city' => 'nullable|string',
             'description' => 'required|string|min:10',
             'is_published' => 'boolean',
             'itinerary' => 'nullable|array',

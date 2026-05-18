@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TourController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -12,6 +13,10 @@ Route::get('tours', [TourController::class, 'index'])->name('tours.index');
 Route::get('tours/{tour}', [TourController::class, 'show'])->name('tours.show');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('admin.tours.index');
+    })->name('dashboard');
+
     Route::get('tours', [App\Http\Controllers\Admin\TourController::class, 'index'])->name('tours.index');
     Route::get('tours/create', [App\Http\Controllers\Admin\TourController::class, 'create'])->name('tours.create');
     Route::post('tours', [App\Http\Controllers\Admin\TourController::class, 'store'])->name('tours.store');
@@ -21,7 +26,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 require __DIR__.'/settings.php';

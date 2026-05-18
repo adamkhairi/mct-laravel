@@ -27,8 +27,8 @@ test('tours index only displays published tours', function () {
     $response->assertStatus(200);
     $response->assertInertia(fn ($page) => $page
         ->component('Tours/Index')
-        ->has('tours', 1)
-        ->where('tours.0.slug', 'published-tour')
+        ->has('tours.data', 1)
+        ->where('tours.data.0.slug', 'published-tour')
     );
 });
 

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Tour;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class TourSeeder extends Seeder
 {
@@ -28,7 +29,7 @@ class TourSeeder extends Seeder
         // Transform and insert each tour
         foreach ($tours as $tour) {
             $mappedTour = [
-                'id' => $tour['id'] ?? (string) \Illuminate\Support\Str::uuid(),
+                'id' => $tour['id'] ?? (string) Str::uuid(),
                 'title' => $tour['title'],
                 'slug' => $tour['id'], // Using ID as slug based on the schema
                 'duration' => $tour['duration'] ?? null,
@@ -48,7 +49,7 @@ class TourSeeder extends Seeder
                 'excluded' => $tour['excluded'] ?? null,
                 'is_published' => true,
             ];
-            
+
             Tour::create($mappedTour);
         }
     }

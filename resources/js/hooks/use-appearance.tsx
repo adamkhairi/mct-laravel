@@ -13,11 +13,7 @@ const listeners = new Set<() => void>();
 let currentAppearance: Appearance = 'system';
 
 const prefersDark = (): boolean => {
-    if (typeof window === 'undefined') {
-        return false;
-    }
-
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return false; // Force light mode by default to prevent unwanted flashes on the frontend
 };
 
 const setCookie = (name: string, value: string, days = 365): void => {

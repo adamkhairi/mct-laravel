@@ -1,11 +1,24 @@
 <?php
 
+use App\Http\Controllers\TourController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
 Route::inertia('/', 'welcome', [
     'canRegister' => Features::enabled(Features::registration()),
 ])->name('home');
+
+Route::get('tours', [TourController::class, 'index'])->name('tours.index');
+Route::get('tours/{tour}', [TourController::class, 'show'])->name('tours.show');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('tours', [App\Http\Controllers\Admin\TourController::class, 'index'])->name('tours.index');
+    Route::get('tours/create', [App\Http\Controllers\Admin\TourController::class, 'create'])->name('tours.create');
+    Route::post('tours', [App\Http\Controllers\Admin\TourController::class, 'store'])->name('tours.store');
+    Route::get('tours/{tour}/edit', [App\Http\Controllers\Admin\TourController::class, 'edit'])->name('tours.edit');
+    Route::put('tours/{tour}', [App\Http\Controllers\Admin\TourController::class, 'update'])->name('tours.update');
+    Route::delete('tours/{tour}', [App\Http\Controllers\Admin\TourController::class, 'destroy'])->name('tours.destroy');
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');

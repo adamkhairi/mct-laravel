@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Tour;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
+
+class TourController extends Controller
+{
+    public function index(): Response
+    {
+        return Inertia::render('Admin/Tours/Index', [
+            'tours' => Tour::orderBy('updated_at', 'desc')->get(),
+        ]);
+    }
+
+    public function create(): Response
+    {
+        return Inertia::render('Admin/Tours/Create');
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|min:2',
+            'slug' => 'required|string|min:2|unique:tours,slug',
+            'duration' => 'required|string|min:1',
+            'nights' => 'required|string|min:1',
+            'starting_point' => 'required|string|min:1',
+            'description' => 'required|string|min:10',
+            'is_published' => 'boolean',
+            'itinerary' => 'nullable|array',
+            'included' => 'nullable|array',
+            'excluded' => 'nullable|array',
+        ]);
+
+        $validated['id'] = (string) \Illuminate\Support\Str::uuid();
+
+        Tour::create($validated);
+
+        return redirect()->route('admin.tours.index')->with('success', 'Tour created successfully.');
+    }
+
+    public function edit(Tour $tour): Response
+    {
+        return Inertia::render('Admin/Tours/Edit', [
+            'tour' => $tour,
+        ]);
+    }
+
+    public function update(Request $request, Tour $tour): RedirectResponse
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|min:2',
+            'slug' => 'required|string|min:2|unique:tours,slug,'.$tour->id,
+            'duration' => 'required|string|min:1',
+            'nights' => 'required|string|min:1',
+            'starting_point' => 'required|string|min:1',
+            'description' => 'required|string|min:10',
+            'is_published' => 'boolean',
+            'itinerary' => 'nullable|array',
+            'included' => 'nullable|array',
+            'excluded' => 'nullable|array',
+        ]);
+
+        $tour->update($validated);
+
+        return redirect()->route('admin.tours.index')->with('success', 'Tour updated successfully.');
+    }
+
+    public function destroy(Tour $tour): RedirectResponse
+    {
+        $tour->delete();
+
+        return redirect()->route('admin.tours.index')->with('success', 'Tour deleted successfully.');
+    }
+}

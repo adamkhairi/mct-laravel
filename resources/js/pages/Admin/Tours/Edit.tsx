@@ -53,11 +53,19 @@ export default function Edit({ tour }: { tour: any }) {
         itinerary: parseItinerary(tour.itinerary),
         included: parseArray(tour.included),
         excluded: parseArray(tour.excluded),
+        image_file: null as File | null,
     });
 
     const submit = (e: FormEvent) => {
         e.preventDefault();
-        put(admin.tours.update({ tour: tour.id }).url);
+        // Use post with _method: put for file upload support in updates
+        post(admin.tours.update({ tour: tour.id }).url, {
+            forceFormData: true,
+            onBefore: () => {
+                // @ts-ignore
+                data._method = 'put';
+            }
+        });
     };
 
     const addItineraryDay = () => {
@@ -230,6 +238,24 @@ export default function Edit({ tour }: { tour: any }) {
                                 required
                             />
                             {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
+                        </div>
+
+                        <div className="space-y-1 pt-4">
+                            <label className="eyebrow text-indigo-ink/60 text-[10px] tracking-wider uppercase block">Featured Image</label>
+                            {tour.image && (
+                                <div className="mb-4">
+                                    <img src={tour.image} alt="Current" className="w-32 h-20 object-cover rounded shadow-sm" />
+                                    <p className="text-[10px] text-muted-foreground mt-1 italic">Current Image</p>
+                                </div>
+                            )}
+                            <Input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => setData('image_file', e.target.files ? e.target.files[0] : null)}
+                                className="cursor-pointer border-dashed border-2 border-indigo-ink/10 rounded-lg p-8 h-auto hover:border-terracotta transition-colors text-center"
+                            />
+                            <p className="text-[10px] text-muted-foreground mt-2 italic">Max 2MB (JPEG, PNG, JPG, GIF). Leave empty to keep current.</p>
+                            {errors.image_file && <p className="text-red-500 text-xs mt-1">{errors.image_file as string}</p>}
                         </div>
                     </div>
 

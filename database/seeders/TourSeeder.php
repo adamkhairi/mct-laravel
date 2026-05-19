@@ -38,7 +38,7 @@ class TourSeeder extends Seeder
                 'arrival_city' => $tour['arrivalCity'] ?? null,
                 'description' => $tour['description'] ?? null,
                 'url' => $tour['url'] ?? null,
-                'image' => $tour['image'] ?? null,
+                'image' => $this->handleImage($tour['image'] ?? null),
                 'accommodation' => $tour['accommodation'] ?? null,
                 'guide' => $tour['guide'] ?? null,
                 'trip_type' => $tour['tripType'] ?? null,
@@ -52,5 +52,28 @@ class TourSeeder extends Seeder
 
             Tour::create($mappedTour);
         }
+    }
+
+    /**
+     * Handle image path.
+     */
+    private function handleImage(?string $image): ?string
+    {
+        if (empty($image)) {
+            return 'https://placehold.co/800x600?text=No+Image';
+        }
+
+        // If it's already a full URL or a storage path, keep it
+        if (str_starts_with($image, 'http') || str_starts_with($image, '/storage/')) {
+            return $image;
+        }
+
+        // Check if the file exists in public/ (where they currently are)
+        if (File::exists(public_path($image))) {
+            return $image;
+        }
+
+        // Fallback to placeholder if not found locally
+        return 'https://placehold.co/800x600?text=' . urlencode(basename($image));
     }
 }

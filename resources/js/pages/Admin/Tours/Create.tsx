@@ -26,6 +26,7 @@ export default function Create() {
         itinerary: [{ day: 'Day 1', title: '', description: '' }] as ItineraryItem[],
         included: [''] as string[],
         excluded: [''] as string[],
+        image_file: null as File | null,
     });
 
     const submit = (e: FormEvent) => {
@@ -203,6 +204,18 @@ export default function Create() {
                                 required
                             />
                             {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
+                        </div>
+
+                        <div className="space-y-1 pt-4">
+                            <label className="eyebrow text-indigo-ink/60 text-[10px] tracking-wider uppercase block">Featured Image</label>
+                            <Input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => setData('image_file', e.target.files ? e.target.files[0] : null)}
+                                className="cursor-pointer border-dashed border-2 border-indigo-ink/10 rounded-lg p-8 h-auto hover:border-terracotta transition-colors text-center"
+                            />
+                            <p className="text-[10px] text-muted-foreground mt-2 italic">Max 2MB (JPEG, PNG, JPG, GIF)</p>
+                            {errors.image_file && <p className="text-red-500 text-xs mt-1">{errors.image_file as string}</p>}
                         </div>
                     </div>
 

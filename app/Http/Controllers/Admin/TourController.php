@@ -37,11 +37,17 @@ class TourController extends Controller
             'starting_point' => 'required|string|min:1',
             'arrival_city' => 'nullable|string',
             'description' => 'required|string|min:10',
+            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_published' => 'boolean',
             'itinerary' => 'nullable|array',
             'included' => 'nullable|array',
             'excluded' => 'nullable|array',
         ]);
+
+        if ($request->hasFile('image_file')) {
+            $path = $request->file('image_file')->store('tours', 'public');
+            $validated['image'] = '/storage/' . $path;
+        }
 
         $validated['id'] = (string) Str::uuid();
 
@@ -67,11 +73,22 @@ class TourController extends Controller
             'starting_point' => 'required|string|min:1',
             'arrival_city' => 'nullable|string',
             'description' => 'required|string|min:10',
+            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_published' => 'boolean',
             'itinerary' => 'nullable|array',
             'included' => 'nullable|array',
             'excluded' => 'nullable|array',
         ]);
+
+        if ($request->hasFile('image_file')) {
+            // Optional: Delete old image if it exists in storage
+            // if ($tour->image && str_starts_with($tour->image, '/storage/')) {
+            //     Storage::disk('public')->delete(str_replace('/storage/', '', $tour->image));
+            // }
+
+            $path = $request->file('image_file')->store('tours', 'public');
+            $validated['image'] = '/storage/' . $path;
+        }
 
         $tour->update($validated);
 

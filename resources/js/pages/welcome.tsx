@@ -18,11 +18,11 @@ const DESCRIPTION =
 export default function Welcome() {
     return (
         <SiteLayout>
-            <MetaTags 
-                title="Bespoke Journeys Through Morocco" 
-                description={DESCRIPTION} 
-                url="https://www.moroccanclubtravel.com" 
-                type="website" 
+            <MetaTags
+                title="Moroccan Club Travel | Marrakesh-based Private Tours"
+                description={DESCRIPTION}
+                url="https://www.moroccanclubtravel.com"
+                type="website"
             />
             <Header />
             <main>

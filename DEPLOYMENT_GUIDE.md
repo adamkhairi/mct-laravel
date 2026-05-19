@@ -143,24 +143,14 @@ scp -r public/build u472409551@your-ip:/home/u472409551/domains/mediumaquamarine
 scp -r public/assets u472409551@your-ip:/home/u472409551/domains/mediumaquamarine-shark-653193.hostingersite.com/laravel-app/public/
 ```
 
-### 2. On Server (SSH) - Create Deploy Script
-Create a helper script to automate the update process.
+### 2. On Server (SSH) - Run the Deploy Script
+Since the `deploy.sh` script is included in your project, you just need to make it executable once and run it.
 ```bash
-nano /home/u472409551/deploy.sh
-```
-```bash
-#!/bin/bash
 cd /home/u472409551/domains/mediumaquamarine-shark-653193.hostingersite.com/laravel-app
-git pull origin main
-composer install --no-dev --optimize-autoloader
-php artisan migrate --force
-php artisan optimize
-echo "🚀 MCT Laravel Deployed Successfully!"
-```
-```bash
-chmod +x /home/u472409551/deploy.sh
+chmod +x deploy.sh
+
 # Run it
-/home/u472409551/deploy.sh
+./deploy.sh
 ```
 
 ---

@@ -5,13 +5,10 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\TourController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Features;
 
 Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
-Route::inertia('/', 'welcome', [
-    'canRegister' => Features::enabled(Features::registration()),
-])->name('home');
+Route::inertia('/', 'welcome')->name('home');
 
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
 

@@ -160,10 +160,10 @@ export function Header() {
                                 Concierge & Studio
                             </span>
                             <p className="font-display text-lg text-indigo-ink">
-                                +212 524 448 000
+                                +212 524 311 743
                             </p>
                             <p className="text-sm text-indigo-ink/60">
-                                concierge@moroccanclub.travel
+                                booking@moroccanclubtravel.com
                             </p>
                         </div>
 

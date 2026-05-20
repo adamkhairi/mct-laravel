@@ -35,7 +35,6 @@ export default function Welcome() {
                 <Contact />
             </main>
             <Footer />
-            <Toaster richColors position="bottom-right" />
 
             {/* Structured Data */}
             <script

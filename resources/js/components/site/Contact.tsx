@@ -51,13 +51,13 @@ export function Contact() {
                     </p>
                     <div className="mt-12 space-y-4">
                         <p className="eyebrow text-ivory/80">
-                            Studio &middot; +212 524 448 000
+                            Studio &middot; +212 524 311 743
                         </p>
                         <p className="eyebrow text-ivory/80">
-                            concierge@moroccanclub.travel
+                            booking@moroccanclubtravel.com
                         </p>
                         <p className="eyebrow text-ivory/80">
-                            Riad Laaroussa &middot; Marrakesh Medina
+                            Av. Allal El Fassi Complexe Ahbas IMM B 1ère étage App 8, Daoudiat Marrakech
                         </p>
                     </div>
                 </div>

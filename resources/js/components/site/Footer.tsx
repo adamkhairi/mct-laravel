@@ -14,12 +14,23 @@ export function Footer() {
     return (
         <footer className="border-t border-ivory/5 bg-clay px-6 py-14 text-ivory/55 md:px-10">
             <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-10 md:flex-row">
-                <div className="px-4 py-2">
+                <div className="px-4 py-2 flex flex-col items-center md:items-start">
                     <img
                         src={logo}
                         alt="Moroccan Club Travel"
                         className="h-20 w-auto"
                     />
+                    <div className="mt-6 space-y-2 text-center md:text-left">
+                         <p className="eyebrow text-[10px] text-ivory/40">
+                            +212 524 311 743
+                        </p>
+                        <p className="eyebrow text-[10px] text-ivory/40">
+                            booking@moroccanclubtravel.com
+                        </p>
+                        <p className="eyebrow text-[10px] leading-relaxed text-ivory/40 max-w-xs">
+                            Av. Allal El Fassi Complexe Ahbas IMM B 1ère étage App 8, Daoudiat Marrakech
+                        </p>
+                    </div>
                 </div>
 
                 <div className="eyebrow flex flex-wrap justify-center gap-x-8 gap-y-4 md:gap-10">

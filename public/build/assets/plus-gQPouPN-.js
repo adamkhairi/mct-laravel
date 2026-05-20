@@ -1,1 +1,0 @@
-import{Q as e}from"./app-Bh_4l_Pn.js";var t=e(`Plus`,[[`path`,{d:`M5 12h14`,key:`1ays0h`}],[`path`,{d:`M12 5v14`,key:`s699le`}]]);export{t};

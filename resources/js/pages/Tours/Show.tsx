@@ -1,3 +1,4 @@
+import { useState, useMemo } from 'react';
 import { Link } from '@inertiajs/react';
 import SiteLayout from '@/layouts/site-layout';
 import { Header } from '@/components/site/Header';
@@ -25,17 +26,20 @@ export default function Show({ tour }: { tour: any }) {
     const included = (tour.included as string[]) || [];
     const excluded = (tour.excluded as string[]) || [];
 
-    const resolvedImage = tour.image 
-        ? (tour.image.startsWith('/') ? tour.image : `/assets/${tour.image}`)
-        : '/assets/tour-sahara-camp.jpg';
+    const resolvedImage = useMemo(() => {
+        if (!tour.image) return '/assets/tour-sahara-camp.jpg';
+        if (tour.image.startsWith('http')) return tour.image;
+        if (tour.image.startsWith('/')) return tour.image;
+        return `/assets/${tour.image}`;
+    }, [tour.image]);
 
     return (
         <SiteLayout>
-            <MetaTags 
-                title={tour.title} 
-                description={tour.description} 
-                image={resolvedImage} 
-                url={`https://www.moroccanclubtravel.com/tours/${tour.slug}`} 
+            <MetaTags
+                title={tour.title}
+                description={tour.description}
+                image={resolvedImage.startsWith('http') ? resolvedImage : `https://www.moroccanclubtravel.com${resolvedImage}`}
+                url={`https://www.moroccanclubtravel.com/tours/${tour.slug}`}
                 type="article"
             />
             <Header />

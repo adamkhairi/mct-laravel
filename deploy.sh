@@ -16,6 +16,9 @@ composer install --no-dev --optimize-autoloader
 # Run migrations
 php artisan migrate --force
 
+# Optional: Refresh seeds if you changed the TourSeeder
+# php artisan db:seed --class=TourSeeder --force
+
 # Optimize Laravel (config, routes, views)
 php artisan optimize
 

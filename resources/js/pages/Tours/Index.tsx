@@ -47,6 +47,7 @@ function TourImage({
 }) {
     const resolvedSrc = useMemo(() => {
         if (!src) return '/assets/tour-sahara-camp.jpg';
+        if (src.startsWith('http')) return src;
         if (src.startsWith('/')) return src;
         return `/assets/${src}`;
     }, [src]);
@@ -133,10 +134,10 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
 
     return (
         <SiteLayout>
-            <MetaTags 
-                title="Bespoke Private Tour Collection" 
-                description={DESCRIPTION} 
-                url="https://www.moroccanclubtravel.com/tours" 
+            <MetaTags
+                title="Bespoke Private Tour Collection"
+                description={DESCRIPTION}
+                url="https://www.moroccanclubtravel.com/tours"
             />
             <Header />
             <main className="px-6 pt-32 pb-24 md:px-10 md:pt-40 md:pb-32">
@@ -394,7 +395,7 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
                                     'url': `https://www.moroccanclubtravel.com/tours/${tour.slug}`,
                                     'name': tour.title,
                                     'description': tour.description,
-                                    'image': tour.image ? (tour.image.startsWith('/') ? tour.image : `/assets/${tour.image}`) : 'https://www.moroccanclubtravel.com/assets/tour-sahara-camp.jpg'
+                                    'image': tour.image ? (tour.image.startsWith('http') ? tour.image : (tour.image.startsWith('/') ? tour.image : `/assets/${tour.image}`)) : 'https://www.moroccanclubtravel.com/assets/tour-sahara-camp.jpg'
                                 }))
                             })
                         }}
@@ -448,7 +449,7 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
                                     {toursPaginated.links.slice(1, -1).map((link, index) => {
                                         // Parse the label to check if it's a number or ellipsis
                                         const isEllipsis = link.label === '...';
-                                        
+
                                         if (isEllipsis) {
                                             return (
                                                 <span

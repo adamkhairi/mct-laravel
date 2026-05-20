@@ -1,6 +1,6 @@
 ## Full Deployment Guide: MCT Laravel on Hostinger (Git + SSH)
 
-This guide is optimized for **Laravel 13**, **Inertia v3**, and the specific structure of the MCT project. It assumes your application is located at `/home/u472409551/domains/mediumaquamarine-shark-653193.hostingersite.com/laravel-app`.
+This guide is optimized for **Laravel 13**, **Inertia v3**, and the specific structure of the MCT project. It assumes your application is located at `/home/u472409551/domains/moroccanclubtravel.com/laravel-app`.
 
 ### Prerequisites
 - PHP binary: `/opt/alt/php85/usr/bin/php` (Ensuring PHP 8.5 for Laravel 13).
@@ -35,7 +35,7 @@ source ~/.bashrc
 ### 3. Clone and Install
 Navigate to your domain directory and clone your repository.
 ```bash
-cd /home/u472409551/domains/mediumaquamarine-shark-653193.hostingersite.com/
+cd /home/u472409551/domains/moroccanclubtravel.com/
 
 # Clone into the laravel-app folder
 git clone https://github.com/your-username/your-repo.git laravel-app
@@ -54,7 +54,7 @@ nano .env
 ```env
 APP_ENV=production
 APP_DEBUG=false
-APP_URL=https://mediumaquamarine-shark-653193.hostingersite.com
+APP_URL=https://moroccanclubtravel.com
 
 # Use Database for Sessions and Cache (Recommended for Hostinger)
 SESSION_DRIVER=database
@@ -72,6 +72,9 @@ Generate the key and run migrations:
 ```bash
 php artisan key:generate
 php artisan migrate --force
+
+# Optional: Seed the tours if you are setting up for the first time or want to refresh them
+# php artisan db:seed --class=TourSeeder --force
 ```
 
 ### 5. Deployment Structure (The "Public" Trick)
@@ -79,13 +82,13 @@ Hostinger serves from `public_html`, but our app lives in the `laravel-app` subd
 
 **Step 1: Clean up `public_html`**
 ```bash
-rm /home/u472409551/domains/mediumaquamarine-shark-653193.hostingersite.com/public_html/default.php
+rm /home/u472409551/domains/moroccanclubtravel.com/public_html/default.php
 ```
 
 **Step 2: Create the Modern Laravel 13 `index.php`**
 Create a new `index.php` in your `public_html` directory:
 ```bash
-nano /home/u472409551/domains/mediumaquamarine-shark-653193.hostingersite.com/public_html/index.php
+nano /home/u472409551/domains/moroccanclubtravel.com/public_html/index.php
 ```
 Paste this **Laravel 13 specific** content:
 ```php
@@ -111,7 +114,7 @@ require __DIR__.'/../laravel-app/vendor/autoload.php';
 **Step 3: Setup Routing and Symlinks**
 ```bash
 # Navigate to public_html
-cd /home/u472409551/domains/mediumaquamarine-shark-653193.hostingersite.com/public_html/
+cd /home/u472409551/domains/moroccanclubtravel.com/public_html/
 
 # Copy routing rules
 cp ../laravel-app/public/.htaccess ./.htaccess
@@ -124,6 +127,9 @@ ln -s ../laravel-app/public/assets ./assets
 
 # Symlink storage (For dynamic tour uploads)
 ln -s ../laravel-app/storage/app/public ./storage
+
+# Symlink legacy images folder (If you have images in public/images)
+ln -s ../laravel-app/public/images ./images
 ```
 
 ---
@@ -139,14 +145,14 @@ git commit -m "Your message"
 git push origin main
 
 # Upload the build AND assets folders
-scp -r public/build u472409551@your-ip:/home/u472409551/domains/mediumaquamarine-shark-653193.hostingersite.com/laravel-app/public/
-scp -r public/assets u472409551@your-ip:/home/u472409551/domains/mediumaquamarine-shark-653193.hostingersite.com/laravel-app/public/
+scp -r public/build u472409551@your-ip:/home/u472409551/domains/moroccanclubtravel.com/laravel-app/public/
+scp -r public/assets u472409551@your-ip:/home/u472409551/domains/moroccanclubtravel.com/laravel-app/public/
 ```
 
 ### 2. On Server (SSH) - Run the Deploy Script
 Since the `deploy.sh` script is included in your project, you just need to make it executable once and run it.
 ```bash
-cd /home/u472409551/domains/mediumaquamarine-shark-653193.hostingersite.com/laravel-app
+cd /home/u472409551/domains/moroccanclubtravel.com/laravel-app
 chmod +x deploy.sh
 
 # Run it

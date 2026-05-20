@@ -68,9 +68,9 @@ class TourSeeder extends Seeder
             return $image;
         }
 
-        // Check if the file exists in public/ (where they currently are)
+        // Check if the file exists in public/
         if (File::exists(public_path($image))) {
-            return $image;
+            return '/' . ltrim($image, '/');
         }
 
         // Fallback to placeholder if not found locally

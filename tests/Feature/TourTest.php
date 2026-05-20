@@ -49,6 +49,30 @@ test('unpublished tour returns 404 for public users', function () {
         ->assertStatus(404);
 });
 
+test('unpublished tour can be viewed by admin user', function () {
+    $admin = User::factory()->create(['role' => 'ADMIN']);
+    $tour = Tour::factory()->create([
+        'slug' => 'unpublished-tour',
+        'is_published' => false,
+    ]);
+
+    $this->actingAs($admin)
+        ->get('/tours/'.$tour->slug)
+        ->assertStatus(200);
+});
+
+test('unpublished tour returns 404 for regular authenticated users', function () {
+    $user = User::factory()->create(['role' => 'USER']);
+    $tour = Tour::factory()->create([
+        'slug' => 'unpublished-tour',
+        'is_published' => false,
+    ]);
+
+    $this->actingAs($user)
+        ->get('/tours/'.$tour->slug)
+        ->assertStatus(404);
+});
+
 test('invalid tour slug returns 404', function () {
     $this->get('/tours/non-existent-slug')
         ->assertStatus(404);

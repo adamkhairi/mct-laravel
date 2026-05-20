@@ -98,7 +98,7 @@ export default function Dashboard({ stats, recentTours }: DashboardProps) {
                                 {recentTours.map((tour) => (
                                     <Link
                                         key={tour.id}
-                                        href={admin.tours.edit({ tour: tour.id }).url}
+                                        href={admin.tours.edit({ tour: tour.slug }).url}
                                         className="flex items-center justify-between rounded-lg border border-indigo-ink/5 p-4 transition-all hover:border-terracotta/30 hover:bg-sand/30 group"
                                     >
                                         <div className="flex items-center gap-4">

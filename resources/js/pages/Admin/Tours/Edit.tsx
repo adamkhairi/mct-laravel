@@ -16,10 +16,10 @@ interface ItineraryItem {
 export default function Edit({ tour }: { tour: any }) {
     const parseArray = (dataVal: any): string[] => {
         if (!dataVal) return [''];
-        if (Array.isArray(dataVal)) return dataVal.length > 0 ? dataVal : [''];
+        if (Array.isArray(dataVal)) return (dataVal.length > 0 ? dataVal : ['']).map((v) => v ?? '');
         try {
             const parsed = JSON.parse(dataVal);
-            return Array.isArray(parsed) && parsed.length > 0 ? parsed : [''];
+            return Array.isArray(parsed) && parsed.length > 0 ? parsed.map((v: any) => v ?? '') : [''];
         } catch {
             return [''];
         }
@@ -28,10 +28,22 @@ export default function Edit({ tour }: { tour: any }) {
     const parseItinerary = (dataVal: any): ItineraryItem[] => {
         const defaultVal = [{ day: 'Day 1', title: '', description: '' }];
         if (!dataVal) return defaultVal;
-        if (Array.isArray(dataVal)) return dataVal.length > 0 ? dataVal : defaultVal;
+        if (Array.isArray(dataVal)) return dataVal.length > 0
+            ? dataVal.map((item) => ({
+                day: item.day ?? '',
+                title: item.title ?? '',
+                description: item.description ?? '',
+            }))
+            : defaultVal;
         try {
             const parsed = JSON.parse(dataVal);
-            return Array.isArray(parsed) && parsed.length > 0 ? parsed : defaultVal;
+            return Array.isArray(parsed) && parsed.length > 0
+                ? parsed.map((item: any) => ({
+                    day: item.day ?? '',
+                    title: item.title ?? '',
+                    description: item.description ?? '',
+                }))
+                : defaultVal;
         } catch {
             return defaultVal;
         }
@@ -41,7 +53,7 @@ export default function Edit({ tour }: { tour: any }) {
     const initialArrivalCity = tour.arrivalCity || tour.arrival_city || '';
     const initialIsPublished = tour.isPublished !== undefined ? !!tour.isPublished : !!tour.is_published;
 
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         title: tour.title || '',
         slug: tour.slug || '',
         duration: tour.duration || '',

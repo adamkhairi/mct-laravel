@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import DeleteTourDialog from '@/components/delete-tour-dialog';
 import {
     Select,
     SelectContent,
@@ -10,6 +11,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import { DialogTrigger } from '@/components/ui/dialog';
 import {
     Table,
     TableBody,
@@ -18,19 +20,19 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import { 
-    Plus, 
-    Edit, 
-    Trash2, 
-    Eye, 
-    MapPin, 
-    Calendar, 
-    Clock, 
-    ChevronLeft, 
-    ChevronRight, 
-    Search, 
-    X, 
-    SlidersHorizontal 
+import {
+    Plus,
+    Edit,
+    Trash2,
+    Eye,
+    MapPin,
+    Calendar,
+    Clock,
+    ChevronLeft,
+    ChevronRight,
+    Search,
+    X,
+    SlidersHorizontal
 } from 'lucide-react';
 import admin from '@/routes/admin';
 import tours from '@/routes/tours';
@@ -53,7 +55,7 @@ const DURATIONS = [
 
 export default function Index({ tours: toursPaginated }: { tours: any }) {
     const { delete: destroy } = useForm();
-    
+
     const tourList = toursPaginated?.data || [];
     const meta = toursPaginated?.meta;
     const links = meta?.links || [];
@@ -64,6 +66,7 @@ export default function Index({ tours: toursPaginated }: { tours: any }) {
     const [destination, setDestination] = useState<string>('all');
     const [tripType, setTripType] = useState<string>('all');
     const [duration, setDuration] = useState<string>('all');
+    const [tourToDelete, setTourToDelete] = useState<{ id: string; title: string } | null>(null);
 
     const clearFilters = () => {
         setSearchQuery('');
@@ -73,9 +76,7 @@ export default function Index({ tours: toursPaginated }: { tours: any }) {
     };
 
     const deleteTour = (id: string) => {
-        if (confirm('Are you sure you want to delete this tour?')) {
-            destroy(admin.tours.destroy({ tour: id }).url);
-        }
+        destroy(admin.tours.destroy({ tour: id }).url);
     };
 
     const formatDate = (dateString: string) => {
@@ -313,10 +314,10 @@ export default function Index({ tours: toursPaginated }: { tours: any }) {
                                                 </div>
                                             </TableCell>
                                             <TableCell>
-                                                <Badge 
+                                                <Badge
                                                     className={`rounded-none px-3 py-1 font-mono text-[9px] uppercase tracking-widest ${
-                                                        isPublished 
-                                                            ? "bg-green-100 text-green-700 hover:bg-green-100" 
+                                                        isPublished
+                                                            ? "bg-green-100 text-green-700 hover:bg-green-100"
                                                             : "bg-amber-100 text-amber-700 hover:bg-amber-100"
                                                     }`}
                                                 >
@@ -337,18 +338,25 @@ export default function Index({ tours: toursPaginated }: { tours: any }) {
                                                         </Link>
                                                     </Button>
                                                     <Button variant="ghost" size="icon" asChild className="hover:text-terracotta hover:bg-terracotta/5 rounded-none">
-                                                        <Link href={admin.tours.edit({ tour: tour.id }).url}>
+                                                        <Link href={admin.tours.edit({ tour: tour.slug }).url}>
                                                             <Edit className="h-4 w-4" />
                                                         </Link>
                                                     </Button>
-                                                    <Button 
-                                                        variant="ghost" 
-                                                        size="icon" 
-                                                        onClick={() => deleteTour(tour.id)}
-                                                        className="hover:text-destructive hover:bg-destructive/5 rounded-none"
+                                                    <DeleteTourDialog
+                                                        tourId={tour.slug}
+                                                        tourTitle={tour.title}
+                                                        onConfirm={deleteTour}
                                                     >
-                                                        <Trash2 className="h-4 w-4" />
-                                                    </Button>
+                                                        <DialogTrigger asChild>
+                                                            <Button
+                                                                variant="ghost"
+                                                                size="icon"
+                                                                className="hover:text-destructive hover:bg-destructive/5 rounded-none"
+                                                            >
+                                                                <Trash2 className="h-4 w-4" />
+                                                            </Button>
+                                                        </DialogTrigger>
+                                                    </DeleteTourDialog>
                                                 </div>
                                             </TableCell>
                                         </TableRow>

@@ -22,8 +22,8 @@ class TourController extends Controller
 
     public function show(Tour $tour): Response
     {
-        // Abort if tour is not published
-        if (! $tour->is_published) {
+        // Abort if tour is not published and the user is not an admin
+        if (! $tour->is_published && (! auth()->check() || auth()->user()->role !== 'ADMIN')) {
             abort(404);
         }
 

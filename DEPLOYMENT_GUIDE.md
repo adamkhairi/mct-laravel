@@ -66,6 +66,16 @@ DB_HOST=127.0.0.1
 DB_DATABASE=u472409551_dbname
 DB_USERNAME=u472409551_dbuser
 DB_PASSWORD=your_secure_password
+
+# Mail Configuration (Hostinger SMTP)
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.hostinger.com
+MAIL_PORT=465
+MAIL_USERNAME=booking@moroccanclubtravel.com
+MAIL_PASSWORD=your_email_password
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS="booking@moroccanclubtravel.com"
+MAIL_FROM_NAME="${APP_NAME}"
 ```
 
 Generate the key and run migrations:

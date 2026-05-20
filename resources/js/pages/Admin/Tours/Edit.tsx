@@ -1,11 +1,11 @@
 import { Head, Link, useForm } from '@inertiajs/react';
+import { Loader2, Plus, Trash2, ArrowLeft } from 'lucide-react';
+import type { FormEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { Loader2, Plus, Trash2, ArrowLeft } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
 import admin from '@/routes/admin';
-import { FormEvent } from 'react';
 
 interface ItineraryItem {
     day: string;
@@ -15,10 +15,17 @@ interface ItineraryItem {
 
 export default function Edit({ tour }: { tour: any }) {
     const parseArray = (dataVal: any): string[] => {
-        if (!dataVal) return [''];
-        if (Array.isArray(dataVal)) return (dataVal.length > 0 ? dataVal : ['']).map((v) => v ?? '');
+        if (!dataVal) {
+return [''];
+}
+
+        if (Array.isArray(dataVal)) {
+return (dataVal.length > 0 ? dataVal : ['']).map((v) => v ?? '');
+}
+
         try {
             const parsed = JSON.parse(dataVal);
+
             return Array.isArray(parsed) && parsed.length > 0 ? parsed.map((v: any) => v ?? '') : [''];
         } catch {
             return [''];
@@ -27,16 +34,24 @@ export default function Edit({ tour }: { tour: any }) {
 
     const parseItinerary = (dataVal: any): ItineraryItem[] => {
         const defaultVal = [{ day: 'Day 1', title: '', description: '' }];
-        if (!dataVal) return defaultVal;
-        if (Array.isArray(dataVal)) return dataVal.length > 0
+
+        if (!dataVal) {
+return defaultVal;
+}
+
+        if (Array.isArray(dataVal)) {
+return dataVal.length > 0
             ? dataVal.map((item) => ({
                 day: item.day ?? '',
                 title: item.title ?? '',
                 description: item.description ?? '',
             }))
             : defaultVal;
+}
+
         try {
             const parsed = JSON.parse(dataVal);
+
             return Array.isArray(parsed) && parsed.length > 0
                 ? parsed.map((item: any) => ({
                     day: item.day ?? '',
@@ -53,7 +68,7 @@ export default function Edit({ tour }: { tour: any }) {
     const initialArrivalCity = tour.arrivalCity || tour.arrival_city || '';
     const initialIsPublished = tour.isPublished !== undefined ? !!tour.isPublished : !!tour.is_published;
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, transform } = useForm({
         title: tour.title || '',
         slug: tour.slug || '',
         duration: tour.duration || '',
@@ -70,13 +85,14 @@ export default function Edit({ tour }: { tour: any }) {
 
     const submit = (e: FormEvent) => {
         e.preventDefault();
-        // Use post with _method: put for file upload support in updates
+
+        transform((data) => ({
+            ...data,
+            _method: 'put',
+        }));
+
         post(admin.tours.update({ tour: tour.slug }).url, {
             forceFormData: true,
-            onBefore: () => {
-                // @ts-ignore
-                data._method = 'put';
-            }
         });
     };
 
@@ -136,8 +152,8 @@ export default function Edit({ tour }: { tour: any }) {
             .toLowerCase()
             .trim()
             .replace(/\s+/g, '-')
-            .replace(/[^\w\-]+/g, '')
-            .replace(/\-\-+/g, '-');
+            .replace(/[^\w-]+/g, '')
+            .replace(/--+/g, '-');
     };
 
     const handleTitleChange = (val: string) => {

@@ -63,16 +63,20 @@ interface PaginationLink {
 
 interface PaginatedTours {
     data: any[];
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-    links: PaginationLink[];
+    meta: {
+        current_page: number;
+        last_page: number;
+        per_page: number;
+        total: number;
+        links: PaginationLink[];
+    };
 }
 
 export default function Index({ tours: toursPaginated }: { tours: PaginatedTours }) {
     const tours = toursPaginated?.data || [];
-    const hasMultiplePages = toursPaginated?.last_page > 1;
+    const meta = toursPaginated?.meta;
+    const paginationLinks = meta?.links || [];
+    const hasMultiplePages = meta?.last_page > 1;
 
     const [searchQuery, setSearchQuery] = useState('');
     const [destination, setDestination] = useState<string>('all');
@@ -432,10 +436,10 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
                             <div className="flex items-center gap-2">
                                 {/* Previous Button */}
                                 <Link
-                                    href={toursPaginated.links[0].url || '#'}
+                                    href={paginationLinks[0]?.url || '#'}
                                     preserveScroll
                                     className={`group inline-flex items-center gap-2 border border-foreground/10 px-5 py-3 font-mono text-sm tracking-wide uppercase transition-all ${
-                                        !toursPaginated.links[0].url
+                                        !paginationLinks[0]?.url
                                             ? 'cursor-not-allowed text-foreground/30'
                                             : 'text-foreground/70 hover:border-terracotta hover:bg-terracotta/5 hover:text-terracotta'
                                     }`}
@@ -446,7 +450,7 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
 
                                 {/* Page Numbers */}
                                 <div className="flex items-center gap-2">
-                                    {toursPaginated.links.slice(1, -1).map((link, index) => {
+                                    {paginationLinks.slice(1, -1).map((link, index) => {
                                         // Parse the label to check if it's a number or ellipsis
                                         const isEllipsis = link.label === '...';
 
@@ -482,10 +486,10 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
 
                                 {/* Next Button */}
                                 <Link
-                                    href={toursPaginated.links[toursPaginated.links.length - 1].url || '#'}
+                                    href={paginationLinks[paginationLinks.length - 1]?.url || '#'}
                                     preserveScroll
                                     className={`group inline-flex items-center gap-2 border border-foreground/10 px-5 py-3 font-mono text-sm tracking-wide uppercase transition-all ${
-                                        !toursPaginated.links[toursPaginated.links.length - 1].url
+                                        !paginationLinks[paginationLinks.length - 1]?.url
                                             ? 'cursor-not-allowed text-foreground/30'
                                             : 'text-foreground/70 hover:border-terracotta hover:bg-terracotta/5 hover:text-terracotta'
                                     }`}

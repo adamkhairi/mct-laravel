@@ -26,6 +26,9 @@ class TourSeeder extends Seeder
             throw new \Exception('JSON parsing error: '.json_last_error_msg());
         }
 
+        // Clear existing tours
+        Tour::query()->delete();
+
         // Transform and insert each tour
         foreach ($tours as $tour) {
             $mappedTour = [

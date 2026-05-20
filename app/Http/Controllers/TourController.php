@@ -15,7 +15,7 @@ class TourController extends Controller
             'tours' => TourResource::collection(
                 Tour::published()
                     ->orderBy('title')
-                    ->paginate(10)
+                    ->paginate(9)
             ),
         ]);
     }

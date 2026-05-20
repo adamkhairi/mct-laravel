@@ -28,10 +28,10 @@ it('paginates published tours on public index page', function () {
     $response->assertOk();
     $response->assertInertia(fn ($page) => $page
         ->component('Tours/Index')
-        ->has('tours.data', 10)
+        ->has('tours.data', 9)
         ->has('tours.meta')
         ->has('tours.links')
-        ->where('tours.meta.last_page', 2)
+        ->where('tours.meta.last_page', 3)
     );
 });
 
@@ -56,7 +56,7 @@ it('can navigate to second page of public tours', function () {
     $response->assertOk();
     $response->assertInertia(fn ($page) => $page
         ->component('Tours/Index')
-        ->has('tours.data', 10)
+        ->has('tours.data', 9)
         ->has('tours.meta')
         ->has('tours.links')
     );

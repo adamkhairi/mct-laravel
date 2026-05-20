@@ -74,8 +74,12 @@ MAIL_PORT=465
 MAIL_USERNAME=booking@moroccanclubtravel.com
 MAIL_PASSWORD=your_email_password
 MAIL_ENCRYPTION=ssl
-MAIL_FROM_ADDRESS="booking@moroccanclubtravel.com"
+MAIL_FROM_ADDRESS="contact@moroccanclubtravel.com"
 MAIL_FROM_NAME="${APP_NAME}"
+
+# The email address that receives the contact form inquiries
+# Use a different address than MAIL_FROM_ADDRESS to avoid grouping as "me" in Gmail
+MAIL_CONTACT_RECIPIENT="booking@moroccanclubtravel.com"
 ```
 
 Generate the key and run migrations:
@@ -172,6 +176,9 @@ chmod +x deploy.sh
 ---
 
 ## Important Maintenance Notes
+
+### "Me" Sender in Emails
+If your `MAIL_FROM_ADDRESS` is the same as the address receiving the emails (e.g., you send from `booking@...` to `booking@...`), Gmail and other clients will often display the sender as "me". To fix this, create a second email account in hPanel (e.g., `contact@moroccanclubtravel.com`), use it for `MAIL_FROM_ADDRESS` and `MAIL_USERNAME`, and set `MAIL_CONTACT_RECIPIENT` to your main `booking@...` address.
 
 ### Dynamic Tour Images
 When adding tours via the Admin panel, images are saved to `storage/app/public/tours`. Because of the `public_html/storage` symlink, they will be accessible at `yourdomain.com/storage/tours/filename.jpg`. You **do not** need to manually upload these.

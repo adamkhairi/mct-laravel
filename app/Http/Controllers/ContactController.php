@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Mail\InquiryReceived;
 use App\Models\Inquiry;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Exception;
 
 class ContactController extends Controller
 {
@@ -28,9 +28,9 @@ class ContactController extends Controller
         $inquiry = Inquiry::create($validated);
 
         try {
-            Mail::to(config('mail.from.address'))->send(new InquiryReceived($inquiry));
+            Mail::to(config('mail.contact_recipient') ?? config('mail.from.address'))->send(new InquiryReceived($inquiry));
         } catch (Exception $e) {
-            Log::error('Failed to send inquiry email: ' . $e->getMessage());
+            Log::error('Failed to send inquiry email: '.$e->getMessage());
         }
 
         return back()->with('success', 'Inquiry received. Our concierge will be in touch within 24 hours.');

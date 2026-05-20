@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\TourController;
@@ -11,6 +12,8 @@ Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::inertia('/', 'welcome', [
     'canRegister' => Features::enabled(Features::registration()),
 ])->name('home');
+
+Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('tours', [TourController::class, 'index'])->name('tours.index');
 Route::get('tours/{tour}', [TourController::class, 'show'])->name('tours.show');

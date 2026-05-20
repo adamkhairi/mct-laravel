@@ -71,7 +71,7 @@ export default function Edit({ tour }: { tour: any }) {
     const submit = (e: FormEvent) => {
         e.preventDefault();
         // Use post with _method: put for file upload support in updates
-        post(admin.tours.update({ tour: tour.id }).url, {
+        post(admin.tours.update({ tour: tour.slug }).url, {
             forceFormData: true,
             onBefore: () => {
                 // @ts-ignore

@@ -20,8 +20,10 @@ import {
 } from '@/components/ui/collapsible';
 import { ChevronDown } from 'lucide-react';
 import { MetaTags } from '@/components/site/MetaTags';
+import { useTranslation } from '@/hooks/use-translation';
 
 export default function Show({ tour }: { tour: any }) {
+    const { __ } = useTranslation();
     const itinerary = (tour.itinerary as any[]) || [];
     const included = (tour.included as string[]) || [];
     const excluded = (tour.excluded as string[]) || [];
@@ -36,8 +38,8 @@ export default function Show({ tour }: { tour: any }) {
     return (
         <SiteLayout>
             <MetaTags
-                title={tour.title}
-                description={tour.description}
+                title={__(tour.title)}
+                description={__(tour.description)}
                 image={resolvedImage.startsWith('http') ? resolvedImage : `https://www.moroccanclubtravel.com${resolvedImage}`}
                 url={`https://www.moroccanclubtravel.com/tours/${tour.slug}`}
                 type="article"
@@ -50,22 +52,22 @@ export default function Show({ tour }: { tour: any }) {
                             href="/tours"
                             className="eyebrow inline-flex items-center gap-2 text-terracotta transition-colors duration-300 hover:text-foreground"
                         >
-                            <span>←</span> All Tours
+                            <span>←</span> {__('All Tours')}
                         </Link>
                     </div>
 
                     <div className="mb-16 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-24">
                         <div className="lg:col-span-8">
                             <h1 className="mb-8 font-display text-5xl leading-[1.1] tracking-tight md:text-7xl">
-                                {tour.title}
+                                {__(tour.title)}
                             </h1>
                             <p className="mb-16 max-w-3xl text-xl leading-relaxed font-light text-foreground/80 md:text-2xl">
-                                {tour.description}
+                                {__(tour.description)}
                             </p>
 
                             <div className="mb-16">
                                 <h2 className="mb-8 font-display text-3xl">
-                                    Key Facts
+                                    {__('Key Facts')}
                                 </h2>
                                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                                     {tour.accommodation && (
@@ -76,10 +78,10 @@ export default function Show({ tour }: { tour: any }) {
                                             />
                                             <div>
                                                 <p className="mb-1 text-xs tracking-widest text-foreground/60 uppercase">
-                                                    Accommodation
+                                                    {__('Accommodation')}
                                                 </p>
                                                 <p className="text-sm font-medium">
-                                                    {tour.accommodation}
+                                                    {__(tour.accommodation)}
                                                 </p>
                                             </div>
                                         </div>
@@ -92,10 +94,10 @@ export default function Show({ tour }: { tour: any }) {
                                             />
                                             <div>
                                                 <p className="mb-1 text-xs tracking-widest text-foreground/60 uppercase">
-                                                    Departure City
+                                                    {__('Departure City')}
                                                 </p>
                                                 <p className="text-sm font-medium">
-                                                    {tour.startingPoint}
+                                                    {__(tour.startingPoint)}
                                                 </p>
                                             </div>
                                         </div>
@@ -108,10 +110,10 @@ export default function Show({ tour }: { tour: any }) {
                                             />
                                             <div>
                                                 <p className="mb-1 text-xs tracking-widest text-foreground/60 uppercase">
-                                                    Arrival City
+                                                    {__('Arrival City')}
                                                 </p>
                                                 <p className="text-sm font-medium">
-                                                    {tour.arrivalCity}
+                                                    {__(tour.arrivalCity)}
                                                 </p>
                                             </div>
                                         </div>
@@ -124,10 +126,10 @@ export default function Show({ tour }: { tour: any }) {
                                             />
                                             <div>
                                                 <p className="mb-1 text-xs tracking-widest text-foreground/60 uppercase">
-                                                    Guide
+                                                    {__('Guide')}
                                                 </p>
                                                 <p className="text-sm font-medium">
-                                                    {tour.guide}
+                                                    {__(tour.guide)}
                                                 </p>
                                             </div>
                                         </div>
@@ -140,10 +142,10 @@ export default function Show({ tour }: { tour: any }) {
                                             />
                                             <div>
                                                 <p className="mb-1 text-xs tracking-widest text-foreground/60 uppercase">
-                                                    Trip Type
+                                                    {__('Trip Type')}
                                                 </p>
                                                 <p className="text-sm font-medium">
-                                                    {tour.tripType}
+                                                    {__(tour.tripType)}
                                                 </p>
                                             </div>
                                         </div>
@@ -156,10 +158,10 @@ export default function Show({ tour }: { tour: any }) {
                                             />
                                             <div>
                                                 <p className="mb-1 text-xs tracking-widest text-foreground/60 uppercase">
-                                                    Difficulty
+                                                    {__('Difficulty')}
                                                 </p>
                                                 <p className="text-sm font-medium">
-                                                    {tour.difficulty}
+                                                    {__(tour.difficulty)}
                                                 </p>
                                             </div>
                                         </div>
@@ -172,10 +174,10 @@ export default function Show({ tour }: { tour: any }) {
                                             />
                                             <div>
                                                 <p className="mb-1 text-xs tracking-widest text-foreground/60 uppercase">
-                                                    Languages
+                                                    {__('Languages')}
                                                 </p>
                                                 <p className="text-sm font-medium">
-                                                    {tour.languages}
+                                                    {__(tour.languages)}
                                                 </p>
                                             </div>
                                         </div>
@@ -185,7 +187,7 @@ export default function Show({ tour }: { tour: any }) {
 
                             <div className="mb-16">
                                 <h2 className="mb-8 font-display text-3xl">
-                                    Itinerary
+                                    {__('Itinerary')}
                                 </h2>
                                 {itinerary.length > 0 ? (
                                     <div className="w-full space-y-4">
@@ -198,16 +200,16 @@ export default function Show({ tour }: { tour: any }) {
                                                     <CollapsibleTrigger className="flex w-full items-center justify-between py-6 text-left hover:underline [&[data-state=open]>svg]:rotate-180">
                                                         <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-6">
                                                             <span className="eyebrow shrink-0 text-terracotta">
-                                                                {item.day}
+                                                                {__(item.day)}
                                                             </span>
                                                             <span className="text-xl font-medium">
-                                                                {item.title}
+                                                                {__(item.title)}
                                                             </span>
                                                         </div>
                                                         <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
                                                     </CollapsibleTrigger>
                                                     <CollapsibleContent className="pb-6 leading-relaxed text-foreground/80 md:pl-[calc(4rem+1.5rem)]">
-                                                        {item.description}
+                                                        {__(item.description)}
                                                     </CollapsibleContent>
                                                 </Collapsible>
                                             ),
@@ -216,7 +218,7 @@ export default function Show({ tour }: { tour: any }) {
                                 ) : (
                                     <div className="border-y border-foreground/10 py-8">
                                         <p className="text-foreground/60 italic">
-                                            Itinerary details coming soon.
+                                            {__('Itinerary details coming soon.')}
                                         </p>
                                     </div>
                                 )}
@@ -225,13 +227,13 @@ export default function Show({ tour }: { tour: any }) {
                             {(included.length > 0 || excluded.length > 0) && (
                                 <div className="mb-16">
                                     <h2 className="mb-8 font-display text-3xl">
-                                        Inclusions
+                                        {__('Inclusions')}
                                     </h2>
                                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
                                         {included.length > 0 && (
                                             <div>
                                                 <h3 className="mb-6 text-xl font-medium">
-                                                    Cost includes:
+                                                    {__('Cost includes:')}
                                                 </h3>
                                                 <ul className="space-y-4">
                                                     {included.map(
@@ -250,7 +252,7 @@ export default function Show({ tour }: { tour: any }) {
                                                                     }
                                                                 />
                                                                 <span className="leading-relaxed text-foreground/80">
-                                                                    {item}
+                                                                    {__(item)}
                                                                 </span>
                                                             </li>
                                                         ),
@@ -261,7 +263,7 @@ export default function Show({ tour }: { tour: any }) {
                                         {excluded.length > 0 && (
                                             <div>
                                                 <h3 className="mb-6 text-xl font-medium">
-                                                    Cost excludes:
+                                                    {__('Cost excludes:')}
                                                 </h3>
                                                 <ul className="space-y-4">
                                                     {excluded.map(
@@ -280,7 +282,7 @@ export default function Show({ tour }: { tour: any }) {
                                                                     }
                                                                 />
                                                                 <span className="leading-relaxed text-foreground/80">
-                                                                    {item}
+                                                                    {__(item)}
                                                                 </span>
                                                             </li>
                                                         ),
@@ -296,37 +298,37 @@ export default function Show({ tour }: { tour: any }) {
                         <div className="lg:col-span-4">
                             <div className="sticky top-32 border-t border-foreground/10 py-2 pt-10 lg:border-t-0 lg:border-l lg:pt-2 lg:pl-8">
                                 <h3 className="eyebrow mb-8 text-terracotta">
-                                    Itinerary Snapshot
+                                    {__('Itinerary Snapshot')}
                                 </h3>
 
                                 <div className="space-y-8">
                                     <div>
                                         <p className="mb-1 text-sm tracking-widest text-foreground/60 uppercase">
-                                            Duration
+                                            {__('Duration')}
                                         </p>
                                         <p className="font-display text-2xl">
-                                            {tour.duration}
+                                            {__(tour.duration)}
                                         </p>
                                         <p className="text-foreground/70">
-                                            {tour.nights} Nights
+                                            {__(':nights Nights', { nights: tour.nights })}
                                         </p>
                                     </div>
 
                                     <div>
                                         <p className="mb-1 text-sm tracking-widest text-foreground/60 uppercase">
-                                            Starting Point
+                                            {__('Starting Point')}
                                         </p>
                                         <p className="font-display text-2xl">
-                                            {tour.startingPoint}
+                                            {__(tour.startingPoint)}
                                         </p>
                                     </div>
 
                                     <div>
                                         <p className="mb-1 text-sm tracking-widest text-foreground/60 uppercase">
-                                            Type
+                                            {__('Type')}
                                         </p>
                                         <p className="font-display text-2xl">
-                                            {tour.tripType || 'General Tour'}
+                                            {__(tour.tripType || 'General Tour')}
                                         </p>
                                     </div>
 
@@ -335,7 +337,7 @@ export default function Show({ tour }: { tour: any }) {
                                             href="/#contact"
                                             className="inline-flex items-center justify-center bg-foreground px-8 py-4 text-sm font-medium tracking-wide text-background uppercase transition-colors duration-300 hover:bg-terracotta"
                                         >
-                                            Contact Us
+                                            {__('Contact Us')}
                                         </a>
                                     </div>
                                 </div>
@@ -417,9 +419,8 @@ export default function Show({ tour }: { tour: any }) {
                                 'item': 'https://www.moroccanclubtravel.com/tours'
                             },
                             {
-                                '@type': 'ListItem',
                                 'position': 3,
-                                'name': tour.title,
+                                'name': __(tour.title),
                                 'item': `https://www.moroccanclubtravel.com/tours/${tour.slug}`
                             }
                         ]

@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import { Instagram, Facebook } from 'lucide-react';
 import logo from '@/assets/logo-full-white.png';
+import { useTranslation } from '@/hooks/use-translation';
 
 export function Footer() {
+    const { __ } = useTranslation();
     const [year, setYear] = useState<string | null>(null);
 
     useEffect(() => {
@@ -17,7 +19,7 @@ export function Footer() {
                 <div className="px-4 py-2 flex flex-col items-center md:items-start">
                     <img
                         src={logo}
-                        alt="Moroccan Club Travel"
+                        alt={__('Moroccan Club Travel')}
                         className="h-20 w-auto"
                     />
                     <div className="mt-6 space-y-2 text-center md:text-left">
@@ -38,25 +40,25 @@ export function Footer() {
                         href="/tours"
                         className="transition-colors hover:text-ivory"
                     >
-                        Tours
+                        {__('Tours')}
                     </Link>
                     <a
                         href="/#reviews"
                         className="transition-colors hover:text-ivory"
                     >
-                        Reviews
+                        {__('Reviews')}
                     </a>
                     <a
                         href="/#faq"
                         className="transition-colors hover:text-ivory"
                     >
-                        FAQ
+                        {__('FAQ')}
                     </a>
                     <a href="#" className="transition-colors hover:text-ivory">
-                        Journal
+                        {__('Journal')}
                     </a>
                     <a href="#" className="transition-colors hover:text-ivory">
-                        Privacy
+                        {__('Privacy')}
                     </a>
                 </div>
 
@@ -130,7 +132,7 @@ export function Footer() {
 
             <div className="mx-auto mt-12 max-w-7xl border-t border-ivory/5 pt-8 text-center">
                 <p className="eyebrow text-ivory/40">
-                    © {year ?? '2026'} &middot; All rights reserved
+                    © {year ?? '2026'} &middot; {__('All rights reserved')}
                 </p>
             </div>
         </footer>

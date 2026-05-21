@@ -1,8 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { MessageCircle, ArrowUp } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
 
 export function FloatingActions() {
+    const { __ } = useTranslation();
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -33,14 +35,14 @@ export function FloatingActions() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative flex h-11 w-11 items-center justify-center bg-indigo-ink text-ivory shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all duration-500 hover:bg-terracotta"
-                aria-label="Chat on WhatsApp"
+                aria-label={__('Chat on WhatsApp')}
             >
                 <MessageCircle className="h-5 w-5 stroke-[1.5]" />
 
                 {/* Minimalist Tooltip */}
                 <div className="pointer-events-none absolute top-1/2 right-full mr-4 translate-x-2 -translate-y-1/2 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100">
                     <span className="eyebrow block bg-indigo-ink px-3 py-1 text-[9px] tracking-[0.2em] whitespace-nowrap text-ivory">
-                        Chat with us
+                        {__('Chat with us')}
                     </span>
                 </div>
             </a>
@@ -53,14 +55,14 @@ export function FloatingActions() {
                         ? 'translate-y-0 scale-100 opacity-100'
                         : 'pointer-events-none translate-y-8 scale-90 opacity-0'
                 } group relative hover:border-terracotta hover:bg-terracotta hover:text-ivory`}
-                aria-label="Scroll to top"
+                aria-label={__('Scroll to top')}
             >
                 <ArrowUp className="h-5 w-5 stroke-[1.5]" />
 
                 {/* Minimalist Tooltip */}
                 <div className="pointer-events-none absolute top-1/2 right-full mr-4 translate-x-2 -translate-y-1/2 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100">
                     <span className="eyebrow block bg-indigo-ink px-3 py-1 text-[9px] tracking-[0.2em] whitespace-nowrap text-ivory">
-                        Back to top
+                        {__('Back to top')}
                     </span>
                 </div>
             </button>

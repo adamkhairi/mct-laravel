@@ -101,5 +101,5 @@ test('admin can create a tour', function () {
         ])
         ->assertRedirect('/admin/tours');
 
-    $this->assertDatabaseHas('tours', ['title' => 'Test Tour']);
+    $this->assertDatabaseHas('tours', ['title->en' => 'Test Tour']);
 });

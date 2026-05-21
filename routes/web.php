@@ -4,6 +4,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\TourController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
@@ -14,6 +15,15 @@ Route::post('contact', [ContactController::class, 'store'])->name('contact.store
 
 Route::get('tours', [TourController::class, 'index'])->name('tours.index');
 Route::get('tours/{tour}', [TourController::class, 'show'])->name('tours.show');
+
+Route::post('language', function (Request $request) {
+    $request->validate([
+        'locale' => 'required|string|in:en,es,fr,de,it,pt,zh,nl,ru',
+    ]);
+    session(['locale' => $request->locale]);
+
+    return back();
+})->name('language.update');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', function () {

@@ -1,75 +1,77 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart } from 'lucide-react';
-
-const reviews = [
-    {
-        name: 'Sarah M.',
-        country: 'Australia',
-        flag: '🇦🇺',
-        trip: '7-Day Grand Morocco Journey',
-        quote: 'Honestly the best travel experience of my life. Our guide was extraordinary — he knew every hidden alley of Fes. The Sahara night camp was jaw-dropping. I cried when we had to leave.',
-        initial: 'S',
-    },
-    {
-        name: 'Hiroshi T.',
-        country: 'Japan',
-        flag: '🇯🇵',
-        trip: '5-Day Private Morocco Tour',
-        quote: 'We were a group of 8 from Japan and the entire trip was perfectly organized. Communication was superb, every detail accounted for. We will absolutely return to Morocco.',
-        initial: 'H',
-    },
-    {
-        name: 'Luca & Maria',
-        country: 'Italy',
-        flag: '🇮🇹',
-        trip: '3-Day Sahara Desert Tour',
-        quote: 'Booked the Sahara trip as a honeymoon surprise. The camp, the camel ride at sunset, the stargazing — my wife said it was the most romantic night of her life.',
-        initial: 'L',
-    },
-    {
-        name: 'Emma R.',
-        country: 'United Kingdom',
-        flag: '🇬🇧',
-        trip: 'Custom 6-Day Solo Tour',
-        quote: 'As a solo female traveler I was nervous, but from the first WhatsApp message the team put me at ease. I explored safely and beautifully — Marrakech, Atlas and the coast.',
-        initial: 'E',
-    },
-    {
-        name: 'David K.',
-        country: 'United States',
-        flag: '🇺🇸',
-        trip: 'Family Morocco Adventure',
-        quote: 'Family of 5 with young kids — they handled everything. Shorter drives, kid-friendly stops, engaging activities. The children are still talking about their camel ride 6 months later!',
-        initial: 'D',
-    },
-    {
-        name: 'Prof. Pierre D.',
-        country: 'France',
-        flag: '🇫🇷',
-        trip: 'University Group Tour',
-        quote: 'Our university group of 22 students had an incredible educational tour through the imperial cities. Flawlessly managed — transport, accommodation, guided visits. Absolutely professional.',
-        initial: 'P',
-    },
-];
+import { useTranslation } from '@/hooks/use-translation';
 
 export function Reviews() {
+    const { __ } = useTranslation();
+    const reviews = [
+        {
+            name: 'Sarah M.',
+            country: __('Australia'),
+            flag: '🇦🇺',
+            trip: __('7-Day Grand Morocco Journey'),
+            quote: __('Honestly the best travel experience of my life. Our guide was extraordinary — he knew every hidden alley of Fes. The Sahara night camp was jaw-dropping. I cried when we had to leave.'),
+            initial: 'S',
+        },
+        {
+            name: 'Hiroshi T.',
+            country: __('Japan'),
+            flag: '🇯🇵',
+            trip: __('5-Day Private Morocco Tour'),
+            quote: __('We were a group of 8 from Japan and the entire trip was perfectly organized. Communication was superb, every detail accounted for. We will absolutely return to Morocco.'),
+            initial: 'H',
+        },
+        {
+            name: 'Luca & Maria',
+            country: __('Italy'),
+            flag: '🇮🇹',
+            trip: __('3-Day Sahara Desert Tour'),
+            quote: __('Booked the Sahara trip as a honeymoon surprise. The camp, the camel ride at sunset, the stargazing — my wife said it was the most romantic night of her life.'),
+            initial: 'L',
+        },
+        {
+            name: 'Emma R.',
+            country: __('United Kingdom'),
+            flag: '🇬🇧',
+            trip: __('Custom 6-Day Solo Tour'),
+            quote: __('As a solo female traveler I was nervous, but from the first WhatsApp message the team put me at ease. I explored safely and beautifully — Marrakech, Atlas and the coast.'),
+            initial: 'E',
+        },
+        {
+            name: 'David K.',
+            country: __('United States'),
+            flag: '🇺🇸',
+            trip: __('Family Morocco Adventure'),
+            quote: __('Family of 5 with young kids — they handled everything. Shorter drives, kid-friendly stops, engaging activities. The children are still talking about their camel ride 6 months later!'),
+            initial: 'D',
+        },
+        {
+            name: 'Prof. Pierre D.',
+            country: __('France'),
+            flag: '🇫🇷',
+            trip: __('University Group Tour'),
+            quote: __('Our university group of 22 students had an incredible educational tour through the imperial cities. Flawlessly managed — transport, accommodation, guided visits. Absolutely professional.'),
+            initial: 'P',
+        },
+    ];
+
     return (
         <section id="reviews" className="bg-sand px-6 py-24 md:px-10 md:py-32">
             <div className="mx-auto max-w-7xl">
                 <div className="animate-fade-up mb-16 text-center md:mb-24">
                     <span className="eyebrow mb-6 flex items-center justify-center gap-2 text-terracotta">
                         <Heart className="h-3 w-3 fill-terracotta" />
-                        Traveler Reviews
+                        {__('Traveler Reviews')}
                     </span>
                     <h2 className="mb-8 font-display text-4xl leading-tight font-bold md:text-6xl">
-                        Loved by Travelers{' '}
+                        {__('Loved by Travelers')}
+                        {' '}
                         <span className="font-normal text-terracotta italic">
-                            Worldwide
+                            {__('Worldwide')}
                         </span>
                     </h2>
                     <p className="mx-auto max-w-2xl leading-relaxed text-indigo-ink/60">
-                        Honest reviews from real guests who've explored Morocco
-                        with our team.
+                        {__("Honest reviews from real guests who've explored Morocco with our team.")}
                     </p>
                 </div>
 
@@ -124,7 +126,7 @@ export function Reviews() {
                             4.9/5
                         </div>
                         <div className="eyebrow mt-2 text-indigo-ink/40">
-                            Overall Rating
+                            {__('Overall Rating')}
                         </div>
                     </div>
                     <div className="hidden h-12 w-px bg-border md:block" />
@@ -133,7 +135,7 @@ export function Reviews() {
                             500+
                         </div>
                         <div className="eyebrow mt-2 text-indigo-ink/40">
-                            Verified Reviews
+                            {__('Verified Reviews')}
                         </div>
                     </div>
                     <div className="hidden h-12 w-px bg-border md:block" />
@@ -142,7 +144,7 @@ export function Reviews() {
                             40+
                         </div>
                         <div className="eyebrow mt-2 text-indigo-ink/40">
-                            Countries
+                            {__('Countries')}
                         </div>
                     </div>
                 </div>

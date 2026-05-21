@@ -11,16 +11,18 @@ import { Contact } from '@/components/site/Contact';
 import { Footer } from '@/components/site/Footer';
 import { tours } from '@/lib/tours';
 import { MetaTags } from '@/components/site/MetaTags';
+import { useTranslation } from '@/hooks/use-translation';
 
 const DESCRIPTION =
     'A Marrakesh-based agency curating private tours through the Sahara, the High Atlas, the imperial cities and the Atlantic coast.';
 
 export default function Welcome() {
+    const { __ } = useTranslation();
     return (
         <SiteLayout>
             <MetaTags
-                title="Moroccan Club Travel | Marrakesh-based Private Tours"
-                description={DESCRIPTION}
+                title={__('Moroccan Club Travel | Marrakesh-based Private Tours')}
+                description={__(DESCRIPTION)}
                 url="https://www.moroccanclubtravel.com"
                 type="website"
             />

@@ -2,6 +2,7 @@ import { useTranslation } from '@/hooks/use-translation';
 
 export function Philosophy() {
     const { __ } = useTranslation();
+
     return (
         <section
             id="philosophy"

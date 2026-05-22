@@ -1,14 +1,15 @@
 'use client';
 
-import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
+import { Loader2, Plus, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Loader2, Plus, Trash2 } from 'lucide-react';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { toast } from 'sonner';
+import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import {
     Form,
     FormControl,
@@ -19,9 +20,8 @@ import {
     FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { Card, CardContent } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
 
 const tourSchema = z.object({
     title: z.string().min(2, 'Title is required'),
@@ -106,6 +106,7 @@ export function TourForm({ initialData }: TourFormProps) {
 
     async function onSubmit(data: TourFormValues) {
         setIsLoading(true);
+
         try {
             const url = initialData
                 ? `/api/tours/${initialData.id}`
@@ -118,7 +119,9 @@ export function TourForm({ initialData }: TourFormProps) {
                 headers: { 'Content-Type': 'application/json' },
             });
 
-            if (!response.ok) throw new Error('Failed to save tour');
+            if (!response.ok) {
+throw new Error('Failed to save tour');
+}
 
             toast.success(initialData ? 'Tour updated' : 'Tour created');
             router.push('/admin');

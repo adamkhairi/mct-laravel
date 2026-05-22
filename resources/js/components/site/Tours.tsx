@@ -1,10 +1,10 @@
-import riad from '@/assets/tour-riad.jpg';
-import chefchaouen from '@/assets/tour-chefchaouen.jpg';
-import atlas from '@/assets/tour-atlas.jpg';
-import camp from '@/assets/tour-sahara-camp.jpg';
-import { tours } from '@/lib/tours';
 import { Link } from '@inertiajs/react';
+import atlas from '@/assets/tour-atlas.jpg';
+import chefchaouen from '@/assets/tour-chefchaouen.jpg';
+import riad from '@/assets/tour-riad.jpg';
+import camp from '@/assets/tour-sahara-camp.jpg';
 import { useTranslation } from '@/hooks/use-translation';
+import { tours } from '@/lib/tours';
 
 const FEATURED_IDS = [
     'imperial-cities-tour-from-casablanca',

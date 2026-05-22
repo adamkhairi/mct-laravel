@@ -3,6 +3,7 @@ import { useTranslation } from '@/hooks/use-translation';
 
 export function CinematicBreak() {
     const { __ } = useTranslation();
+
     return (
         <section className="relative h-[80vh] min-h-[520px] overflow-hidden">
             <img

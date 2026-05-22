@@ -1,6 +1,6 @@
 'use client';
-import { useEffect, useState } from 'react';
 import { MessageCircle, ArrowUp } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from '@/hooks/use-translation';
 
 export function FloatingActions() {
@@ -17,6 +17,7 @@ export function FloatingActions() {
         };
 
         window.addEventListener('scroll', toggleVisibility);
+
         return () => window.removeEventListener('scroll', toggleVisibility);
     }, []);
 

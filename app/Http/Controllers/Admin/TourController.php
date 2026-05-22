@@ -46,14 +46,14 @@ class TourController extends Controller
 
         if ($request->hasFile('image_file')) {
             $path = $request->file('image_file')->store('tours', 'public');
-            $validated['image'] = '/storage/' . $path;
+            $validated['image'] = '/storage/'.$path;
         }
 
         $validated['id'] = (string) Str::uuid();
 
         Tour::create($validated);
 
-        return redirect()->route('admin.tours.index')->with('success', 'Tour created successfully.');
+        return redirect()->route('admin.tours.index')->with('success', __('Tour created successfully.'));
     }
 
     public function edit(Tour $tour): Response
@@ -87,18 +87,18 @@ class TourController extends Controller
             // }
 
             $path = $request->file('image_file')->store('tours', 'public');
-            $validated['image'] = '/storage/' . $path;
+            $validated['image'] = '/storage/'.$path;
         }
 
         $tour->update($validated);
 
-        return redirect()->route('admin.tours.index')->with('success', 'Tour updated successfully.');
+        return redirect()->route('admin.tours.index')->with('success', __('Tour updated successfully.'));
     }
 
     public function destroy(Tour $tour): RedirectResponse
     {
         $tour->delete();
 
-        return redirect()->route('admin.tours.index')->with('success', 'Tour deleted successfully.');
+        return redirect()->route('admin.tours.index')->with('success', __('Tour deleted successfully.'));
     }
 }

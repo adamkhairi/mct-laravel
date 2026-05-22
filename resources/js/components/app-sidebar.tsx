@@ -1,5 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
 import { LayoutDashboard, Map, LogOut } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import {
     Sidebar,
     SidebarContent,
@@ -9,10 +10,9 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
-import { type User } from '@/types/auth';
 import { dashboard } from '@/routes';
 import admin from '@/routes/admin';
+import type {User} from '@/types/auth';
 
 export function AppSidebar() {
     const { auth } = usePage<{ auth: { user: User } }>().props;

@@ -1,23 +1,24 @@
-import SiteLayout from '@/layouts/site-layout';
-import { Toaster } from '@/components/ui/sonner';
+import { CinematicBreak } from '@/components/site/CinematicBreak';
+import { Contact } from '@/components/site/Contact';
+import { FAQ } from '@/components/site/FAQ';
+import { Footer } from '@/components/site/Footer';
 import { Header } from '@/components/site/Header';
 import { Hero } from '@/components/site/Hero';
-import { Tours } from '@/components/site/Tours';
-import { Philosophy } from '@/components/site/Philosophy';
-import { CinematicBreak } from '@/components/site/CinematicBreak';
-import { Reviews } from '@/components/site/Reviews';
-import { FAQ } from '@/components/site/FAQ';
-import { Contact } from '@/components/site/Contact';
-import { Footer } from '@/components/site/Footer';
-import { tours } from '@/lib/tours';
 import { MetaTags } from '@/components/site/MetaTags';
+import { Philosophy } from '@/components/site/Philosophy';
+import { Reviews } from '@/components/site/Reviews';
+import { Tours } from '@/components/site/Tours';
+import { Toaster } from '@/components/ui/sonner';
 import { useTranslation } from '@/hooks/use-translation';
+import SiteLayout from '@/layouts/site-layout';
+import { tours } from '@/lib/tours';
 
 const DESCRIPTION =
     'A Marrakesh-based agency curating private tours through the Sahara, the High Atlas, the imperial cities and the Atlantic coast.';
 
 export default function Welcome() {
     const { __ } = useTranslation();
+
     return (
         <SiteLayout>
             <MetaTags

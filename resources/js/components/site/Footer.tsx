@@ -1,7 +1,7 @@
 'use client';
-import { useEffect, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import { Instagram, Facebook } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import logo from '@/assets/logo-full-white.png';
 import { useTranslation } from '@/hooks/use-translation';
 
@@ -37,6 +37,12 @@ export function Footer() {
                 </div>
 
                 <div className="eyebrow flex flex-wrap justify-center gap-x-8 gap-y-4 md:gap-10">
+                    <Link
+                        href="/about"
+                        className="transition-colors hover:text-ivory"
+                    >
+                        {__('About')}
+                    </Link>
                     <Link
                         href="/tours"
                         className="transition-colors hover:text-ivory"

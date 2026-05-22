@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::inertia('/', 'welcome')->name('home');
+Route::inertia('about', 'About')->name('about');
 
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
 

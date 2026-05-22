@@ -1,10 +1,10 @@
+import { Plus } from 'lucide-react';
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Plus } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 
 export function FAQ() {

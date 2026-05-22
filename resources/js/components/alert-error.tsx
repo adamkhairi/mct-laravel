@@ -10,6 +10,7 @@ export default function AlertError({
     title?: string;
 }) {
     const { __ } = useTranslation();
+
     return (
         <Alert variant="destructive">
             <AlertCircleIcon />

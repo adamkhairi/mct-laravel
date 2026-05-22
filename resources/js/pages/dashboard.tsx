@@ -1,6 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
-import { dashboard } from '@/routes';
 import { TrendingUp, FileText, Eye, Clock, Calendar } from 'lucide-react';
+import { dashboard } from '@/routes';
 import admin from '@/routes/admin';
 
 interface Stats {
@@ -25,6 +25,7 @@ interface DashboardProps {
 export default function Dashboard({ stats, recentTours }: DashboardProps) {
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
+
         return date.toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',

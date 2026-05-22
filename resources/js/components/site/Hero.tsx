@@ -3,6 +3,7 @@ import { useTranslation } from '@/hooks/use-translation';
 
 export function Hero() {
     const { __ } = useTranslation();
+
     return (
         <section className="relative isolate flex h-screen min-h-[680px] flex-col justify-end overflow-hidden bg-clay">
             <div className="animate-scale-in absolute inset-0">
@@ -34,7 +35,7 @@ export function Hero() {
                     </a>
                     <p className="max-w-xs text-sm leading-relaxed text-ivory/80">
                         {__(
-                            'Bespoke tours through the high Atlas, the red city, and the drifting sands of the deep south.',
+                            'Private tours with customized itineraries through the high Atlas, the red city, and the drifting sands of the deep south.',
                         )}
                     </p>
                 </div>

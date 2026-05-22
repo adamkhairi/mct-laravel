@@ -1,8 +1,4 @@
-import { useState, useMemo } from 'react';
 import { Link } from '@inertiajs/react';
-import SiteLayout from '@/layouts/site-layout';
-import { Header } from '@/components/site/Header';
-import { Footer } from '@/components/site/Footer';
 import {
     Hotel,
     MapPin,
@@ -13,14 +9,18 @@ import {
     CheckCircle2,
     XCircle,
 } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { Footer } from '@/components/site/Footer';
+import { Header } from '@/components/site/Header';
+import { MetaTags } from '@/components/site/MetaTags';
 import {
     Collapsible,
     CollapsibleTrigger,
     CollapsibleContent,
 } from '@/components/ui/collapsible';
-import { ChevronDown } from 'lucide-react';
-import { MetaTags } from '@/components/site/MetaTags';
 import { useTranslation } from '@/hooks/use-translation';
+import SiteLayout from '@/layouts/site-layout';
 
 export default function Show({ tour }: { tour: any }) {
     const { __ } = useTranslation();
@@ -29,9 +29,18 @@ export default function Show({ tour }: { tour: any }) {
     const excluded = (tour.excluded as string[]) || [];
 
     const resolvedImage = useMemo(() => {
-        if (!tour.image) return '/assets/tour-sahara-camp.jpg';
-        if (tour.image.startsWith('http')) return tour.image;
-        if (tour.image.startsWith('/')) return tour.image;
+        if (!tour.image) {
+return '/assets/tour-sahara-camp.jpg';
+}
+
+        if (tour.image.startsWith('http')) {
+return tour.image;
+}
+
+        if (tour.image.startsWith('/')) {
+return tour.image;
+}
+
         return `/assets/${tour.image}`;
     }, [tour.image]);
 

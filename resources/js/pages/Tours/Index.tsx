@@ -1,4 +1,3 @@
-import { useState, useMemo } from 'react';
 import { Link } from '@inertiajs/react';
 import {
     Search,
@@ -7,9 +6,11 @@ import {
     ChevronLeft,
     ChevronRight,
 } from 'lucide-react';
-import SiteLayout from '@/layouts/site-layout';
-import { Header } from '@/components/site/Header';
+import { useState, useMemo } from 'react';
 import { Footer } from '@/components/site/Footer';
+import { Header } from '@/components/site/Header';
+import { MetaTags } from '@/components/site/MetaTags';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
     Select,
@@ -18,12 +19,11 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { MetaTags } from '@/components/site/MetaTags';
 import { useTranslation } from '@/hooks/use-translation';
+import SiteLayout from '@/layouts/site-layout';
 
 const DESCRIPTION =
-    "Discover our curated collection of bespoke journeys through Morocco's imperial cities, Sahara deserts, and mountain villages.";
+    "Discover our curated collection of private journeys through Morocco's imperial cities, Sahara deserts, and mountain villages.";
 
 const DESTINATIONS = ['Casablanca', 'Fes', 'Marrakech', 'Tangier'];
 const TRIP_TYPES = [
@@ -51,9 +51,18 @@ function TourImage({
     className?: string;
 }) {
     const resolvedSrc = useMemo(() => {
-        if (!src) return '/assets/tour-sahara-camp.jpg';
-        if (src.startsWith('http')) return src;
-        if (src.startsWith('/')) return src;
+        if (!src) {
+return '/assets/tour-sahara-camp.jpg';
+}
+
+        if (src.startsWith('http')) {
+return src;
+}
+
+        if (src.startsWith('/')) {
+return src;
+}
+
         return `/assets/${src}`;
     }, [src]);
 
@@ -113,7 +122,10 @@ export default function Index({
                 const matchesTitle = tour.title.toLowerCase().includes(query);
                 const matchesDesc =
                     tour.description?.toLowerCase().includes(query) ?? false;
-                if (!matchesTitle && !matchesDesc) return false;
+
+                if (!matchesTitle && !matchesDesc) {
+return false;
+}
             }
 
             if (destination !== 'all' && tour.startingPoint !== destination) {
@@ -121,11 +133,17 @@ export default function Index({
             }
 
             if (tripType !== 'all') {
-                if (!tour.tripType) return false;
+                if (!tour.tripType) {
+return false;
+}
+
                 const types = tour.tripType
                     .split(',')
                     .map((t: string) => t.trim().toLowerCase());
-                if (!types.includes(tripType.toLowerCase())) return false;
+
+                if (!types.includes(tripType.toLowerCase())) {
+return false;
+}
             }
 
             if (duration !== 'all') {
@@ -134,6 +152,7 @@ export default function Index({
                 const durationRange = DURATIONS.find(
                     (d) => d.value === duration,
                 );
+
                 if (
                     durationRange &&
                     (days < durationRange.min || days > durationRange.max)
@@ -149,7 +168,7 @@ export default function Index({
     return (
         <SiteLayout>
             <MetaTags
-                title={__('Bespoke Private Tour Collection')}
+                title={__('Private Morocco Tours')}
                 description={__(DESCRIPTION)}
                 url="https://www.moroccanclubtravel.com/tours"
             />
@@ -413,6 +432,7 @@ export default function Index({
                                     if (isPrevNext) {
                                         return null;
                                     }
+
                                     return (
                                         <button
                                             key={index}

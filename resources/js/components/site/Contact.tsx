@@ -1,9 +1,9 @@
 'use client';
-import { type FormEvent } from 'react';
-import { toast } from 'sonner';
 import { useForm } from '@inertiajs/react';
-import contact from '@/routes/contact';
+import type {FormEvent} from 'react';
+import { toast } from 'sonner';
 import { useTranslation } from '@/hooks/use-translation';
+import contact from '@/routes/contact';
 
 export function Contact() {
     const { __ } = useTranslation();
@@ -50,7 +50,7 @@ export function Contact() {
                     </h2>
                     <p className="mt-8 max-w-sm leading-relaxed text-ivory/65">
                         {__(
-                            'Connect with our Marrakesh studio to begin crafting your bespoke itinerary. Every conversation is private and unhurried.',
+                            'Connect with our Marrakesh studio to begin crafting your customized itinerary. Every conversation is private and unhurried.',
                         )}
                     </p>
                     <div className="mt-12 space-y-4">

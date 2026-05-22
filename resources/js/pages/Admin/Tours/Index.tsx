@@ -1,25 +1,4 @@
 import { Head, Link, useForm } from '@inertiajs/react';
-import { useState, useMemo } from 'react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import DeleteTourDialog from '@/components/delete-tour-dialog';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select';
-import { DialogTrigger } from '@/components/ui/dialog';
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/components/ui/table';
 import {
     Plus,
     Edit,
@@ -34,6 +13,27 @@ import {
     X,
     SlidersHorizontal,
 } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import DeleteTourDialog from '@/components/delete-tour-dialog';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from '@/components/ui/table';
 import admin from '@/routes/admin';
 import tours from '@/routes/tours';
 
@@ -83,10 +83,17 @@ export default function Index({ tours: toursPaginated }: { tours: any }) {
     };
 
     const formatDate = (dateString: string) => {
-        if (!dateString) return 'N/A';
+        if (!dateString) {
+return 'N/A';
+}
+
         try {
             const date = new Date(dateString);
-            if (isNaN(date.getTime())) return 'N/A';
+
+            if (isNaN(date.getTime())) {
+return 'N/A';
+}
+
             return date.toLocaleDateString('en-US', {
                 month: 'short',
                 day: 'numeric',
@@ -111,8 +118,10 @@ export default function Index({ tours: toursPaginated }: { tours: any }) {
                     ''
                 ).toLowerCase();
                 const matchesStart = startingPoint.includes(query);
-                if (!matchesTitle && !matchesDesc && !matchesStart)
-                    return false;
+
+                if (!matchesTitle && !matchesDesc && !matchesStart) {
+return false;
+}
             }
 
             if (destination !== 'all') {
@@ -127,27 +136,46 @@ export default function Index({ tours: toursPaginated }: { tours: any }) {
                     ''
                 ).toLowerCase();
                 const dest = destination.toLowerCase();
-                if (!startPoint.includes(dest) && !arrCity.includes(dest))
-                    return false;
+
+                if (!startPoint.includes(dest) && !arrCity.includes(dest)) {
+return false;
+}
             }
 
             if (tripType !== 'all') {
                 const tType = tour.tripType || tour.trip_type;
-                if (!tType) return false;
+
+                if (!tType) {
+return false;
+}
+
                 const types = tType
                     .split(',')
                     .map((t: string) => t.trim().toLowerCase());
-                if (!types.includes(tripType.toLowerCase())) return false;
+
+                if (!types.includes(tripType.toLowerCase())) {
+return false;
+}
             }
 
             if (duration !== 'all') {
                 const days = parseInt(tour.duration);
-                if (isNaN(days)) return false;
-                if (duration === 'short' && (days < 1 || days > 4))
-                    return false;
-                if (duration === 'medium' && (days < 5 || days > 9))
-                    return false;
-                if (duration === 'long' && days < 10) return false;
+
+                if (isNaN(days)) {
+return false;
+}
+
+                if (duration === 'short' && (days < 1 || days > 4)) {
+return false;
+}
+
+                if (duration === 'medium' && (days < 5 || days > 9)) {
+return false;
+}
+
+                if (duration === 'long' && days < 10) {
+return false;
+}
             }
 
             return true;
@@ -173,7 +201,7 @@ export default function Index({ tours: toursPaginated }: { tours: any }) {
                             Tours
                         </h1>
                         <p className="mt-4 max-w-lg leading-relaxed text-muted-foreground">
-                            Curate and manage the bespoke journeys that define
+                            Curate and manage the customized journeys that define
                             the Moroccan Club Travel experience.
                         </p>
                     </div>

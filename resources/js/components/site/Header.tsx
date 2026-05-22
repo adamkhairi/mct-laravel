@@ -1,8 +1,8 @@
 'use client';
 import { Link, router } from '@inertiajs/react';
+import { Menu, X, Globe } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import logoMark from '@/assets/logo-mark.png';
-import { Menu, X, Globe } from 'lucide-react';
 import {
     Select,
     SelectContent,
@@ -37,6 +37,7 @@ export function Header() {
         const onScroll = () => setScrolled(window.scrollY > 40);
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
+
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
@@ -47,6 +48,7 @@ export function Header() {
         } else {
             document.body.style.overflow = 'unset';
         }
+
         return () => {
             document.body.style.overflow = 'unset';
         };
@@ -84,6 +86,12 @@ export function Header() {
 
                 {/* Desktop Navigation */}
                 <div className="eyebrow hidden gap-10 md:flex">
+                    <Link
+                        href="/about"
+                        className="transition-colors hover:text-terracotta"
+                    >
+                        {__('About')}
+                    </Link>
                     <Link
                         href="/tours"
                         className="transition-colors hover:text-terracotta"
@@ -179,6 +187,13 @@ export function Header() {
                             {__('Navigation')}
                         </span>
                         <div className="flex flex-col gap-6">
+                            <Link
+                                href="/about"
+                                onClick={() => setIsOpen(false)}
+                                className="border-b border-foreground/5 py-2 font-display text-4xl transition-colors hover:text-terracotta"
+                            >
+                                {__('About')}
+                            </Link>
                             <Link
                                 href="/tours"
                                 onClick={() => setIsOpen(false)}

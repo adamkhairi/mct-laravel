@@ -1,5 +1,7 @@
 import { useForm } from '@inertiajs/react';
-import { ReactNode, useState } from 'react';
+import { AlertTriangle } from 'lucide-react';
+import type { ReactNode} from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -9,7 +11,6 @@ import {
     DialogFooter,
     DialogTitle,
 } from '@/components/ui/dialog';
-import { AlertTriangle } from 'lucide-react';
 
 interface DeleteTourDialogProps {
     tourId: string;

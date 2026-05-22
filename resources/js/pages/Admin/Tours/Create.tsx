@@ -1,11 +1,11 @@
 import { Head, Link, useForm } from '@inertiajs/react';
+import { Loader2, Plus, Trash2, ArrowLeft } from 'lucide-react';
+import type { FormEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { Loader2, Plus, Trash2, ArrowLeft } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
 import admin from '@/routes/admin';
-import { FormEvent } from 'react';
 
 interface ItineraryItem {
     day: string;

@@ -1,5 +1,5 @@
-import { Loader2 } from 'lucide-react';
 import { Form, Head } from '@inertiajs/react';
+import { Loader2 } from 'lucide-react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
 import TextLink from '@/components/text-link';

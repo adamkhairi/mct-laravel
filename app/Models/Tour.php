@@ -5,15 +5,32 @@ namespace App\Models;
 use Database\Factories\TourFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Tour extends Model
 {
     /** @use HasFactory<TourFactory> */
     use HasFactory;
 
+    use HasTranslations;
+
     public $incrementing = false;
 
     protected $keyType = 'string';
+
+    public array $translatable = [
+        'title',
+        'description',
+        'starting_point',
+        'arrival_city',
+        'accommodation',
+        'guide',
+        'trip_type',
+        'difficulty',
+        'itinerary',
+        'included',
+        'excluded',
+    ];
 
     protected $fillable = [
         'id',

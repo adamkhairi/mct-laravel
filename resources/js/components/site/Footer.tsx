@@ -1,10 +1,12 @@
 'use client';
-import { useEffect, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import { Instagram, Facebook } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import logo from '@/assets/logo-full-white.png';
+import { useTranslation } from '@/hooks/use-translation';
 
 export function Footer() {
+    const { __ } = useTranslation();
     const [year, setYear] = useState<string | null>(null);
 
     useEffect(() => {
@@ -14,49 +16,56 @@ export function Footer() {
     return (
         <footer className="border-t border-ivory/5 bg-clay px-6 py-14 text-ivory/55 md:px-10">
             <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-10 md:flex-row">
-                <div className="px-4 py-2 flex flex-col items-center md:items-start">
+                <div className="flex flex-col items-center px-4 py-2 md:items-start">
                     <img
                         src={logo}
-                        alt="Moroccan Club Travel"
+                        alt={__('Moroccan Club Travel')}
                         className="h-20 w-auto"
                     />
                     <div className="mt-6 space-y-2 text-center md:text-left">
-                         <p className="eyebrow text-[10px] text-ivory/40">
+                        <p className="eyebrow text-[10px] text-ivory/40">
                             +212 524 311 743
                         </p>
                         <p className="eyebrow text-[10px] text-ivory/40">
                             booking@moroccanclubtravel.com
                         </p>
-                        <p className="eyebrow text-[10px] leading-relaxed text-ivory/40 max-w-xs">
-                            Av. Allal El Fassi Complexe Ahbas IMM B 1ère étage App 8, Daoudiat Marrakech
+                        <p className="eyebrow max-w-xs text-[10px] leading-relaxed text-ivory/40">
+                            Av. Allal El Fassi Complexe Ahbas IMM B 1ère étage
+                            App 8, Daoudiat Marrakech
                         </p>
                     </div>
                 </div>
 
                 <div className="eyebrow flex flex-wrap justify-center gap-x-8 gap-y-4 md:gap-10">
                     <Link
+                        href="/about"
+                        className="transition-colors hover:text-ivory"
+                    >
+                        {__('About')}
+                    </Link>
+                    <Link
                         href="/tours"
                         className="transition-colors hover:text-ivory"
                     >
-                        Tours
+                        {__('Tours')}
                     </Link>
                     <a
                         href="/#reviews"
                         className="transition-colors hover:text-ivory"
                     >
-                        Reviews
+                        {__('Reviews')}
                     </a>
                     <a
                         href="/#faq"
                         className="transition-colors hover:text-ivory"
                     >
-                        FAQ
+                        {__('FAQ')}
                     </a>
                     <a href="#" className="transition-colors hover:text-ivory">
-                        Journal
+                        {__('Journal')}
                     </a>
                     <a href="#" className="transition-colors hover:text-ivory">
-                        Privacy
+                        {__('Privacy')}
                     </a>
                 </div>
 
@@ -130,7 +139,7 @@ export function Footer() {
 
             <div className="mx-auto mt-12 max-w-7xl border-t border-ivory/5 pt-8 text-center">
                 <p className="eyebrow text-ivory/40">
-                    © {year ?? '2026'} &middot; All rights reserved
+                    © {year ?? '2026'} &middot; {__('All rights reserved')}
                 </p>
             </div>
         </footer>

@@ -33,6 +33,6 @@ class ContactController extends Controller
             Log::error('Failed to send inquiry email: '.$e->getMessage());
         }
 
-        return back()->with('success', 'Inquiry received. Our concierge will be in touch within 24 hours.');
+        return back()->with('success', __('Inquiry received. Our concierge will be in touch within 24 hours.'));
     }
 }

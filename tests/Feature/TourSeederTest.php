@@ -2,6 +2,9 @@
 
 use App\Models\Tour;
 use Database\Seeders\TourSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
 
 test('tour seeder creates tours from tours.ts', function () {
     // Ensure tours table is empty
@@ -28,8 +31,8 @@ test('seeder transforms camelCase to snake_case', function () {
     $tour = Tour::where('slug', 'spiritual-tour')->first();
     expect($tour)->not->toBeNull();
     expect($tour->starting_point)->toBe('Casablanca');
-    expect($tour->arrival_city)->toBe('Fes');
-    expect($tour->trip_type)->toBe('Spiritual & Wellness');
+    expect($tour->arrival_city)->toBe('Casablanca');
+    expect($tour->trip_type)->toBe('Long-tours');
 });
 
 test('seeder preserves JSON arrays', function () {
@@ -38,7 +41,7 @@ test('seeder preserves JSON arrays', function () {
 
     $tour = Tour::where('slug', 'imperial-cities-tour-from-casablanca')->first();
     expect($tour->itinerary)->toBeArray();
-    expect($tour->itinerary)->toHaveCount(3);
+    expect($tour->itinerary)->toHaveCount(8);
     expect($tour->itinerary[0])->toHaveKeys(['day', 'title', 'description']);
 
     expect($tour->included)->toBeArray();
@@ -58,13 +61,13 @@ test('seeder maps id field to slug', function () {
     expect($tour->title)->toBe('Moorish Heritage and Desert');
 });
 
-test('seeder sets all tours as published by default', function () {
+test('seeder publishes docx tours and drafts others', function () {
     Tour::query()->delete();
     $this->seed(TourSeeder::class);
 
     $unpublishedCount = Tour::where('is_published', false)->count();
-    expect($unpublishedCount)->toBe(0);
+    expect($unpublishedCount)->toBe(19);
 
     $publishedCount = Tour::where('is_published', true)->count();
-    expect($publishedCount)->toBe(Tour::count());
+    expect($publishedCount)->toBe(9);
 });

@@ -14,14 +14,19 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Create admin user
-        User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@mct.com',
-            'password' => 'admin123',
-            'role' => 'ADMIN',
-        ]);
+        User::updateOrCreate(
+            ['email' => 'admin@mct.com'],
+            [
+                'name' => 'Admin User',
+                'password' => 'admin123',
+                'role' => 'ADMIN',
+            ]
+        );
 
         // Seed tours from tours.ts
-        $this->call(TourSeeder::class);
+        $this->call([
+            TourSeeder::class,
+            TourTranslationSeeder::class,
+        ]);
     }
 }

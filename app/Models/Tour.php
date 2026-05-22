@@ -21,6 +21,8 @@ class Tour extends Model
     public array $translatable = [
         'title',
         'description',
+        'duration',
+        'nights',
         'starting_point',
         'arrival_city',
         'accommodation',
@@ -57,9 +59,6 @@ class Tour extends Model
     protected function casts(): array
     {
         return [
-            'itinerary' => 'array',
-            'included' => 'array',
-            'excluded' => 'array',
             'is_published' => 'boolean',
         ];
     }

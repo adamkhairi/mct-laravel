@@ -1,23 +1,24 @@
 import { Link } from '@inertiajs/react';
-import atlas from '@/assets/tour-atlas.jpg';
-import chefchaouen from '@/assets/tour-chefchaouen.jpg';
-import riad from '@/assets/tour-riad.jpg';
-import camp from '@/assets/tour-sahara-camp.jpg';
+
 import { useTranslation } from '@/hooks/use-translation';
-import { tours } from '@/lib/tours';
 
-const FEATURED_IDS = [
-    'imperial-cities-tour-from-casablanca',
-    'adventure-to-sahara',
-    'toubkal-ascent-and-berber-villages',
-    'just-for-women-starting-from-marrakech',
-];
+interface Tour {
+    id: string;
+    slug: string;
+    title: string;
+    duration: string;
+    startingPoint: string;
+    tripType: string;
+    image: string;
+}
 
-export function Tours() {
+interface ToursProps {
+    featuredTours: Tour[];
+    totalToursCount: number;
+}
+
+export function Tours({ featuredTours, totalToursCount }: ToursProps) {
     const { __ } = useTranslation();
-    const featuredTours = FEATURED_IDS.map((id) =>
-        tours.find((t) => t.id === id),
-    ).filter((t): t is NonNullable<typeof t> => Boolean(t));
 
     const getSpan = (index: number) => {
         return index === 0 || index === 3 ? 'md:col-span-7' : 'md:col-span-5';
@@ -56,7 +57,7 @@ export function Tours() {
                     {featuredTours.map((tour, i) => (
                         <Link
                             key={tour.id}
-                            href={`/tours/${tour.id}`}
+                            href={`/tours/${tour.slug}`}
                             className={`${getSpan(i)} group cursor-pointer`}
                         >
                             <article>
@@ -64,15 +65,7 @@ export function Tours() {
                                     className={`mb-6 overflow-hidden ${getRatio(i)} relative bg-indigo-ink/5 shadow-sm`}
                                 >
                                     <img
-                                        src={
-                                            i === 0
-                                                ? riad
-                                                : i === 1
-                                                  ? camp
-                                                  : i === 2
-                                                    ? atlas
-                                                    : chefchaouen
-                                        }
+                                        src={tour.image}
                                         alt={__(tour.title)}
                                         className="h-full w-full object-cover transition-transform duration-[1400ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
                                     />
@@ -81,7 +74,7 @@ export function Tours() {
                                     <div>
                                         <span className="eyebrow mb-2 block text-terracotta">
                                             {__(tour.startingPoint)} &middot;{' '}
-                                            {__(tour.tripType?.split(',')[0])}
+                                            {__(tour.tripType?.split(',')[0] ?? '')}
                                         </span>
                                         <h3 className="font-display text-2xl leading-tight md:text-3xl">
                                             {__(tour.title)}
@@ -103,7 +96,7 @@ export function Tours() {
                         className="inline-flex items-center gap-2 font-medium text-terracotta transition-colors hover:text-terracotta/80"
                     >
                         {__('View All :count Tours', {
-                            count: tours.length.toString(),
+                            count: totalToursCount.toString(),
                         })}
                         <span className="text-sm">→</span>
                     </Link>

@@ -11,12 +11,27 @@ import { Tours } from '@/components/site/Tours';
 import { Toaster } from '@/components/ui/sonner';
 import { useTranslation } from '@/hooks/use-translation';
 import SiteLayout from '@/layouts/site-layout';
-import { tours } from '@/lib/tours';
 
 const DESCRIPTION =
     'A Marrakesh-based agency curating private tours through the Sahara, the High Atlas, the imperial cities and the Atlantic coast.';
 
-export default function Welcome() {
+interface Tour {
+    id: string;
+    slug: string;
+    title: string;
+    duration: string;
+    description: string;
+    startingPoint: string;
+    tripType: string;
+    image: string;
+}
+
+interface WelcomeProps {
+    featuredTours: Tour[];
+    totalToursCount: number;
+}
+
+export default function Welcome({ featuredTours, totalToursCount }: WelcomeProps) {
     const { __ } = useTranslation();
 
     return (
@@ -32,7 +47,7 @@ export default function Welcome() {
             <Header />
             <main>
                 <Hero />
-                <Tours />
+                <Tours featuredTours={featuredTours} totalToursCount={totalToursCount} />
                 <Philosophy />
                 <Reviews />
                 <FAQ />
@@ -64,7 +79,7 @@ export default function Welcome() {
                             telephone: '+212-524-311-743',
                             contactType: 'customer service',
                         },
-                        offers: tours.slice(0, 5).map((tour) => ({
+                        offers: featuredTours.slice(0, 5).map((tour) => ({
                             '@type': 'TouristTrip',
                             name: tour.title,
                             description: tour.description,

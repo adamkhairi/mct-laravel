@@ -1408,6 +1408,7 @@ export const tours: Tour[] = [
         duration: '8 Days',
         nights: '7 Nights',
         startingPoint: 'Tangier',
+        image: '/images/tours/Photo-des-villes-imperiales-2007-093.jpg',
         description:
             "Following the fall of Granada in 1492, many Andalusian Muslims and Jews settled in northern Morocco, bringing with them a rich cultural legacy that shaped the architecture, music, crafts, cuisine, and urban design of several Moroccan cities. This 8-day journey invites you to discover Morocco's remarkable Andalusian heritage through its imperial cities, blue-painted mountain towns, historic medinas, and UNESCO World Heritage Sites.",
         tripType: 'Cultural & Historical',
@@ -1492,6 +1493,7 @@ export const tours: Tour[] = [
         duration: '10 Days',
         nights: '9 Nights',
         startingPoint: 'Tangier',
+        image: '/images/tours/marrakech.jpg',
         description:
             "A beautiful journey along Morocco's Atlantic coastline combining imperial cities, seaside towns, and the vibrant city of Marrakech. This itinerary includes Tangier, Rabat, Casablanca, El Jadida, Oualidia, Essaouira, Agadir, and Marrakech.",
         tripType: 'Cultural & Coastal',
@@ -1587,6 +1589,7 @@ export const tours: Tour[] = [
         duration: '10 Days',
         nights: '9 Nights',
         startingPoint: 'Tangier',
+        image: '/images/tours/Prod_920_1.jpg',
         description:
             "This 10-day Imperial Cities tour offers a rich journey through Morocco's most historic and culturally significant destinations. Beginning in Tangier, you'll explore the meeting point of the Mediterranean and Atlantic, then continue to Rabat, Casablanca, Marrakech, Ouzoud Waterfalls, Bin El Ouidane, Meknes, Volubilis, Fes, Chefchaouen, and Tetouan.",
         tripType: 'Cultural & Historical',
@@ -1686,6 +1689,7 @@ export const tours: Tour[] = [
         duration: '10 Days',
         nights: '9 Nights',
         startingPoint: 'Casablanca',
+        image: '/images/tours/DSC_0451-scaled.jpg',
         description:
             "Welcome ladies to Morocco! Come experience the wonders that Morocco offers with plenty of shopping in historic medinas, regional cooking classes in Fez and Marrakech, a belly dance class, a henna party, a ceramics workshop in Fez, designing your own pair of Moroccan silver earrings, a Moroccan women's fashion demonstration, visits to women's cooperatives, and relaxation in a traditional hammam.",
         tripType: 'Cultural & Just for Women',
@@ -1787,6 +1791,7 @@ export const tours: Tour[] = [
         duration: '13 Days',
         nights: '12 Nights',
         startingPoint: 'Tangier',
+        image: '/images/tours/sahara-dunes.jpg',
         description:
             "Discover the beauty, culture, and diversity of Morocco on this unforgettable 13-day journey through the country's imperial cities, Atlantic and Mediterranean coastlines, mountain landscapes, and Sahara Desert. Beginning in Tangier, this tour takes you through Morocco's most iconic destinations including Rabat, Casablanca, Marrakech, Ouarzazate, Zagora, Merzouga, Midelt, Meknes, Fes, Chefchaouen, and Tetouan.",
         tripType: 'Cultural & Adventure',
@@ -1902,6 +1907,7 @@ export const tours: Tour[] = [
         duration: '11 Days',
         nights: '10 Nights',
         startingPoint: 'Tangier',
+        image: '/images/tours/chefchaouen.jpg',
         description:
             "This 11-day journey combines Morocco's most beautiful imperial cities, the blue town of Chefchaouen, Roman ruins, the Sahara Desert, and the Atlantic coast. From Tangier to the dunes of Merzouga and the vibrant city of Marrakech, this tour offers a complete discovery of Morocco's history, culture, mountains, and desert landscapes.",
         tripType: 'Cultural & Adventure',
@@ -2006,6 +2012,7 @@ export const tours: Tour[] = [
         duration: '7 Days',
         nights: '6 Nights',
         startingPoint: 'Tangier',
+        image: '/images/tours/northern-morocco.jpg',
         description:
             'This 7-day journey offers a complete discovery of northern and central Morocco, combining coastal charm, mountain landscapes, and imperial heritage. Starting in Tangier, the route leads through the blue streets of Chefchaouen and the Rif Mountains to the Mediterranean city of Al Hoceima. The itinerary then continues inland to the cultural capital of Fes, before exploring the imperial cities of Meknes and Rabat. The journey concludes with a coastal return via Asilah before ending in Tangier.',
         tripType: 'Cultural & Coastal',
@@ -2083,6 +2090,7 @@ export const tours: Tour[] = [
         duration: '7 Days',
         nights: '6 Nights',
         startingPoint: 'Casablanca',
+        image: '/images/tours/camel-sahara.jpg',
         description:
             "This 7-day journey through Morocco combines the charm of imperial cities with the magic of the Sahara Desert. Starting in Casablanca, you'll travel to the vibrant city of Marrakech, then cross the High Atlas Mountains to visit the UNESCO-listed Ait Ben Haddou before continuing through scenic valleys to the Sahara Desert in Merzouga. The journey continues through Fes, Chefchaouen, and concludes in Rabat before returning to Casablanca.",
         tripType: 'Cultural & Desert Adventure',
@@ -2164,6 +2172,7 @@ export const tours: Tour[] = [
         duration: '6 Days',
         nights: '5 Nights',
         startingPoint: 'Casablanca',
+        image: '/images/tours/ait-ben-haddou.jpg',
         description:
             'This 6-day journey through southern Morocco offers a perfect blend of cultural discovery, scenic landscapes, and relaxation. Starting in Casablanca, you\'ll travel to Marrakech, explore its iconic landmarks, journey through the High Atlas Mountains to the UNESCO-listed Ait Ben Haddou, experience the desert atmosphere in Zagora with a camel ride at the Tinfou Dunes, and discover Ouarzazate, the "Hollywood of Morocco."',
         tripType: 'Cultural & Desert',

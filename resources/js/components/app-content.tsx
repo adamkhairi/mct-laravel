@@ -6,9 +6,18 @@ type Props = Omit<React.ComponentProps<'main'>, 'ref'> & {
     variant?: AppVariant;
 };
 
-export function AppContent({ variant = 'sidebar', children, className, ...props }: Props) {
+export function AppContent({
+    variant = 'sidebar',
+    children,
+    className,
+    ...props
+}: Props) {
     if (variant === 'sidebar') {
-        return <SidebarInset className={`bg-ivory ${className || ''}`} {...props}>{children}</SidebarInset>;
+        return (
+            <SidebarInset className={`bg-ivory ${className || ''}`} {...props}>
+                {children}
+            </SidebarInset>
+        );
     }
 
     return (

@@ -1,6 +1,12 @@
 import { useState, useMemo } from 'react';
 import { Link } from '@inertiajs/react';
-import { Search, X, SlidersHorizontal, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+    Search,
+    X,
+    SlidersHorizontal,
+    ChevronLeft,
+    ChevronRight,
+} from 'lucide-react';
 import SiteLayout from '@/layouts/site-layout';
 import { Header } from '@/components/site/Header';
 import { Footer } from '@/components/site/Footer';
@@ -71,7 +77,11 @@ interface PaginatedTours {
     };
 }
 
-export default function Index({ tours: toursPaginated }: { tours: PaginatedTours }) {
+export default function Index({
+    tours: toursPaginated,
+}: {
+    tours: PaginatedTours;
+}) {
     const { __ } = useTranslation();
     const tours = toursPaginated?.data || [];
     const meta = toursPaginated?.meta;
@@ -139,7 +149,7 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
     return (
         <SiteLayout>
             <MetaTags
-                title={__("Bespoke Private Tour Collection")}
+                title={__('Bespoke Private Tour Collection')}
                 description={__(DESCRIPTION)}
                 url="https://www.moroccanclubtravel.com/tours"
             />
@@ -160,7 +170,7 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
                         </div>
                         <div className="eyebrow hidden shrink-0 items-center gap-2 text-foreground/40 md:flex">
                             <SlidersHorizontal className="h-4 w-4" />
-                            {String(filteredTours.length).padStart(2, '0')}{' '}
+                            {String(meta?.total || 0).padStart(2, '0')}{' '}
                             {__('Itineraries')}
                         </div>
                     </div>
@@ -172,7 +182,7 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
                         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
                             <div className="group relative">
                                 <Input
-                                    placeholder={__("Search tours...")}
+                                    placeholder={__('Search tours...')}
                                     value={searchQuery}
                                     onChange={(e) =>
                                         setSearchQuery(e.target.value)
@@ -216,7 +226,9 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
                                             value={dest}
                                             className="cursor-pointer rounded-none"
                                         >
-                                            {__('From :dest', { dest: __(dest) })}
+                                            {__('From :dest', {
+                                                dest: __(dest),
+                                            })}
                                         </SelectItem>
                                     ))}
                                 </SelectContent>
@@ -307,7 +319,9 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
                                     {__('No tours found')}
                                 </p>
                                 <p className="mb-6 text-sm text-foreground/60">
-                                    {__('Try adjusting your filters or search query.')}
+                                    {__(
+                                        'Try adjusting your filters or search query.',
+                                    )}
                                 </p>
                                 <Button
                                     onClick={clearFilters}
@@ -346,7 +360,7 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
                                                         {__(
                                                             tour.tripType.split(
                                                                 ',',
-                                                             )[0],
+                                                            )[0],
                                                         )}
                                                     </span>
                                                 </div>
@@ -385,6 +399,69 @@ export default function Index({ tours: toursPaginated }: { tours: PaginatedTours
                             );
                         })}
                     </div>
+
+                    {hasMultiplePages && (
+                        <div className="mt-16 flex items-center justify-center gap-2">
+                            {paginationLinks.map((link, index) => {
+                                const isActive = link.active;
+                                const isPrevNext =
+                                    link.label.includes('Previous') ||
+                                    link.label.includes('Next');
+
+                                if (!link.url) {
+                                    // Don't render disabled Previous/Next buttons
+                                    if (isPrevNext) {
+                                        return null;
+                                    }
+                                    return (
+                                        <button
+                                            key={index}
+                                            disabled
+                                            className="flex h-10 w-10 items-center justify-center border border-foreground/10 text-foreground/30"
+                                            dangerouslySetInnerHTML={{
+                                                __html: link.label,
+                                            }}
+                                        />
+                                    );
+                                }
+
+                                return (
+                                    <Link
+                                        key={index}
+                                        href={link.url}
+                                        preserveScroll
+                                        className={`flex h-10 items-center justify-center border transition-colors ${
+                                            isPrevNext ? 'w-auto px-4' : 'w-10'
+                                        } ${
+                                            isActive
+                                                ? 'border-terracotta bg-terracotta text-ivory'
+                                                : 'border-foreground/10 text-foreground/60 hover:border-terracotta hover:text-terracotta'
+                                        }`}
+                                    >
+                                        {isPrevNext ? (
+                                            link.label.includes('Previous') ? (
+                                                <>
+                                                    <ChevronLeft className="mr-1 h-4 w-4" />
+                                                    {__('Previous')}
+                                                </>
+                                            ) : (
+                                                <>
+                                                    {__('Next')}
+                                                    <ChevronRight className="ml-1 h-4 w-4" />
+                                                </>
+                                            )
+                                        ) : (
+                                            <span
+                                                dangerouslySetInnerHTML={{
+                                                    __html: link.label,
+                                                }}
+                                            />
+                                        )}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    )}
                 </div>
             </main>
             <Footer />

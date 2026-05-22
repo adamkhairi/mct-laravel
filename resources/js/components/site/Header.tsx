@@ -3,7 +3,13 @@ import { Link, router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import logoMark from '@/assets/logo-mark.png';
 import { Menu, X, Globe } from 'lucide-react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import { useTranslation } from '@/hooks/use-translation';
 
 const LANGUAGE_MAP: Record<string, { name: string; flag: React.ReactNode }> = {
@@ -107,18 +113,29 @@ export function Header() {
                 {/* Action Button & Hamburger Toggle */}
                 <div className="z-50 flex items-center gap-6">
                     {/* Language Switcher */}
-                    <div className="hidden items-center gap-1.5 text-indigo-ink/75 hover:text-terracotta transition-colors sm:flex">
-                        <Select value={currentLocale} onValueChange={changeLanguage}>
-                            <SelectTrigger className="border-none bg-transparent h-auto p-0 focus:ring-0 text-xs uppercase eyebrow hover:text-terracotta gap-1.5">
+                    <div className="hidden items-center gap-1.5 text-indigo-ink/75 transition-colors hover:text-terracotta sm:flex">
+                        <Select
+                            value={currentLocale}
+                            onValueChange={changeLanguage}
+                        >
+                            <SelectTrigger className="eyebrow h-auto gap-1.5 border-none bg-transparent p-0 text-xs uppercase hover:text-terracotta focus:ring-0">
                                 <Globe className="h-4 w-4 stroke-[1.5]" />
-                                <span className="uppercase">{currentLocale}</span>
+                                <span className="uppercase">
+                                    {currentLocale}
+                                </span>
                             </SelectTrigger>
                             <SelectContent className="bg-sand text-indigo-ink">
                                 {locales.map((lang) => (
-                                    <SelectItem key={lang} value={lang} className="uppercase">
+                                    <SelectItem
+                                        key={lang}
+                                        value={lang}
+                                        className="uppercase"
+                                    >
                                         <div className="flex items-center gap-2">
                                             {LANGUAGE_MAP[lang]?.flag}
-                                            <span>{LANGUAGE_MAP[lang]?.name}</span>
+                                            <span>
+                                                {LANGUAGE_MAP[lang]?.name}
+                                            </span>
                                         </div>
                                     </SelectItem>
                                 ))}
@@ -206,7 +223,7 @@ export function Header() {
                                             changeLanguage(lang);
                                             setIsOpen(false);
                                         }}
-                                        className={`eyebrow px-3 py-1.5 border rounded-sm text-xs transition-all uppercase flex items-center gap-2 ${
+                                        className={`eyebrow flex items-center gap-2 rounded-sm border px-3 py-1.5 text-xs uppercase transition-all ${
                                             currentLocale === lang
                                                 ? 'border-terracotta bg-terracotta/5 text-terracotta'
                                                 : 'border-foreground/10 text-indigo-ink/60 hover:border-foreground/30'

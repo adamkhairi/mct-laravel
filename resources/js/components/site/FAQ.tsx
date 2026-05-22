@@ -13,31 +13,45 @@ export function FAQ() {
     const faqData = [
         {
             question: __('What is the best time of year to visit Morocco?'),
-            answer: __('Morocco is a year-round destination. Spring (March–May) and autumn (September–November) offer ideal temperatures across all regions. The Sahara is best in winter (October–February) for cool nights and golden days. Coastal towns like Essaouira are perfect in summer.'),
+            answer: __(
+                'Morocco is a year-round destination. Spring (March–May) and autumn (September–November) offer ideal temperatures across all regions. The Sahara is best in winter (October–February) for cool nights and golden days. Coastal towns like Essaouira are perfect in summer.',
+            ),
         },
         {
             question: __('Are your tours private or shared?'),
-            answer: __('All our tours are 100% private — your group only, with a dedicated driver and guide. We never mix groups. This means maximum flexibility: your pace, your stops, your Morocco.'),
+            answer: __(
+                'All our tours are 100% private — your group only, with a dedicated driver and guide. We never mix groups. This means maximum flexibility: your pace, your stops, your Morocco.',
+            ),
         },
         {
             question: __('Do I need a visa to visit Morocco?'),
-            answer: __("Citizens of the US, UK, EU, Canada, Australia and many other countries can enter Morocco visa-free for up to 90 days. Check your specific country's requirements on the official Moroccan government website."),
+            answer: __(
+                "Citizens of the US, UK, EU, Canada, Australia and many other countries can enter Morocco visa-free for up to 90 days. Check your specific country's requirements on the official Moroccan government website.",
+            ),
         },
         {
             question: __('What is your cancellation policy?'),
-            answer: __('Full refund for cancellations 14+ days before departure. 50% refund for 7–14 days. Tour credit within 7 days. We understand travel plans change — we work with you, not against you.'),
+            answer: __(
+                'Full refund for cancellations 14+ days before departure. 50% refund for 7–14 days. Tour credit within 7 days. We understand travel plans change — we work with you, not against you.',
+            ),
         },
         {
             question: __('Is Morocco safe for solo travelers and families?'),
-            answer: __('Morocco is one of the safest destinations in North Africa. With a private guide from our team, you travel with local knowledge and 24/7 support. We regularly host solo female travelers, families with young children and senior travelers.'),
+            answer: __(
+                'Morocco is one of the safest destinations in North Africa. With a private guide from our team, you travel with local knowledge and 24/7 support. We regularly host solo female travelers, families with young children and senior travelers.',
+            ),
         },
         {
             question: __('Can you accommodate dietary requirements?'),
-            answer: __('Absolutely. Moroccan cuisine is naturally very accommodating — vegetarian, vegan, gluten-free, halal, and other needs are all handled. Just tell us when you book and every meal will meet your requirements.'),
+            answer: __(
+                'Absolutely. Moroccan cuisine is naturally very accommodating — vegetarian, vegan, gluten-free, halal, and other needs are all handled. Just tell us when you book and every meal will meet your requirements.',
+            ),
         },
         {
             question: __('What currency is used and how do I pay?'),
-            answer: __('Morocco uses the Moroccan Dirham (MAD). We accept deposits by bank transfer, PayPal or card. ATMs are widely available in all cities we visit. Cash works well for souks, tips and small local purchases.'),
+            answer: __(
+                'Morocco uses the Moroccan Dirham (MAD). We accept deposits by bank transfer, PayPal or card. ATMs are widely available in all cities we visit. Cash works well for souks, tips and small local purchases.',
+            ),
         },
     ];
 
@@ -58,7 +72,9 @@ export function FAQ() {
                         </span>
                     </h2>
                     <p className="mb-10 max-w-sm leading-relaxed text-indigo-ink/60">
-                        {__('Have more questions? Message us directly on WhatsApp for an instant answer.')}
+                        {__(
+                            'Have more questions? Message us directly on WhatsApp for an instant answer.',
+                        )}
                     </p>
                     <a
                         href="https://wa.me/212661250743"

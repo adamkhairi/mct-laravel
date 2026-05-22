@@ -22,7 +22,10 @@ export function AppSidebar() {
     return (
         <Sidebar className="border-r border-indigo-ink/5 bg-sand">
             <SidebarHeader className="p-6">
-                <Link href={dashboard().url} className="group flex items-center gap-3">
+                <Link
+                    href={dashboard().url}
+                    className="group flex items-center gap-3"
+                >
                     <img
                         src="/assets/logo-mark.png"
                         alt="Moroccan Club Travel"
@@ -45,7 +48,7 @@ export function AppSidebar() {
                         <SidebarMenuButton
                             asChild
                             isActive={url === dashboard().url}
-                            className="font-sans text-xs font-bold uppercase tracking-widest text-indigo-ink/80 transition-all duration-300 hover:bg-ivory hover:text-terracotta data-[active=true]:bg-ivory data-[active=true]:text-terracotta"
+                            className="font-sans text-xs font-bold tracking-widest text-indigo-ink/80 uppercase transition-all duration-300 hover:bg-ivory hover:text-terracotta data-[active=true]:bg-ivory data-[active=true]:text-terracotta"
                         >
                             <Link
                                 href={dashboard().url}
@@ -60,7 +63,7 @@ export function AppSidebar() {
                         <SidebarMenuButton
                             asChild
                             isActive={url.startsWith(admin.tours.index().url)}
-                            className="font-sans text-xs font-bold uppercase tracking-widest text-indigo-ink/80 transition-all duration-300 hover:bg-ivory hover:text-terracotta data-[active=true]:bg-ivory data-[active=true]:text-terracotta"
+                            className="font-sans text-xs font-bold tracking-widest text-indigo-ink/80 uppercase transition-all duration-300 hover:bg-ivory hover:text-terracotta data-[active=true]:bg-ivory data-[active=true]:text-terracotta"
                         >
                             <Link
                                 href={admin.tours.index().url}
@@ -93,7 +96,7 @@ export function AppSidebar() {
                         href="/logout"
                         method="post"
                         as="button"
-                        className="flex w-full items-center justify-start rounded-sm border border-indigo-ink/10 bg-white/40 px-4 py-2 text-xs font-bold uppercase tracking-widest text-indigo-ink/60 shadow-xs transition-all duration-300 hover:border-destructive/20 hover:bg-destructive/10 hover:text-destructive active:scale-[0.98]"
+                        className="flex w-full items-center justify-start rounded-sm border border-indigo-ink/10 bg-white/40 px-4 py-2 text-xs font-bold tracking-widest text-indigo-ink/60 uppercase shadow-xs transition-all duration-300 hover:border-destructive/20 hover:bg-destructive/10 hover:text-destructive active:scale-[0.98]"
                     >
                         <LogOut className="mr-2 h-4 w-4" />
                         Sign Out

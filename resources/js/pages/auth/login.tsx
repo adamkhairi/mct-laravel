@@ -33,7 +33,9 @@ export default function Login({
                     <>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <label className="eyebrow text-indigo-ink/60 text-[10px] tracking-wider uppercase block">Email address</label>
+                                <label className="eyebrow block text-[10px] tracking-wider text-indigo-ink/60 uppercase">
+                                    Email address
+                                </label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -43,18 +45,20 @@ export default function Login({
                                     tabIndex={1}
                                     autoComplete="email"
                                     placeholder="email@example.com"
-                                    className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 shadow-none h-10 focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors"
+                                    className="h-10 rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                 />
                                 <InputError message={errors.email} />
                             </div>
 
                             <div className="grid gap-2">
                                 <div className="flex items-center">
-                                    <label className="eyebrow text-indigo-ink/60 text-[10px] tracking-wider uppercase block">Password</label>
+                                    <label className="eyebrow block text-[10px] tracking-wider text-indigo-ink/60 uppercase">
+                                        Password
+                                    </label>
                                     {canResetPassword && (
                                         <TextLink
                                             href={request()}
-                                            className="ml-auto text-xs text-terracotta hover:text-terracotta/80 transition-colors"
+                                            className="ml-auto text-xs text-terracotta transition-colors hover:text-terracotta/80"
                                             tabIndex={5}
                                         >
                                             Forgot password?
@@ -68,7 +72,7 @@ export default function Login({
                                     tabIndex={2}
                                     autoComplete="current-password"
                                     placeholder="Password"
-                                    className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 shadow-none h-10 focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors"
+                                    className="h-10 rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                 />
                                 <InputError message={errors.password} />
                             </div>
@@ -78,23 +82,29 @@ export default function Login({
                                     id="remember"
                                     name="remember"
                                     tabIndex={3}
-                                    className="data-[state=checked]:bg-terracotta data-[state=checked]:border-terracotta"
+                                    className="data-[state=checked]:border-terracotta data-[state=checked]:bg-terracotta"
                                 />
-                                <label htmlFor="remember" className="text-sm text-indigo-ink/70">Remember me</label>
+                                <label
+                                    htmlFor="remember"
+                                    className="text-sm text-indigo-ink/70"
+                                >
+                                    Remember me
+                                </label>
                             </div>
 
                             <Button
                                 type="submit"
-                                className="mt-4 w-full bg-terracotta hover:bg-terracotta/90 text-ivory rounded-none h-14 eyebrow text-sm tracking-[0.2em] shadow-lg shadow-terracotta/10 active:scale-[0.99] transition-all"
+                                className="eyebrow mt-4 h-14 w-full rounded-none bg-terracotta text-sm tracking-[0.2em] text-ivory shadow-lg shadow-terracotta/10 transition-all hover:bg-terracotta/90 active:scale-[0.99]"
                                 tabIndex={4}
                                 disabled={processing}
                                 data-test="login-button"
                             >
-                                {processing && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                {processing && (
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                )}
                                 Log in
                             </Button>
                         </div>
-
                     </>
                 )}
             </Form>

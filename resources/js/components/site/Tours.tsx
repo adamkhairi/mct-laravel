@@ -41,7 +41,9 @@ export function Tours() {
                             {__('Curated Tours')}
                         </h2>
                         <p className="mt-6 leading-relaxed text-pretty text-indigo-ink/60">
-                            {__("We don't do catalogs. We design narratives. Each journey is a singular response to your curiosities.")}
+                            {__(
+                                "We don't do catalogs. We design narratives. Each journey is a singular response to your curiosities.",
+                            )}
                         </p>
                     </div>
                     <div className="eyebrow text-indigo-ink/40">
@@ -100,7 +102,9 @@ export function Tours() {
                         href="/tours"
                         className="inline-flex items-center gap-2 font-medium text-terracotta transition-colors hover:text-terracotta/80"
                     >
-                        {__('View All :count Tours', { count: tours.length.toString() })}
+                        {__('View All :count Tours', {
+                            count: tours.length.toString(),
+                        })}
                         <span className="text-sm">→</span>
                     </Link>
                 </div>

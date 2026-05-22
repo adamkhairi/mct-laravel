@@ -10,7 +10,9 @@ export function Reviews() {
             country: __('Australia'),
             flag: '🇦🇺',
             trip: __('7-Day Grand Morocco Journey'),
-            quote: __('Honestly the best travel experience of my life. Our guide was extraordinary — he knew every hidden alley of Fes. The Sahara night camp was jaw-dropping. I cried when we had to leave.'),
+            quote: __(
+                'Honestly the best travel experience of my life. Our guide was extraordinary — he knew every hidden alley of Fes. The Sahara night camp was jaw-dropping. I cried when we had to leave.',
+            ),
             initial: 'S',
         },
         {
@@ -18,7 +20,9 @@ export function Reviews() {
             country: __('Japan'),
             flag: '🇯🇵',
             trip: __('5-Day Private Morocco Tour'),
-            quote: __('We were a group of 8 from Japan and the entire trip was perfectly organized. Communication was superb, every detail accounted for. We will absolutely return to Morocco.'),
+            quote: __(
+                'We were a group of 8 from Japan and the entire trip was perfectly organized. Communication was superb, every detail accounted for. We will absolutely return to Morocco.',
+            ),
             initial: 'H',
         },
         {
@@ -26,7 +30,9 @@ export function Reviews() {
             country: __('Italy'),
             flag: '🇮🇹',
             trip: __('3-Day Sahara Desert Tour'),
-            quote: __('Booked the Sahara trip as a honeymoon surprise. The camp, the camel ride at sunset, the stargazing — my wife said it was the most romantic night of her life.'),
+            quote: __(
+                'Booked the Sahara trip as a honeymoon surprise. The camp, the camel ride at sunset, the stargazing — my wife said it was the most romantic night of her life.',
+            ),
             initial: 'L',
         },
         {
@@ -34,7 +40,9 @@ export function Reviews() {
             country: __('United Kingdom'),
             flag: '🇬🇧',
             trip: __('Custom 6-Day Solo Tour'),
-            quote: __('As a solo female traveler I was nervous, but from the first WhatsApp message the team put me at ease. I explored safely and beautifully — Marrakech, Atlas and the coast.'),
+            quote: __(
+                'As a solo female traveler I was nervous, but from the first WhatsApp message the team put me at ease. I explored safely and beautifully — Marrakech, Atlas and the coast.',
+            ),
             initial: 'E',
         },
         {
@@ -42,7 +50,9 @@ export function Reviews() {
             country: __('United States'),
             flag: '🇺🇸',
             trip: __('Family Morocco Adventure'),
-            quote: __('Family of 5 with young kids — they handled everything. Shorter drives, kid-friendly stops, engaging activities. The children are still talking about their camel ride 6 months later!'),
+            quote: __(
+                'Family of 5 with young kids — they handled everything. Shorter drives, kid-friendly stops, engaging activities. The children are still talking about their camel ride 6 months later!',
+            ),
             initial: 'D',
         },
         {
@@ -50,7 +60,9 @@ export function Reviews() {
             country: __('France'),
             flag: '🇫🇷',
             trip: __('University Group Tour'),
-            quote: __('Our university group of 22 students had an incredible educational tour through the imperial cities. Flawlessly managed — transport, accommodation, guided visits. Absolutely professional.'),
+            quote: __(
+                'Our university group of 22 students had an incredible educational tour through the imperial cities. Flawlessly managed — transport, accommodation, guided visits. Absolutely professional.',
+            ),
             initial: 'P',
         },
     ];
@@ -64,14 +76,15 @@ export function Reviews() {
                         {__('Traveler Reviews')}
                     </span>
                     <h2 className="mb-8 font-display text-4xl leading-tight font-bold md:text-6xl">
-                        {__('Loved by Travelers')}
-                        {' '}
+                        {__('Loved by Travelers')}{' '}
                         <span className="font-normal text-terracotta italic">
                             {__('Worldwide')}
                         </span>
                     </h2>
                     <p className="mx-auto max-w-2xl leading-relaxed text-indigo-ink/60">
-                        {__("Honest reviews from real guests who've explored Morocco with our team.")}
+                        {__(
+                            "Honest reviews from real guests who've explored Morocco with our team.",
+                        )}
                     </p>
                 </div>
 

@@ -5,7 +5,7 @@ export interface Tour {
     nights: string;
     startingPoint: string;
     description: string;
-    url: string;
+    url?: string;
     image?: string;
     accommodation?: string;
     arrivalCity?: string;
@@ -28,30 +28,61 @@ export const tours: Tour[] = [
         description:
             'This 8-day imperial cities tour begins in Casablanca, visiting the impressive Hassan II Mosque, then heads to Tangier for its seaside charm and historic medina. From there, journey to the...',
         url: 'https://mct-tours.com/trip/imperial-cities-tour-from-casablanca/',
-        accommodation: '4-Star Hotels & Riads',
-        arrivalCity: 'Marrakech',
-        guide: 'Local Expert Guide',
-        tripType: 'Cultural & Historical',
+        accommodation: 'Hotels',
+        arrivalCity: 'Casablanca',
+        guide: 'Local guide ( Tangier, Fez, Volubilis, Marrakech)',
+        tripType: 'Long-tours',
         difficulty: 'Easy',
-        languages: 'English, French, Spanish',
+        languages: 'English, Chinese, French, Spanish',
+        image: '/images/tours/kjsdmsdsf.jpg',
         itinerary: [
             {
                 day: 'Day 1',
-                title: 'Arrival in Casablanca',
+                title: 'Casablanca',
                 description:
-                    'Welcome to Morocco! Upon arrival at Casablanca airport, you will be greeted by your guide and transferred to your hotel. Depending on your arrival time, you may have a brief tour of the city, including the magnificent Hassan II Mosque.',
+                    "Arrival at Casablanca, then start a leisurely day with the city tour including Hassan II Mosque distinguished by its Moorish architecture and it's really the highlight of the city of Casablanca. Stop next Mohamed the V Square. Visit the Habous quarter with its Andalusian architectural style.\nAccommodation: Casablanca - Hotel\nIncluded Activities: Casablanca - Visit Hassan II Mosque (from the outside). Casablanca - Mohammed V Square\nIncluded Meals: Dinner",
             },
             {
                 day: 'Day 2',
-                title: 'Casablanca to Rabat and Tangier',
+                title: 'Casablanca - Tangier',
                 description:
-                    'After breakfast, depart for Rabat, the capital of Morocco. Visit the Hassan Tower, the Mausoleum of Mohammed V, and the Kasbah of the Udayas. Continue your journey to Tangier, a vibrant city on the Strait of Gibraltar.',
+                    'After breakfast drive to Tangier, the gate of the north of Morocco to Europe, upon arrival, visit the Cap Spartel have a nice view on Spain coastlines. Cap Spartel is the meeting point between Atlantic Ocean and Mediterranean Sea, stop for a short time to take some pictures of the light house. Stop for lunch in the city of Tangier then, discover the medina of Tangier at the beginning visit the Kasbah Museum founded in the seventh century by the sultan Moulay Ismael. The palace is converted later to a museum which enclose the exhibition of the different items like wood, Roman Mosaics, jewellery.\nIncluded Activities: Tangier – Cap Spartel, Tangier - Kasbah Museum\nIncluded Meals: Breakfast at hotel, Dinner at hotel',
             },
             {
                 day: 'Day 3',
-                title: 'Tangier to Chefchaouen',
+                title: 'Tangier – Chefchaouen – Fes',
                 description:
-                    "Explore Tangier's medina and the Caves of Hercules before heading to the picturesque blue city of Chefchaouen. Spend the afternoon wandering through its charming blue-washed streets and alleys.",
+                    'After breakfast Drive to Chefchaouen crossing a part of the Rif Mountains with its rich flora including pin trees, cork trees. Chaouen is a picturesque hillside town built by refugees from Andalusia as a haven from the invading Christians. Chefchaouen, with its Spanish character is very attractive, pass through the whitewashed houses, with tiny balconies, blue-painted doors all these kinds of houses are located in different alleyways of the medina. Stop to visit the Kasbah, located in heart of the town, founded in the XVII century it called Outa Hammam. After lunch depart to Fes.\nIncluded Activities: Chefchaouen – visit of the Kasbah, The old medina with its unfinished alleyways\nIncluded Meals: Breakfast, Dinner at a hotel in Fes',
+            },
+            {
+                day: 'Day 4',
+                title: 'Fès City Tour',
+                description:
+                    "Breakfast at your hotel then set out for a city tour of Fez, the spiritual and intellectual capital of ancient Morocco. Fez was the first Imperial City, founded in the 9th century. Among the sites you will see the impressive medina with its different gates, Mosques, tanneries, Attarine Medersa, Nejjarine Fountain and its Fondouk, the latter is housing a museum devoted to wood crafts in a beautifully restored 18th century building. After lunch in a typical Moroccan restaurant in the Medina, continue the city tour including the potter quarter the King's palace (from outside) and Bab Boujloud.\nIncluded Activities: Fez – visit of the Karaoiuyine Mosque, Fez - Visit of El-Attarine Medersa, Fez - visit of Fondouk El-Nejjarine, Fez - visit of the King's Palace (from outside) and Bab Boujloud.\nIncluded Meals: Fes - Breakfast at hotel, Fes - Dinner at hotel",
+            },
+            {
+                day: 'Day 5',
+                title: 'Fes – Volubilis – Meknes – Rabat',
+                description:
+                    "After breakfast, drive to the Roman city founded by King Juba II. Volubilis is well known for its beautifully preserved mosaics. Spend your time admiring this Roman site, which has been declared a UNESCO World Heritage Site. Under Roman power, it became one of the granaries of the Empire and grew to 20,000 inhabitants. After the tour, drive to the city of Meknes and stop for lunch. Meknes is a 17th-century city whose medina has been classified by UNESCO as a World Heritage Site since 1994. The city tour includes Moulay Ismail's Mausoleum, and the majestic Bab Mansour. After lunch, drive to the city of Rabat.\nIncluded Activities: Visit of Volubilis, Meknes – visit of the Tomb of Moulay Ismail, Meknes – visit of the gate of Bab Mansour\nIncluded Meals: Breakfast, Dinner at Hotel",
+            },
+            {
+                day: 'Day 6',
+                title: 'Rabat – Casablanca – Marrakech',
+                description:
+                    'After breakfast, start the city tour of Rabat, the capital of the country, including the Royal Palace from the outside, Mohammed V Mausoleum, Hassan Tower. Drive to Casablanca stop for lunch. After lunch drive to Marrakech crossing very vast plateau, like the fertile Chawia lands and the desertic Rhamna ones.\nIncluded Activities: Rabat - Visit of the Royal Palace (from outside), Rabat – visit of Mohammed V Mausoleum, Rabat – visit of the Hassan Tower\nIncluded Meals: Breakfast, Dinner at Hotel',
+            },
+            {
+                day: 'Day 7',
+                title: 'Marrakech City Tour',
+                description:
+                    'After a leisurely breakfast, begin your tour of the Red Pearl of Morocco. Among the sites are the Koutoubia Mosque, Medrassa Ben Youssef. Stop for lunch, and then learn about Moroccan crafts from workers at a craft co-operative inside the medina. After lunch at a typical restaurant, have a tour inside the souk (market) beginning and ending at Jamaa El Fna Square, a World Heritage Site. Here you will see a medieval scene, complete with jugglers, fortune tellers, snake charmers, dancers, herbalists, food and juice vendors.\nIncluded Activities: Marrakech - Koutoubia Mosque, Marrakech - Medersa Ben Youssef, Walking Tour inside the markets (souks), Marrakech - Djemma el Fna square\nIncluded Meals: Breakfast, Dinner at Hotel',
+            },
+            {
+                day: 'Day 8',
+                title: 'Departure',
+                description:
+                    'After check-out in your hotel, you will be transported to the airport for your return flight home. This concludes the services of Moroccan Club Travel.',
             },
         ],
         included: [
@@ -70,24 +101,72 @@ export const tours: Tour[] = [
         description:
             "This journey designed to deepen one's spiritual experience. Morocco is famous of tolerant Islam since the creation the first Arab Dynasty (from Idrissi since today), many Suffi Scholars joined the...",
         url: 'https://mct-tours.com/trip/spiritual-tour/',
-        accommodation: 'Traditional Riads & Desert Camps',
-        arrivalCity: 'Fes',
-        guide: 'Spiritual & Cultural Guide',
-        tripType: 'Spiritual & Wellness',
-        difficulty: 'Moderate',
-        languages: 'English, Arabic',
+        accommodation: 'Hotels',
+        arrivalCity: 'Casablanca',
+        tripType: 'Long-tours',
+        difficulty: 'Easy',
+        languages: 'English, Chinese, French, Spanish',
+        image: '/images/tours/DJI_0126-1-990x490.jpg',
         itinerary: [
             {
                 day: 'Day 1',
-                title: 'Arrival in Casablanca',
+                title: 'Casablanca',
                 description:
-                    'Arrive in Casablanca and transfer to your hotel. Evening introduction to the spiritual journey ahead.',
+                    "Arrival at Casablanca, then start a leisurely day with the city tour including Hassan II Mosque distinguished by its Moorish architecture, it's the highlight of the city of Casablanca, pray a Salat in the Mosque and continue the visit of Casablanca if time allows (Mohamed the V Square and the Habous quarter with its Andalusian architectural style). Dinner and overnight at Hotel.",
             },
             {
                 day: 'Day 2',
-                title: 'Casablanca to Fes',
+                title: 'Casablanca – Rabat – Tangier',
                 description:
-                    'Travel to Fes, the spiritual heart of Morocco. Visit ancient madrasas and shrines.',
+                    'Drive to Rabat the capital of Morocco, for a city tour including the Royal Palace (from the outside), the residence of the King Mohammed VI, Mausoleum of Mohammed V and Hassan tower. After Duhr Prayer at Rabat in Sunnah Mosque, have lunch at a local restaurant then head to Tangier. Upon arrival visit the Cap Spartel and see where the Atlantic sea meets the Mediterranean sea, discover Hercules Cave and finish at Salat Ishae at Mohammed V Mosque then check in Hotel.',
+            },
+            {
+                day: 'Day 3',
+                title: 'Tangier – Tetouan – Chefchaouen',
+                description:
+                    'Early morning start the city tour of Tangier stop next 9th April square, pass near the Mendoubia. Visit Kasbah Quarter, enclosing the Kasbah Museum, cross different quarters leading to the Grand Socco, petit Socco and surrounding souks. Pray Duhr Salat at Tangier and have lunch then depart towards the blue city of Chefchaouen via Tetouan. Discover the white medina of Tetouan, known as "the daughter of Granada", visit the Guersa Kebira square, one of the bustling souks, then visit the Medina. After the visit of Tetouan proceed to the blue town of Chefchaouen, built in 1471 by Moorish exiles from Spain. Pray Almaghreb or Ishae Salat then check in at the hotel for the overnight with dinner.',
+            },
+            {
+                day: 'Day 4',
+                title: 'Chefchaouen – Moulay Idriss – Fez',
+                description:
+                    'After breakfast you can walk through the small medina and discover its small souks. After the visit travel to Fez via Ouazzan where you will have lunch. After a couple of hours drive, you will get to Moulay Idriss, visit the citadel of Moulay Idriss, founded in the 8th century by Moulay Idriss Al Akbar, grandson of the Prophet. This citadel is considered the cradle of Sufism to Moroccan society and the first Islamic Dynasty in Morocco, then travel to Fez.',
+            },
+            {
+                day: 'Day 5',
+                title: 'Fez City Tour',
+                description:
+                    "After breakfast, set out for a city tour of Fez, the spiritual and intellectual capital of Morocco. Visit the Al Quaraouiyine Mosque and University, one of the world's oldest universities. Explore the medina including the Tanneries, Attarine Medersa, Nejjarine Fountain, and traditional artisan workshops. Pray at the various mosques encountered along the journey.",
+            },
+            {
+                day: 'Day 6',
+                title: 'Fez – Ifrane – Marrakech',
+                description:
+                    'After breakfast, drive towards Marrakech with a stop in Ifrane, an alpine city known for its beautiful park and ski resort. Continue through the scenic Middle Atlas Mountains before arriving in Marrakech for dinner and overnight.',
+            },
+            {
+                day: 'Day 7',
+                title: 'Marrakech City Tour',
+                description:
+                    'After breakfast, begin a city tour of the Red Pearl of Morocco. Visit the Koutoubia Mosque, the Saadian Tombs, Bahia Palace, and Ben Youssef Madrasa. Explore the colorful souks inside the medina before heading to Jemaa el-Fnaa Square, a UNESCO World Heritage Site. Pray at the various mosques encountered along the journey.',
+            },
+            {
+                day: 'Day 8',
+                title: 'Marrakech – Merzouga',
+                description:
+                    'After breakfast, depart toward the Sahara Desert through the High Atlas Mountains, passing through Ouarzazate and the Road of a Thousand Kasbahs. Arrive at Merzouga, home to the spectacular Erg Chebbi dunes. Enjoy sunset prayers on the dunes. Overnight at the desert camp.',
+            },
+            {
+                day: 'Day 9',
+                title: 'Merzouga – Fez',
+                description:
+                    'Early morning sunrise prayers on the dunes. After breakfast, journey back through the Middle Atlas Mountains toward Fes, stopping for prayers along the way.',
+            },
+            {
+                day: 'Day 10',
+                title: 'Departure',
+                description:
+                    'After breakfast, transfer to the airport for your return flight home. This concludes the services of Moroccan Club Travel.',
             },
         ],
         included: [
@@ -106,30 +185,71 @@ export const tours: Tour[] = [
         description:
             "Embark on an unforgettable journey through Morocco's rich history and stunning landscapes. This tour combines the exploration of ancient Moorish cities with the thrill of a desert adventure.",
         url: 'https://mct-tours.com/trip/moorish-heritage-and-desert/',
-        accommodation: 'Hotels & Luxury Desert Camp',
-        arrivalCity: 'Marrakech',
-        guide: 'Expert Local Guide',
-        tripType: 'Adventure & Culture',
-        difficulty: 'Moderate',
-        languages: 'English, French',
+        accommodation: 'Hotels',
+        tripType: 'Long-tours',
+        difficulty: 'Easy',
+        languages: 'English, Chinese, French, Spanish',
+        image: '/images/tours/moorish-heritage.jpg',
         itinerary: [
             {
                 day: 'Day 1',
-                title: 'Arrival in Tangier',
+                title: 'Tangier – Chefchaouen',
                 description:
-                    'Welcome to Tangier. Transfer to your hotel and enjoy a welcome dinner.',
+                    'Morning arrival at Tangier, start a leisurely day with a tour including the Cap Spartel to have a nice view on Spain coastlines. Cap Spartel is the meeting point between Atlantic ocean and Mediterranean sea, after a short stop visit the Hercules Caves. Drive to discover the medina of Tangier, visit the Kasbah museum founded in the seventh century by the sultan Moulay Ismael. Drive to Chefchaouen crossing a part of the Rif mountains. Upon arrival stop for lunch. Chaouen is a picturesque hillside town built by refugees from Andalusia as a haven from the invading Christians. Chefchaouen, with its Spanish character, whitewashed houses, tiny balconies, blue-painted doors and its different alleyways is a lovely place to stroll. Stop to visit the Kasbah located in heart of the town founded in the XVII century. Dinner and overnight in Chaouen.',
             },
             {
                 day: 'Day 2',
-                title: 'Tangier to Chefchaouen',
+                title: 'Chefchaouen – Volubilis – Fes',
                 description:
-                    'Drive to the blue city of Chefchaouen. Explore the medina and enjoy the mountain views.',
+                    "After breakfast drive to Fez, crossing the major part of the Rif mountains. On the way stop to Volubilis. The site of the most impressive Roman site in Morocco. Under the Romans, it became one of the granaries of the Roman Empire and grew to 20,000 inhabitants. It exported olives and wheat to Rome as well as the lions used at the gladiator's games in the Colosseum. Stop for lunch in Volubilis and then drive to Fes. Dinner and overnight in Fes.",
             },
             {
                 day: 'Day 3',
-                title: 'Chefchaouen to Fes',
+                title: 'Fez City Tour',
                 description:
-                    'Travel to Fes, exploring the Roman ruins of Volubilis along the way.',
+                    "Breakfast at your hotel then set out for a city tour of Fez, the spiritual and intellectual capital of ancient Morocco. Fez was the first Imperial City, founded in the 9th century. Among the sites you will see the impressive medina with its different gates, Mosques, tanneries, Attarine Medersa, Nejjarine Fountain and its Fondouk, the latter is housing a museum devoted to wood crafts in a beautifully restored 18th century building. Lunch in a typical Moroccan restaurant in the Medina. After lunch visit the Mellah or Jewish Quarter, the King's palace (from outside) and Bab Boujloud. Dinner and overnight at your hotel in Fez.",
+            },
+            {
+                day: 'Day 4',
+                title: 'Fez – Erfoud – Merzouga',
+                description:
+                    'Arise early for the drive to Erfoud with a stop in Ifrane, an alpine city known for its beautiful park and its famous ski resort. Continue your drive to Midelt, a town located between the Middle Atlas and High Atlas Mountains. Stop for lunch. After lunch start to cross the beautiful fertile valleys of Ziz and Tafilalet. Stop in Erfoud, visit a marble center where 500 million year old fossils are extracted, polished and exported around the globe. Drive into the Sahara Desert to Merzouga, the site of the Merzouga Dunes, the highest in Africa and one of the filming sites for Lawrence of Arabia. Take an optional camel trek to watch the sun set behind the Sahara dunes. Camp overnight in a nomad tent, furnished inside with a comfortable clean cot, fresh linens and blankets set on colorful Moroccan carpets.',
+            },
+            {
+                day: 'Day 5',
+                title: 'Erfoud – Todra – Ouarzazate',
+                description:
+                    'After breakfast, travel through the spectacular Dades Valley and Todra Gorge, known as the "Valley of a Thousand Kasbahs." Enjoy dramatic landscapes, palm groves, and traditional irrigation systems. The Todra Gorge offers one of Morocco\'s most impressive natural canyons with sheer cliffs rising dramatically on each side. Continue to Ouarzazate for dinner and overnight.',
+            },
+            {
+                day: 'Day 6',
+                title: 'Ouarzazate – Marrakech',
+                description:
+                    'After breakfast, visit the famous Ait Benhaddou Kasbah, a UNESCO World Heritage Site and filming location for many international movies such as Gladiator and Lawrence of Arabia. Continue through the High Atlas Mountains, with a stop for tea with a local Berber family. Arrive in Marrakech for dinner and overnight.',
+            },
+            {
+                day: 'Day 7',
+                title: 'Marrakech City Tour',
+                description:
+                    'After breakfast, explore Marrakech, the "Red Pearl of Morocco." Visit the Koutoubia Mosque (exterior), Saadian Tombs, Bahia Palace, and Ben Youssef Madrasa. Continue to the souks of the medina, where traditional crafts are still practiced. End the day at Jemaa el-Fnaa Square, a UNESCO World Heritage Site filled with storytellers, musicians, snake charmers, dancers, herbalists, food stalls. Dinner in a traditional restaurant and overnight in Marrakech.',
+            },
+            {
+                day: 'Day 8',
+                title: 'Marrakech – Essaouira',
+                description:
+                    'After breakfast, drive to the coastal city of Essaouira. En route, visit an Argan oil cooperative. Upon arrival, explore the UNESCO-listed medina, Skala fortress, artisan shops, and the Atlantic coastline. Enjoy fresh seafood for lunch and free time in the relaxed seaside atmosphere. Dinner and overnight in Essaouira.',
+            },
+            {
+                day: 'Day 9',
+                title: 'Essaouira – Safi – El Jadida – Casablanca',
+                description:
+                    'Depart towards Casablanca along the Atlantic coast. Stop in Safi, a traditional fishing port with Portuguese heritage, then continue to Oualidia for lunch. Proceed to El Jadida, a former Portuguese stronghold known for its historic cistern and fortified walls. Continue to Casablanca for dinner and overnight.',
+            },
+            {
+                day: 'Day 10',
+                title: 'Casablanca – Rabat – Tangier',
+                description:
+                    "After breakfast, visit Casablanca, including the Hassan II Mosque and Mohammed V Square. Continue to Rabat, Morocco's capital, for lunch and a guided tour of the Royal Palace (exterior), Mohammed V Mausoleum, Hassan Tower, and the Chellah Necropolis. In the afternoon, drive back to Tangier crossing the fertile Gharb plains. Dinner and overnight in Tangier.",
             },
         ],
         included: [
@@ -148,6 +268,7 @@ export const tours: Tour[] = [
         description:
             'This 8-day adventure combines the challenge of ascending Mount Toubkal with the cultural immersion of exploring Berber villages. Trek through stunning mountain landscapes, witness traditional Berber life, and enjoy breathtaking...',
         url: 'https://mct-tours.com/trip/toubkal-ascent-and-berber-villages/',
+        accommodation: 'Hotels',
         tripType: 'Long-tours',
         difficulty: 'Medium',
         arrivalCity: 'Marrakech',
@@ -229,6 +350,8 @@ export const tours: Tour[] = [
         description:
             "Morocco's history begins in Neolithic times with the first traces of human inhabitants dated from 12,000 B.C. Due to its strategic location, it was occupied by a series of invaders...",
         url: 'https://mct-tours.com/trip/the-grand-morocco-tour-13-days/',
+        accommodation: 'Hotels',
+        arrivalCity: 'Casablanca',
         tripType: 'Long-tours',
         difficulty: 'Easy',
         guide: 'local guides (Tangier, Volubilis, Fes,Marrakech)',
@@ -336,6 +459,7 @@ export const tours: Tour[] = [
         guide: 'Imperial cities ( Tangier, Marrakech, Fes)',
         languages: 'English, Chinese, French, Spanish',
         image: '/images/tours/Photo-des-villes-imperiales-2007-093.jpg',
+        accommodation: 'Hotels, Camp',
         itinerary: [
             {
                 day: 'Day 1',
@@ -432,6 +556,7 @@ export const tours: Tour[] = [
         description:
             "Embark on an unforgettable adventure through Morocco's most iconic cities, starting in Tangier and ending in Marrakech. This tour offers a unique blend of history, culture, and adventure, showcasing the...",
         url: 'https://mct-tours.com/trip/imperial-cities-tour-from-tangier/',
+        accommodation: 'Hotels',
         tripType: 'Long-tours',
         difficulty: 'Easy',
         arrivalCity: 'Tangier',
@@ -443,7 +568,7 @@ export const tours: Tour[] = [
                 day: 'Day 1',
                 title: 'Tangier',
                 description:
-                    'This tour offers a comprehensive overview of Morocco&#039;s most popular destinations, allowing you to experience the country&#039;s rich history, culture, and natural beauty. With experienced guides and comfortable accommodations, you&#039;ll have everything you need for an unforgettable journey.',
+                    'Morning arrival at Tangier, start a leisurely day with the city tour including the Cap Spartel to have a nice view on Spain coastlines. Cap Spartel is the meeting point between Atlantic ocean and Mediterranean sea, after a short stop visit the Hercules Caves. Drive to discover the medina of Tangier, visit the Kasbah museum founded in the seventh century by the sultan Moulay Ismael. Stop for lunch and discover the Medina of Tangier, including grand Socco, Petit Socco, ending the tour next the port. Dinner and overnight at your hotel in Tangier.',
             },
             {
                 day: 'Day 2',
@@ -477,7 +602,7 @@ export const tours: Tour[] = [
             },
             {
                 day: 'Day 7',
-                title: 'Fes &amp; City tour',
+                title: 'Fes & City tour',
                 description:
                     'Breakfast at your hotel then set out for a city tour of Fez, the spiritual and intellectual capital of Morocco. Fez was the first Imperial City, founded in the 9th century. Among the sites you will see is the impressive medina with its different gates, Tanner’s quarter, Karaoiuyine Mosque, El-Attarine Medersa and the impressive Fondouk el-Nejjarine with its elegant fountain, the latter is housing a museum devoted to wood crafts in a beautifully restored 18th century building. Lunch in a typical Moroccan restaurant in the Medina. After lunch visit the Dar Batha Museum, the Mellah (Jewish Quarter), views of the King’s Palace and Bab Boujloud. Dinner and overnight at your hotel in',
             },
@@ -516,6 +641,7 @@ export const tours: Tour[] = [
         description:
             "Welcome ladies to Morocco! Come experience the wonders that Morocco offers with plenty of shopping in historic Medina's, regional cooking classes in Fez and Marrakech, a belly dance class, a...",
         url: 'https://mct-tours.com/trip/just-for-women-starting-from-casablanca/',
+        accommodation: 'Riads and Hotels',
         tripType: 'Long-tours, Just for women',
         difficulty: 'Easy',
         guide: 'from day 1 to departure',
@@ -595,10 +721,11 @@ export const tours: Tour[] = [
         title: 'Best of Morocco',
         duration: '8 Days',
         nights: '7 Nights',
-        startingPoint: 'Marrakech',
+        startingPoint: 'Casablanca',
         description:
             'Morocco, with its images of swirling sand dunes, winding passages in a medina, the local charm of traditional Berber mountain villages and the splendor and opulence of the finest Imperial cities...',
         url: 'https://mct-tours.com/trip/best-of-morocco/',
+        accommodation: 'Camps and Hotels',
         tripType: 'Long-tours',
         difficulty: 'Easy',
         arrivalCity: 'Marrakech',
@@ -670,6 +797,7 @@ export const tours: Tour[] = [
         description:
             'The Moors were a genetic mixture of Arabs and Berbers who came from a region of North Africa that is present day Morocco. In the 7th century, they occupied large...',
         url: 'https://mct-tours.com/trip/andalusian-heritage/',
+        accommodation: 'Camps and Hotels',
         tripType: 'Long-tours',
         difficulty: 'Easy',
         languages: 'English, Chinese, French, Spanish',
@@ -739,6 +867,7 @@ export const tours: Tour[] = [
         description:
             'Your adventure begins in Marrakech, the Red Pearl city , into the High Atlas Mountains and down through the lush Draa and Dades Valleys with its steep gorges to the...',
         url: 'https://mct-tours.com/trip/adventure-to-sahara/',
+        accommodation: 'Camps and Hotels',
         tripType: 'Long-tours',
         difficulty: 'Easy',
         languages: 'English, Chinese, French, Spanish',
@@ -832,6 +961,7 @@ export const tours: Tour[] = [
         description:
             'Welcome to Morocco! Experience the wonders that Morocco offers with shopping in historic Medinas, regional cooking classes in Marrakech, a belly dancing class, a henna party, a ceramics workshop in...',
         url: 'https://mct-tours.com/trip/just-for-women-starting-from-marrakech/',
+        accommodation: 'Hotels',
         tripType: 'Long-tours, Just for women',
         difficulty: 'Easy',
         languages: 'English, Chinese, French, Spanish',
@@ -877,6 +1007,7 @@ export const tours: Tour[] = [
         description:
             'Welcome to Morocco! Experience the wonders that Morocco offers with shopping in historic Medinas, regional cooking classes in Fez, a belly dancing class, a henna party, a ceramics workshop in...',
         url: 'https://mct-tours.com/trip/just-for-women-starting-from-fes/',
+        accommodation: 'Hotels',
         tripType: 'Long-tours, Just for women',
         difficulty: 'Easy',
         languages: 'English, Chinese, French, Spanish',
@@ -917,11 +1048,12 @@ export const tours: Tour[] = [
         id: 'jewish-heritage',
         title: 'Jewish heritage',
         duration: '10 Days',
-        nights: '11 Nights',
+        nights: '9 Nights',
         startingPoint: 'Casablanca',
         description:
             'Morocco today is appreciated for its natural beauty, ancient history, culture and rich diversity, the Moroccan history was characterised by the alternation of many civilisation starting from Phoenician , Roman...',
         url: 'https://mct-tours.com/trip/jewish-heritage/',
+        accommodation: 'Camps and Hotels',
         tripType: 'Long-tours',
         difficulty: 'Easy',
         languages: 'English, Chinese, French, Spanish',
@@ -1003,6 +1135,7 @@ export const tours: Tour[] = [
         description:
             'Discover the hidden secrets in the Imperial Cities whose souks awaken your senses with their exotic spices, snake charmers, musicians and traditional craftsmen practicing their trades passed down by many...',
         url: 'https://mct-tours.com/trip/grand-morocco-tour/',
+        accommodation: 'Camps and Hotels',
         tripType: 'Long-tours',
         difficulty: 'Easy',
         languages: 'English, Chinese, French, Spanish',
@@ -1085,11 +1218,12 @@ export const tours: Tour[] = [
         id: 'garden-and-sahara-tour-nature-discovery',
         title: 'Garden and Sahara Tour (Nature & Discovery)',
         duration: '12 Days',
-        nights: '13 Nights',
+        nights: '11 Nights',
         startingPoint: 'Casablanca',
         description:
             'Discover the hidden secrets in the Imperial Cities whose souks awaken your senses with their exotic spices, snake charmers, musicians and traditional craftsmen practicing their trades passed down by many...',
         url: 'https://mct-tours.com/trip/garden-and-sahara-tour-nature-discovery/',
+        accommodation: 'Camps and Hotels',
         tripType: 'Long-tours',
         difficulty: 'Easy',
         languages: 'English, Chinese, French, Spanish',
@@ -1178,11 +1312,12 @@ export const tours: Tour[] = [
         id: '4-days-from-fes-and-back-to-marrakech',
         title: '4 Days From Fes and back to Marrakech',
         duration: '4 Days',
-        nights: '5 Nights',
-        startingPoint: 'Marrakech',
+        nights: '3 Nights',
+        startingPoint: 'Fes',
         description:
             'Embark on an unforgettable journey through the heart of Morocco, exploring its diverse landscapes, vibrant cities, and rich cultural heritage. This 4-day adventure will take you from the medieval city...',
         url: 'https://mct-tours.com/trip/4-days-from-fes-and-back-to-marrakech/',
+        accommodation: 'Camp and Hotel',
         tripType: 'Long-tours, Desert tours',
         difficulty: 'Easy',
         arrivalCity: 'Marrakech',
@@ -1229,6 +1364,7 @@ export const tours: Tour[] = [
         description:
             "Embark on an unforgettable journey through Morocco's diverse landscapes, from the towering Atlas Mountains to the vast Sahara Desert. This 4-day adventure offers a unique blend of cultural exploration, breathtaking...",
         url: 'https://mct-tours.com/trip/4-days-from-and-back-to-marrakech/',
+        accommodation: 'Camp and Hotel',
         tripType: 'Long-tours, Desert tours',
         difficulty: 'Easy',
         guide: 'Included',
@@ -1267,14 +1403,848 @@ export const tours: Tour[] = [
         excluded: ['Drinks', 'Any personal expenses'],
     },
     {
+        id: 'andalusian-heritage-tour',
+        title: 'Andalusian Heritage Tour',
+        duration: '8 Days',
+        nights: '7 Nights',
+        startingPoint: 'Tangier',
+        description:
+            "Following the fall of Granada in 1492, many Andalusian Muslims and Jews settled in northern Morocco, bringing with them a rich cultural legacy that shaped the architecture, music, crafts, cuisine, and urban design of several Moroccan cities. This 8-day journey invites you to discover Morocco's remarkable Andalusian heritage through its imperial cities, blue-painted mountain towns, historic medinas, and UNESCO World Heritage Sites.",
+        tripType: 'Cultural & Historical',
+        difficulty: 'Easy',
+        arrivalCity: 'Tangier',
+        guide: 'Local Expert Guide',
+        languages: 'English, French, Spanish',
+        itinerary: [
+            {
+                day: 'Day 1',
+                title: 'Tangier – Tetouan',
+                description:
+                    'Upon arrival in Tangier, begin a leisurely city tour including Cape Spartel, where the Atlantic Ocean meets the Mediterranean Sea, offering beautiful views toward the Spanish coastline. Continue to the famous Hercules Caves. Explore the medina of Tangier, including the Kasbah Museum, originally built during the reign of Sultan Moulay Ismail. After lunch, drive through part of the Rif Mountains toward Tetouan. Dinner and overnight in Tetouan.',
+            },
+            {
+                day: 'Day 2',
+                title: 'Tetouan – Chefchaouen',
+                description:
+                    "After breakfast, enjoy a guided tour of Tetouan, rebuilt by Muslims and Jews fleeing Spain during the 15th century. Visit the Archaeological Museum, home to impressive Roman mosaics, followed by an exterior visit of the Royal Palace. Continue through Tetouan's UNESCO-listed medina with its whitewashed Andalusian-style houses and lively souks. After lunch, depart for Chefchaouen. Dinner and overnight in Chefchaouen.",
+            },
+            {
+                day: 'Day 3',
+                title: 'Chefchaouen – Volubilis – Meknes',
+                description:
+                    "After breakfast, discover Chefchaouen, the charming blue city nestled in the Rif Mountains. Founded by Andalusian refugees, the town is known for its blue-painted streets, whitewashed houses, balconies, and peaceful atmosphere. Continue to Volubilis, Morocco's best-preserved Roman archaeological site and a UNESCO World Heritage Site. Explore its impressive mosaics, temples, triumphal arches, and ancient ruins. Lunch will be served en route. Continue to Meknes. Dinner and overnight in Meknes.",
+            },
+            {
+                day: 'Day 4',
+                title: 'Meknes – Fes',
+                description:
+                    "After breakfast, enjoy a guided tour of Meknes, one of Morocco's four Imperial Cities and a UNESCO World Heritage Site. The tour includes Bab Mansour Gate, the Royal Stables, Dar Jamai Museum, and El Hedim Square. After lunch, continue to Fes and visit the Bou Inania Medersa and its surrounding historic district. Dinner and overnight in Fes.",
+            },
+            {
+                day: 'Day 5',
+                title: 'Fes City Tour',
+                description:
+                    "After breakfast, begin a full-day guided tour of Fes, the spiritual and intellectual capital of Morocco and the country's oldest Imperial City. Explore the medieval medina, including the Tanneries, Al Quaraouiyine Mosque and University, Al-Attarine Medersa, and the Nejjarine Fountain and Museum of Wooden Arts & Crafts. Lunch in a traditional Moroccan restaurant inside the medina. In the afternoon, visit the Mellah (Jewish Quarter), the exterior of the Royal Palace, and the famous Bab Boujloud gate. Dinner and overnight in Fes.",
+            },
+            {
+                day: 'Day 6',
+                title: 'Fes – Rabat',
+                description:
+                    "After breakfast, depart for Rabat, Morocco's capital city since 1912, crossing the fertile Saïss plains known for agriculture and olive groves. Upon arrival, enjoy lunch before starting a city tour including the Royal Palace (exterior visit), the Mausoleum of Mohammed V, Hassan Tower, and the Chellah Necropolis. Dinner and overnight in Rabat.",
+            },
+            {
+                day: 'Day 7',
+                title: 'Rabat – Asilah – Tangier',
+                description:
+                    'After breakfast, drive north toward Tangier through the fertile Gharb plains. On the way, stop in the charming coastal town of Asilah, originally founded by the Phoenicians around 1500 BC. Explore its peaceful medina, known for its white-and-blue houses, artistic murals, and relaxed atmosphere. After lunch, continue to Tangier. Dinner and overnight in Tangier.',
+            },
+            {
+                day: 'Day 8',
+                title: 'Departure',
+                description:
+                    'After breakfast and hotel check-out, transfer to the airport for your departure flight. End of services.',
+            },
+        ],
+        included: [
+            'Airport pick-up and drop-off in Tangier',
+            'Private transportation with English-speaking driver throughout the tour',
+            'Local guides in Tetouan, Meknes, Fes, and Rabat',
+            'Accommodation in selected hotels',
+            'Daily breakfasts, lunches, and dinners',
+            'Entrance fees to monuments and sites listed in the itinerary',
+            'Visit to Volubilis Roman ruins',
+            'Free time to explore medinas and historic districts',
+        ],
+        excluded: [
+            'International flights',
+            'Travel insurance',
+            'Beverages and personal expenses',
+            'Tips and porterage',
+            'Optional activities not mentioned',
+            'Any services not listed in the inclusions',
+            'Peak season supplements',
+            'Gratuities',
+        ],
+    },
+    {
+        id: 'atlantic-coast-marrakech-10-days',
+        title: 'Atlantic Coast & Marrakech Tour',
+        duration: '10 Days',
+        nights: '9 Nights',
+        startingPoint: 'Tangier',
+        description:
+            "A beautiful journey along Morocco's Atlantic coastline combining imperial cities, seaside towns, and the vibrant city of Marrakech. This itinerary includes Tangier, Rabat, Casablanca, El Jadida, Oualidia, Essaouira, Agadir, and Marrakech.",
+        tripType: 'Cultural & Coastal',
+        difficulty: 'Easy',
+        arrivalCity: 'Tangier',
+        guide: 'Local Expert Guide',
+        languages: 'English, French, Spanish',
+        itinerary: [
+            {
+                day: 'Day 1',
+                title: 'Tangier',
+                description:
+                    'Upon arrival in Tangier, you will meet your guide and begin a relaxed city tour. The visit includes Cap Spartel, where you can enjoy panoramic views of the Atlantic coastline and the point where the Atlantic Ocean meets the Mediterranean Sea. You will then continue to the famous Hercules Caves before exploring the historic medina of Tangier. The tour includes the Kasbah Museum, showcasing woodwork, Roman mosaics, and jewelry. Dinner and overnight in Tangier.',
+            },
+            {
+                day: 'Day 2',
+                title: 'Tangier – Rabat – Casablanca',
+                description:
+                    'After breakfast, departure towards Casablanca via the fertile Gharb plateau, with a stop in Rabat, the administrative capital of Morocco. Upon arrival, enjoy lunch followed by visits to the Hassan Tower and the Oudayas Kasbah. The journey then continues to Casablanca, where you will explore the city, including the Hassan II Mosque, the elegant Anfa residential district, the Ain Diab Corniche, and Mohammed V Square. Dinner and overnight in Casablanca.',
+            },
+            {
+                day: 'Day 3',
+                title: 'Casablanca – El Jadida – Oualidia',
+                description:
+                    'After breakfast, departure to El Jadida, formerly known as Mazagan, crossing the fertile plains of Chaouia, Doukkala, and Abda. Explore this historic Portuguese city, including its famous cistern capable of storing water for thousands of people. After lunch in El Jadida, continue to the coastal lagoon town of Oualidia for dinner and overnight.',
+            },
+            {
+                day: 'Day 4',
+                title: 'Oualidia – Essaouira',
+                description:
+                    'Morning departure to Essaouira, a picturesque coastal city on the Atlantic Ocean. Known for its long sandy beaches, offshore islands, and historic medina, Essaouira is a UNESCO World Heritage Site. Upon arrival, enjoy a seafood lunch before visiting the Skala fortress and exploring the charming medina with its narrow alleys, artisan shops, and vibrant atmosphere. Dinner and overnight in Essaouira.',
+            },
+            {
+                day: 'Day 5',
+                title: 'Essaouira – Agadir',
+                description:
+                    'After breakfast, drive along the Atlantic coast towards Agadir, passing through the beautiful Argan tree forests of the Anti-Atlas region. Upon arrival, visit Agadir Oufella, the highest viewpoint in the city, offering panoramic views over the port and modern urban area. Continue with a city tour including the fishing port, known as the first sardine port in Morocco, and the seaside promenade. Lunch, dinner, and overnight in Agadir.',
+            },
+            {
+                day: 'Day 6',
+                title: 'Agadir – Marrakech',
+                description:
+                    'Morning at leisure in Agadir. After lunch, departure towards Marrakech crossing scenic landscapes between the coast and the interior. Arrival in Marrakech, followed by dinner and overnight at the hotel.',
+            },
+            {
+                day: 'Day 7',
+                title: 'Marrakech City Tour',
+                description:
+                    'After breakfast, begin a full city tour of Marrakech, the "Red Pearl" of Morocco. The visit includes the Koutoubia Mosque (exterior), the Saadian Tombs, Bahia Palace, Ben Youssef Madrasa, and a private museum. Continue exploring the colorful souks inside the medina before heading to Jemaa el-Fnaa Square, a UNESCO World Heritage Site. Here you will experience a vibrant atmosphere with storytellers, musicians, snake charmers, dancers, food stalls, and traditional vendors. Dinner and overnight in Marrakech.',
+            },
+            {
+                day: 'Day 8',
+                title: 'Marrakech – Casablanca – Rabat',
+                description:
+                    'After breakfast, departure to Rabat, the capital of Morocco. Upon arrival, visit the Royal Palace (exterior), Mohammed V Mausoleum, Hassan Tower, and the Chellah Necropolis. Dinner and overnight in Rabat.',
+            },
+            {
+                day: 'Day 9',
+                title: 'Rabat – Asilah – Tangier',
+                description:
+                    'Morning departure to Tangier via the fertile Gharb region, known for its agriculture. On the way, stop in Asilah, a charming coastal town famous for its whitewashed medina and artistic murals. Continue to Tangier for dinner and overnight.',
+            },
+            {
+                day: 'Day 10',
+                title: 'Departure',
+                description:
+                    'After breakfast and check-out, transfer to Casablanca Airport for your return flight. End of services.',
+            },
+        ],
+        included: [
+            'Airport pick-up and drop-off',
+            'Private transportation with English-speaking driver throughout the tour',
+            'Local guides in key cities',
+            'Accommodation in selected hotels',
+            'Daily breakfasts, lunches, and dinners',
+            'Entrance fees to monuments and sites listed in the itinerary',
+            'Free time to explore medinas and coastal towns',
+        ],
+        excluded: [
+            'International flights',
+            'Travel insurance',
+            'Beverages and personal expenses',
+            'Tips and porterage',
+            'Optional activities not mentioned',
+            'Any services not listed in the inclusions',
+            'Peak season supplements',
+            'Gratuities',
+        ],
+    },
+    {
+        id: 'imperial-cities-tour-from-tangier-10d',
+        title: 'Imperial Cities Tour From Tangier – 10 Days',
+        duration: '10 Days',
+        nights: '9 Nights',
+        startingPoint: 'Tangier',
+        description:
+            "This 10-day Imperial Cities tour offers a rich journey through Morocco's most historic and culturally significant destinations. Beginning in Tangier, you'll explore the meeting point of the Mediterranean and Atlantic, then continue to Rabat, Casablanca, Marrakech, Ouzoud Waterfalls, Bin El Ouidane, Meknes, Volubilis, Fes, Chefchaouen, and Tetouan.",
+        tripType: 'Cultural & Historical',
+        difficulty: 'Easy',
+        arrivalCity: 'Tangier',
+        guide: 'Professional local guides in Rabat, Casablanca, Marrakech, and Fes',
+        languages: 'English, French, Spanish',
+        itinerary: [
+            {
+                day: 'Day 1',
+                title: 'Tangier',
+                description:
+                    'Arrival in Tangier. Meet your driver and begin a leisurely day tour, including a visit to Cap Spartel, where you can enjoy a beautiful view of the Spanish coastline. Cap Spartel marks the meeting point of the Atlantic Ocean and the Mediterranean Sea. Continue to the Hercules Caves, then drive to explore the medina of Tangier. Visit the Kasbah Museum, originally founded in the 17th century by Sultan Moulay Ismail. Dinner and overnight stay at Hotel Kenzi Solazur.',
+            },
+            {
+                day: 'Day 2',
+                title: 'Tangier – Rabat – Casablanca',
+                description:
+                    "After breakfast, transfer to the train station and travel by TGV from Tangier to Rabat. Upon arrival, meet your driver and a local guide and begin a city tour including an exterior visit of the Royal Palace, the Mohammed V Mausoleum, the Hassan Tower, and the Chellah. After lunch, proceed to Casablanca, followed by a drive along the Corniche. Dinner and overnight in Casablanca at Hotel Val D'Anfa.",
+            },
+            {
+                day: 'Day 3',
+                title: 'Casablanca – Marrakech',
+                description:
+                    'After breakfast, meet your local guide and have a half-day city tour of Casablanca with a visit to the Hassan II Mosque from inside. Continue with the Church of Notre Dame de Lourdes and the Habous Quarter. Afterwards, drive to Marrakech. Dinner and overnight at Hotel Adam Park.',
+            },
+            {
+                day: 'Day 4',
+                title: 'Marrakech City Tour',
+                description:
+                    'After breakfast, begin your city tour of Marrakech. Visit Majorelle Garden, followed by a 1-hour city tour by horse carriage ending at a restaurant with Italian specialty. After lunch, continue sightseeing: the Koutoubia Mosque, followed by the Bahia Palace and the Ben Youssef Madrasa. Continue to the colorful souks inside the medina, ending at Jemaa el-Fnaa, a UNESCO World Heritage Site. Dinner and overnight at Hotel Adam Park.',
+            },
+            {
+                day: 'Day 5',
+                title: 'Marrakech – Ouzoud – Bin El Ouidane',
+                description:
+                    "After breakfast, departure from Marrakech towards Bin El Ouidane, located in the heart of the Middle Atlas Mountains. Upon arrival in Ouzoud, enjoy lunch at a local restaurant overlooking the waterfalls and take time to explore this spectacular natural site. After the visit, continue the journey to Bin El Ouidane. Dinner and overnight at Dar l'Eau Vive, where you can enjoy the peaceful landscapes of the dam and surrounding nature.",
+            },
+            {
+                day: 'Day 6',
+                title: 'Bin El Ouidane – Meknes – Volubilis – Fes',
+                description:
+                    "After breakfast, early departure from Bin El Ouidane at 07:00 am and drive towards Meknes, crossing a beautiful part of the Middle Atlas Mountains. Upon arrival in Meknes, enjoy lunch before starting your city tour. Meknes is Morocco's fourth Imperial city and its medina is classified as a UNESCO World Heritage Site. Visit the impressive Bab Mansour Gate, the Mausoleum of Moulay Ismail, and the Dar Jamai Museum. After the visit, continue to Volubilis, the most important Roman ruins in Morocco, famous for its well-preserved mosaics. After exploring Volubilis, continue the drive to Fes. Dinner and overnight at Royal Mirage Hotel.",
+            },
+            {
+                day: 'Day 7',
+                title: 'Fes City Tour',
+                description:
+                    "After breakfast, meet your local guide and set out for a full-day city tour of Fes, the spiritual and intellectual capital of Morocco, founded in the 9th century. Visit the UNESCO-listed medina, exploring its historic gates and lively atmosphere. Continue to the Tanners' Quarter, the Al Quaraouiyine Mosque, the Bou Inania Madrasa, and the beautiful Nejjarine Museum of Wooden Arts and Crafts. Enjoy lunch at a traditional Moroccan restaurant in the medina. After lunch, continue with the Dar Batha Museum, panoramic view of the Royal Palace gates, and Bab Boujloud. Dinner and overnight at Royal Mirage Hotel.",
+            },
+            {
+                day: 'Day 8',
+                title: 'Fes – Chefchaouen',
+                description:
+                    'After breakfast, drive to Chefchaouen, a picturesque mountain town founded by Andalusian refugees. Known for its charming blue-painted streets, whitewashed houses, and Andalusian character, Chefchaouen is ideal for a leisurely stroll. Upon arrival, check in at the hotel and the rest of the day is yours to explore this small blue city. Dinner and overnight at Hotel Parador.',
+            },
+            {
+                day: 'Day 9',
+                title: 'Chefchaouen – Tetouan – Tangier',
+                description:
+                    "After breakfast in Chefchaouen, depart for Tetouan, a city founded by Moors fleeing Spain and once the capital of Morocco's Spanish protectorate zone. Tetouan is renowned for its strong Andalusian heritage, visible in its medina, architecture, music, culinary traditions, and embroidery. After lunch, continue your journey to Tangier. Upon arrival, begin a city tour including the Mendoubia Gardens, the Kasbah Quarter, the Grand Socco, Petit Socco, and the surrounding souks. In the evening, free time to explore the vibrant nightlife of Tangier and dinner at your hotel.",
+            },
+            {
+                day: 'Day 10',
+                title: 'Departure',
+                description:
+                    'After check out, you will be transported to the airport at Casablanca for your return flight home, or to the Ferry at Tangier. This concludes the services of Moroccan Club Travel.',
+            },
+        ],
+        included: [
+            'Airport or port pick-up and drop-off (Tangier / Casablanca)',
+            'Private transportation in a comfortable air-conditioned vehicle',
+            'High-speed train ticket (TGV) from Tangier to Rabat',
+            'Ferry ticket from Algeciras to Tanger Med (go and back)',
+            'Professional local guides in Rabat, Casablanca, Marrakech, and Fes',
+            'Entrance fees to monuments and historical sites listed in the itinerary',
+            'Accommodation: Tangier (2 nights), Casablanca (1 night), Marrakech (2 nights), Bin El Ouidane (1 night), Fes (2 nights), Chefchaouen (1 night)',
+            'Daily breakfasts, lunches, and dinners (full board)',
+            'Excursion to Ouzoud Waterfalls',
+            'Visit to Volubilis Roman ruins',
+            'Free time to explore medinas, souks, and scenic sites',
+        ],
+        excluded: [
+            'International flights',
+            'Travel insurance',
+            'Beverages and personal expenses',
+            'Tips and porterage',
+            'Optional activities and excursions',
+            'Any services not mentioned in the inclusions',
+            'Peak season supplements',
+            'Gratuities',
+        ],
+    },
+    {
+        id: 'just-for-women-10-days',
+        title: 'Just For Women – 10 Days / 9 Nights',
+        duration: '10 Days',
+        nights: '9 Nights',
+        startingPoint: 'Casablanca',
+        description:
+            "Welcome ladies to Morocco! Come experience the wonders that Morocco offers with plenty of shopping in historic medinas, regional cooking classes in Fez and Marrakech, a belly dance class, a henna party, a ceramics workshop in Fez, designing your own pair of Moroccan silver earrings, a Moroccan women's fashion demonstration, visits to women's cooperatives, and relaxation in a traditional hammam.",
+        tripType: 'Cultural & Just for Women',
+        difficulty: 'Easy',
+        arrivalCity: 'Casablanca',
+        guide: 'English-speaking guide throughout the tour',
+        languages: 'English, French, Spanish',
+        itinerary: [
+            {
+                day: 'Day 1',
+                title: 'Casablanca – Chefchaouen',
+                description:
+                    "Arrival at Casablanca Airport, where you will meet your English-speaking guide who will guide you for the whole tour, and begin the women's tour. Drive to the city of Chefchaouen, the pearl of the Rif Mountains, crossing the most important vast plateau of Morocco. Continue driving through the Rif Mountains, then arrive to Chefchaouen after dinner and check into your riad or hotel. Dinner at local restaurant. Overnight in Chefchaouen at Hotel Parador.",
+            },
+            {
+                day: 'Day 2',
+                title: 'Chefchaouen – Meknes – Fez',
+                description:
+                    'After breakfast, have a short visit to the blue city of Chefchaouen, then drive to Fez. On the way, stop to visit a cheese cooperative created by the government to help ladies gain extra income. After the visit, continue driving to the town of Ouazzane for lunch. After lunch, drive to Meknes. Upon arrival, visit a winery to learn about the process of producing and tasting some of the best red and white wine produced in Morocco. Then drive to the city of Fez. Dinner and overnight at Hotel Royal Mirage.',
+            },
+            {
+                day: 'Day 3',
+                title: 'Fez City Tour & Workshop',
+                description:
+                    'After breakfast, start the city tour of Fez, the spiritual and intellectual capital and the first Imperial City of Morocco. We begin in the historical medina, visiting the Tanner\'s Quarter, the Karaouiyine Mosque, El-Attarine Medersa, and the beautifully restored 18th-century Fondouk el-Nejjarine. Stop for lunch in a typical Moroccan restaurant in the medina. After lunch, visit an embroidery workshop where the ladies make a special blue Andalusian design called "the Point of Fez." Dinner and overnight at Hotel Royal Mirage or Riad Anebar.',
+            },
+            {
+                day: 'Day 4',
+                title: 'Fez – Ifrane – Midelt – Errachidia – Merzouga',
+                description:
+                    'After breakfast, drive to Erfoud with a stop in Ifrane, an alpine city known for its beautiful park and its famous ski resort. Continue your drive to Midelt, a town located between the Middle Atlas and High Atlas Mountains, and stop for lunch. After lunch, drive into the Sahara Desert to Merzouga, the site of the Merzouga Dunes. Optional camel trek to watch the sunset behind the Sahara dunes. Dinner and overnight at Kasbah Tombouctou.',
+            },
+            {
+                day: 'Day 5',
+                title: 'Merzouga – Todra Gorge – Tinghir – Ouarzazate – Ait Ben Haddou',
+                description:
+                    'After breakfast, drive to Todra Gorge, passing through the old town of Tinerhir. Sheer cliffs rise up dramatically on each side of the narrow corridor that forms the Todra Gorge. After lunch, drive to Ait Ben Haddou via Ouarzazate, the "Hollywood of Morocco." Visit the Kasbah Tifoultoute. Dinner and overnight in Ait Ben Haddou (Riad Tamdakht).',
+            },
+            {
+                day: 'Day 6',
+                title: 'Ait Ben Haddou – Marrakech',
+                description:
+                    "After breakfast, visit Ait Ben Haddou, an exceptionally well-preserved site declared a UNESCO World Heritage Site in 1987. After the visit, continue your journey and stop for lunch at Tizi n'Tichka Pass while enjoying the stunning landscapes of the High Atlas Mountains. Proceed to Marrakech. Upon arrival, visit a ceramics workshop where you will learn about the traditional process of Moroccan pottery. Dinner and overnight at Hotel Adam Park or Riad Palais Sebban.",
+            },
+            {
+                day: 'Day 7',
+                title: 'Marrakech City Tour',
+                description:
+                    'After breakfast, enjoy a guided city tour including Majorelle Garden and a 1-hour city tour horse carriage, ending at a restaurant with Italian specialty. After lunch, continue sightseeing including Koutoubia Mosque, Bahia Palace, and free time at Jamaa Lafna. After the visit, return to the hotel for some rest, then proceed to dinner at Chez Ali with Fantazia show. Overnight at Hotel Adam Park or Riad Palais Sebban.',
+            },
+            {
+                day: 'Day 8',
+                title: 'Marrakech – Ourika (Cooking Class) – Marrakech',
+                description:
+                    'After breakfast, head to Ourika for a new demonstration with a Berber family. Upon arrival, enjoy welcome mint tea and Moroccan pastries, then go to a Berber house for an unforgettable couscous cooking class in the traditional way. After the experience, visit the Berber town with a local person, then return to eat your lunch with the family. After lunch, enjoy a traditional henna experience guided by local women. Return to Marrakech for dinner. Overnight at Hotel Adam Park or Riad Palais Sebban.',
+            },
+            {
+                day: 'Day 9',
+                title: 'Marrakech – Essaouira',
+                description:
+                    "After breakfast, drive to the picturesque coastal town of Essaouira. On the way, stop at a local women's argan oil cooperative to see how this precious oil is produced. Arrive in Essaouira in time for a fresh seafood lunch, then enjoy free time to shop in the medina, where there are many art galleries, crafts, and music shops. Dinner and overnight at Riad Zahra.",
+            },
+            {
+                day: 'Day 10',
+                title: 'Essaouira – Casablanca Airport (Departure)',
+                description:
+                    'After breakfast, you will be transported to Casablanca Airport for your return flight home.',
+            },
+        ],
+        included: [
+            'Airport pick-up and drop-off in Casablanca',
+            'Private transportation with English-speaking guide throughout the tour',
+            'Accommodation: Chefchaouen (1 night), Fes (2 nights), Merzouga (1 night), Ait Ben Haddou (1 night), Marrakech (3 nights), Essaouira (1 night)',
+            'Daily breakfasts, lunches, and dinners as mentioned in the itinerary',
+            "Visit to women's cooperatives (cheese & argan oil)",
+            'Embroidery workshop experience in Fes',
+            'Ceramics and pottery workshop in Marrakech',
+            'Traditional couscous cooking class with a Berber family in Ourika Valley',
+            'Henna experience with local women in Ourika',
+            'Winery visit and tasting in Meknes',
+            'Camel trekking experience in Merzouga',
+            'Entrance fees to monuments and sites listed in the itinerary',
+            'Free time to explore medinas, souks, and coastal towns',
+        ],
+        excluded: [
+            'International flights',
+            'Travel insurance',
+            'Beverages and personal expenses',
+            'Tips and porterage',
+            'Optional activities not mentioned',
+            'Any services not listed in the inclusions',
+            'Peak season supplements',
+            'Gratuities',
+        ],
+    },
+    {
+        id: 'mediterranean-coast-southern-morocco',
+        title: 'Mediterranean Coast & Southern Morocco – 13 Days',
+        duration: '13 Days',
+        nights: '12 Nights',
+        startingPoint: 'Tangier',
+        description:
+            "Discover the beauty, culture, and diversity of Morocco on this unforgettable 13-day journey through the country's imperial cities, Atlantic and Mediterranean coastlines, mountain landscapes, and Sahara Desert. Beginning in Tangier, this tour takes you through Morocco's most iconic destinations including Rabat, Casablanca, Marrakech, Ouarzazate, Zagora, Merzouga, Midelt, Meknes, Fes, Chefchaouen, and Tetouan.",
+        tripType: 'Cultural & Adventure',
+        difficulty: 'Moderate',
+        arrivalCity: 'Tangier',
+        guide: 'Local Expert Guides',
+        languages: 'English, French, Spanish',
+        itinerary: [
+            {
+                day: 'Day 1',
+                title: 'Arrival in Tangier',
+                description:
+                    'Upon arrival in Tangier, begin a leisurely sightseeing tour. Visit Cape Spartel, where the Atlantic Ocean meets the Mediterranean Sea, and enjoy panoramic views toward Spain. Continue to the famous Hercules Caves. Later, explore the historic medina of Tangier, including the Kasbah Museum. Dinner and overnight in Tangier.',
+            },
+            {
+                day: 'Day 2',
+                title: 'Tangier – Rabat – Casablanca',
+                description:
+                    'After breakfast, depart for Rabat, the administrative and political capital of Morocco. Enjoy a guided city tour including the Royal Palace (exterior visit), the Mausoleum of Mohammed V, Hassan Tower, and the ancient Chellah Necropolis. After lunch, continue to Casablanca. Dinner and overnight in Casablanca.',
+            },
+            {
+                day: 'Day 3',
+                title: 'Casablanca – Marrakech',
+                description:
+                    'After breakfast, enjoy a city tour of Casablanca featuring the exterior of the Hassan II Mosque, Mohammed V Square, the Habous Quarter, the Central Market, and the residential Anfa district. In the afternoon, drive to Marrakech. Dinner and overnight in Marrakech.',
+            },
+            {
+                day: 'Day 4',
+                title: 'Marrakech City Tour',
+                description:
+                    'After breakfast, enjoy a full-day guided tour of Marrakech. Visit the Koutoubia Mosque, the Saadian Tombs, and the Bahia Palace. Continue into the medina to discover traditional Moroccan craftsmanship at a local artisan cooperative. Later, explore the colorful souks leading to the famous Jemaa el-Fnaa Square, a UNESCO World Heritage Site. Dinner at a traditional Moroccan restaurant and overnight in Marrakech.',
+            },
+            {
+                day: 'Day 5',
+                title: 'Marrakech – Ouarzazate – Zagora',
+                description:
+                    'After breakfast, depart toward Ouarzazate via the spectacular High Atlas Mountains and the Tizi n\'Tichka Pass. Visit the UNESCO-listed Kasbah Ait Ben Haddou. Continue to Ouarzazate, often referred to as the "Hollywood of Morocco," before enjoying a traditional mint tea with a Berber family. After lunch, continue to Zagora, once an important caravan stop on the ancient trade route to Timbuktu. Dinner and overnight in Zagora.',
+            },
+            {
+                day: 'Day 6',
+                title: 'Zagora – Alnif – Erfoud',
+                description:
+                    'After breakfast, travel through the beautiful landscapes of Tazzarine and Alnif, crossing the dramatic Saghro Mountains. After lunch, continue to Erfoud via Rissani, home to the Mausoleum of Moulay Ali Cherif, founder of the Alaouite Dynasty. Dinner and overnight in Erfoud.',
+            },
+            {
+                day: 'Day 7',
+                title: 'Erfoud – Merzouga Desert',
+                description:
+                    'After breakfast, depart for Merzouga and the spectacular Sahara dunes of Erg Chebbi. Visit Khamlia village, famous for its traditional Gnawa music performances. After lunch, enjoy a camel ride across the golden dunes to your desert camp. Spend the evening under the stars in a traditional nomadic tent. Enjoy a traditional dinner and local music around the campfire. Overnight in the desert camp.',
+            },
+            {
+                day: 'Day 8',
+                title: 'Merzouga – Midelt',
+                description:
+                    'After breakfast, depart through the Middle Atlas Mountains, passing cedar forests and scenic mountain landscapes. Stop in Ifrane, often called the "Switzerland of Morocco." Continue to Midelt, located between the High and Middle Atlas Mountains. Dinner and overnight in Midelt.',
+            },
+            {
+                day: 'Day 9',
+                title: 'Midelt – Ifrane – Meknes – Fes',
+                description:
+                    "After breakfast, travel toward Meknes, one of Morocco's four Imperial Cities and a UNESCO World Heritage Site founded by Sultan Moulay Ismail in the 17th century. Visit Bab Mansour Gate, El Hedim Square, the Royal Stables, and the Mausoleum of Moulay Ismail. After lunch, continue to Fes. Dinner and overnight in Fes.",
+            },
+            {
+                day: 'Day 10',
+                title: 'Fes City Tour',
+                description:
+                    "After breakfast, enjoy a full-day guided tour of Fes, the oldest of Morocco's Imperial Cities. Explore the medieval medina, including its mosques, traditional tanneries, bustling souks, and historic madrasas such as Al-Attarine Medersa. Visit Nejjarine Fountain and the Museum of Wooden Arts & Crafts. Lunch in a traditional restaurant inside the medina. In the afternoon, visit the Dar Batha Museum, the Mellah (Jewish Quarter), the exterior of the Royal Palace, and the famous Bab Boujloud gate. Dinner and overnight in Fes.",
+            },
+            {
+                day: 'Day 11',
+                title: 'Fes – Chefchaouen',
+                description:
+                    'After breakfast, depart for Chefchaouen, the charming blue city nestled in the Rif Mountains. Visit the Kasbah located in the heart of the medina and enjoy free time to stroll through the picturesque alleyways. Dinner and overnight in Chefchaouen.',
+            },
+            {
+                day: 'Day 12',
+                title: 'Chefchaouen – Tetouan – Tangier',
+                description:
+                    'After breakfast, depart for Tetouan, a city strongly influenced by Andalusian culture and architecture. Explore its UNESCO-listed medina, traditional souks, and artisan workshops. Continue to Tangier. After lunch, enjoy a city tour including the Mendoubia Gardens, the Kasbah Quarter, the Grand Socco, Petit Socco, and the lively local markets. Dinner and overnight in Tangier.',
+            },
+            {
+                day: 'Day 13',
+                title: 'Departure',
+                description:
+                    'After breakfast and hotel check-out, transfer to the airport for your departure flight. End of services.',
+            },
+        ],
+        included: [
+            'Airport pick-up and drop-off in Tangier',
+            'Private transportation with English-speaking driver throughout the tour',
+            'Local guides in key cities',
+            'Accommodation in selected hotels',
+            'Daily breakfasts, lunches, and dinners',
+            'Camel trek in the Sahara Desert at Merzouga',
+            'Overnight in traditional desert camp',
+            'Entrance fees to monuments and sites listed in the itinerary',
+            'Free time to explore medinas, souks, and scenic locations',
+        ],
+        excluded: [
+            'International flights',
+            'Travel insurance',
+            'Beverages and personal expenses',
+            'Tips and porterage',
+            'Optional activities not mentioned',
+            'Any services not listed in the inclusions',
+            'Peak season supplements',
+            'Gratuities',
+        ],
+    },
+    {
+        id: 'moorish-heritage-desert-tour-11-days',
+        title: 'Moorish Heritage & Desert Tour – 11 Days',
+        duration: '11 Days',
+        nights: '10 Nights',
+        startingPoint: 'Tangier',
+        description:
+            "This 11-day journey combines Morocco's most beautiful imperial cities, the blue town of Chefchaouen, Roman ruins, the Sahara Desert, and the Atlantic coast. From Tangier to the dunes of Merzouga and the vibrant city of Marrakech, this tour offers a complete discovery of Morocco's history, culture, mountains, and desert landscapes.",
+        tripType: 'Cultural & Adventure',
+        difficulty: 'Moderate',
+        arrivalCity: 'Tangier',
+        guide: 'Local Expert Guides',
+        languages: 'English, French, Spanish',
+        itinerary: [
+            {
+                day: 'Day 1',
+                title: 'Tangier – Chefchaouen',
+                description:
+                    "Upon arrival in Tangier, begin a city tour including Cap Spartel, where the Atlantic Ocean meets the Mediterranean Sea, followed by the Hercules Caves. Continue to the Kasbah Museum and explore Tangier's historic medina before lunch. In the afternoon, drive through the Rif Mountains toward Chefchaouen. Upon arrival, discover the charming blue city with its Andalusian-style architecture, narrow alleyways, and peaceful atmosphere. Visit the Kasbah in the heart of the medina. Dinner and overnight in Chefchaouen.",
+            },
+            {
+                day: 'Day 2',
+                title: 'Chefchaouen – Volubilis – Fes',
+                description:
+                    'After breakfast, depart for Fes via the Rif Mountains. En route, stop at Volubilis, the most important Roman archaeological site in Morocco, once a thriving city with around 20,000 inhabitants and an important grain center of the Roman Empire. After lunch at the site, continue to Fes. Dinner and overnight in Fes.',
+            },
+            {
+                day: 'Day 3',
+                title: 'Fes City Tour',
+                description:
+                    "After breakfast, enjoy a full guided tour of Fes, Morocco's spiritual and cultural capital and the oldest imperial city. Visit the UNESCO-listed medina with its historic gates, mosques, tanneries, Attarine Medersa, Nejjarine Fountain, and traditional artisan workshops. Continue with Dar Batha Museum, the Jewish Quarter (Mellah), the Royal Palace gates (exterior), and Bab Boujloud. Lunch in a traditional medina restaurant. Dinner and overnight in Fes.",
+            },
+            {
+                day: 'Day 4',
+                title: 'Fes – Erfoud – Merzouga',
+                description:
+                    'Early departure towards the Sahara Desert with a stop in Ifrane, a beautiful alpine-style city, then continue to Midelt for lunch. Cross the scenic Ziz Valley and Tafilalet region before reaching Erfoud, known for its fossil workshops. Continue to Merzouga, at the edge of the Erg Chebbi dunes. Optional camel trek to watch the sunset over the dunes. Dinner and overnight in a desert camp or hotel in Erfoud.',
+            },
+            {
+                day: 'Day 5',
+                title: 'Erfoud – Todra – Ouarzazate',
+                description:
+                    'After breakfast, travel through the spectacular Dades Valley and Todra Gorge, known as the "Valley of a Thousand Kasbahs." Enjoy dramatic landscapes, palm groves, and traditional irrigation systems. The Todra Gorge offers one of Morocco\'s most impressive natural canyons. Continue to Ouarzazate for dinner and overnight.',
+            },
+            {
+                day: 'Day 6',
+                title: 'Ouarzazate – Marrakech',
+                description:
+                    'After breakfast, visit the famous Ait Benhaddou Kasbah, a UNESCO World Heritage Site and filming location for many international movies such as Gladiator and Lawrence of Arabia. Continue through the High Atlas Mountains, with a stop for tea with a local Berber family. Arrive in Marrakech for dinner and overnight.',
+            },
+            {
+                day: 'Day 7',
+                title: 'Marrakech City Tour',
+                description:
+                    'After breakfast, explore Marrakech, the "Red Pearl of Morocco." Visit the Koutoubia Mosque (exterior), Saadian Tombs, Bahia Palace, and Ben Youssef Madrasa. Continue to the souks of the medina, where traditional crafts are still practiced. End the day at Jemaa el-Fnaa Square, a UNESCO World Heritage Site filled with storytellers, musicians, snake charmers, and food stalls. Dinner in a traditional restaurant and overnight in Marrakech.',
+            },
+            {
+                day: 'Day 8',
+                title: 'Marrakech – Essaouira',
+                description:
+                    'After breakfast, drive to the coastal city of Essaouira. En route, visit an Argan oil cooperative. Upon arrival, explore the UNESCO-listed medina, Skala fortress, artisan shops, and the Atlantic coastline. Enjoy fresh seafood for lunch and free time in the relaxed seaside atmosphere. Dinner and overnight in Essaouira.',
+            },
+            {
+                day: 'Day 9',
+                title: 'Essaouira – Safi – El Jadida – Casablanca',
+                description:
+                    'Depart towards Casablanca along the Atlantic coast. Stop in Safi, a traditional fishing port with Portuguese heritage, then continue to Oualidia for lunch. Proceed to El Jadida, a former Portuguese stronghold known for its historic cistern and fortified walls. Continue to Casablanca for dinner and overnight.',
+            },
+            {
+                day: 'Day 10',
+                title: 'Casablanca – Rabat – Tangier',
+                description:
+                    "After breakfast, visit Casablanca, including the Hassan II Mosque and Mohammed V Square. Continue to Rabat, Morocco's capital, for lunch and a guided tour of the Royal Palace (exterior), Mohammed V Mausoleum, Hassan Tower, and the Chellah Necropolis. In the afternoon, drive back to Tangier crossing the fertile Gharb plains. Dinner and overnight in Tangier.",
+            },
+            {
+                day: 'Day 11',
+                title: 'Departure',
+                description:
+                    'After breakfast and check-out, transfer to Casablanca Airport for your return flight. End of services.',
+            },
+        ],
+        included: [
+            'Airport pick-up and drop-off in Tangier',
+            'Private transportation with English-speaking driver throughout the tour',
+            'Local guides in key cities',
+            'Accommodation in selected hotels',
+            'Daily breakfasts, lunches, and dinners',
+            'Visit to Volubilis Roman ruins',
+            'Camel trek in the Sahara Desert at Merzouga',
+            'Visit to Ait Benhaddou Kasbah',
+            'Entrance fees to monuments and sites listed in the itinerary',
+            'Free time to explore medinas and scenic locations',
+        ],
+        excluded: [
+            'International flights',
+            'Travel insurance',
+            'Beverages and personal expenses',
+            'Tips and porterage',
+            'Optional activities not mentioned',
+            'Any services not listed in the inclusions',
+            'Peak season supplements',
+            'Gratuities',
+        ],
+    },
+    {
+        id: 'northern-morocco-grand-loop-7-days',
+        title: 'Northern Morocco Grand Loop – 7 Days',
+        duration: '7 Days',
+        nights: '6 Nights',
+        startingPoint: 'Tangier',
+        description:
+            'This 7-day journey offers a complete discovery of northern and central Morocco, combining coastal charm, mountain landscapes, and imperial heritage. Starting in Tangier, the route leads through the blue streets of Chefchaouen and the Rif Mountains to the Mediterranean city of Al Hoceima. The itinerary then continues inland to the cultural capital of Fes, before exploring the imperial cities of Meknes and Rabat. The journey concludes with a coastal return via Asilah before ending in Tangier.',
+        tripType: 'Cultural & Coastal',
+        difficulty: 'Easy',
+        arrivalCity: 'Tangier',
+        guide: 'Local Expert Guides',
+        languages: 'English, French, Spanish',
+        itinerary: [
+            {
+                day: 'Day 1',
+                title: 'Tangier – Tetouan – Chefchaouen',
+                description:
+                    'Upon arrival in Tangier, you will meet your driver and begin a scenic journey through the mountains toward Tetouan. In Tetouan, a UNESCO-listed medina awaits, strongly influenced by Andalusian heritage, with whitewashed alleys, artisan workshops, and elegant architecture. Visit the medina, the Royal Palace area (exterior), and Bab Okla before lunch. In the afternoon, continue inland to Chefchaouen, the famous "Blue City" located in the Rif Mountains. Dinner and overnight in Chefchaouen.',
+            },
+            {
+                day: 'Day 2',
+                title: 'Chefchaouen – Al Hoceima',
+                description:
+                    'After breakfast, enjoy a short city tour of Chefchaouen, strolling through the medina, visiting Ras El Ma, and enjoying free time in Outa El Hammam Square. After lunch, depart toward the Mediterranean coast, passing scenic Rif landscapes, cedar forest areas, and small towns. Continue toward Al Hoceima, a coastal city known for its clear waters and national park. Dinner and overnight in Al Hoceima.',
+            },
+            {
+                day: 'Day 3',
+                title: 'Al Hoceima – Fes',
+                description:
+                    'After breakfast, discover Al Hoceima with a visit to its national park and Corniche, offering beautiful sea views. After lunch, depart inland toward Fes, crossing the Rif Mountains and Middle Atlas region. Along the way, enjoy changing landscapes, cedar forests, and traditional Berber villages before arriving in Fes. Dinner and overnight in Fes.',
+            },
+            {
+                day: 'Day 4',
+                title: 'Fes City Tour',
+                description:
+                    "After breakfast, begin a full guided tour of Fes, Morocco's spiritual and intellectual capital and one of the oldest imperial cities, founded in the 9th century. Visit the UNESCO-listed medina, including its historic gates, the tanneries, Al Quaraouiyine Mosque, Attarine Madrasa, and Nejjarine Fountain. After lunch, continue to the Mellah (Jewish Quarter), the Royal Palace gates (exterior), and Bab Boujloud. End the day with a visit to the pottery and ceramic workshops of Fes. Dinner and overnight in Fes.",
+            },
+            {
+                day: 'Day 5',
+                title: 'Fes – Meknes – Rabat',
+                description:
+                    "After breakfast, depart for Meknes, one of Morocco's imperial cities founded by Moulay Ismail. Visit the historic medina, Bab Mansour Gate, Moulay Ismail Mausoleum, and the Royal Stables, ending at El Hedim Square. After lunch, continue to Rabat, the capital of Morocco. Upon arrival, visit the Kasbah of the Udayas overlooking the Atlantic Ocean, followed by the Hassan Tower and Mohammed V Mausoleum. Dinner and overnight in Rabat.",
+            },
+            {
+                day: 'Day 6',
+                title: 'Rabat – Asilah – Tangier',
+                description:
+                    'After breakfast, depart north toward Asilah, a charming coastal town on the Atlantic Ocean. Known for its white-and-blue medina and artistic murals, Asilah hosts an international art festival that attracts artists from around the world. Enjoy free time and lunch in this peaceful seaside town. In the afternoon, continue to Tangier for dinner and overnight.',
+            },
+            {
+                day: 'Day 7',
+                title: 'Departure from Tangier',
+                description:
+                    'After breakfast, your tour comes to an end in Tangier. Depending on your schedule, you may transfer to Tangier Ibn Battuta Airport or take the ferry to Spain (Tarifa or Algeciras). End of services.',
+            },
+        ],
+        included: [
+            'Airport pick-up and drop-off in Tangier',
+            'Private transportation with English-speaking driver throughout the tour',
+            'Local guides in key cities',
+            'Accommodation in selected hotels',
+            'Daily breakfasts, lunches, and dinners',
+            'Entrance fees to monuments and sites listed in the itinerary',
+            'Free time to explore medinas and scenic locations',
+        ],
+        excluded: [
+            'International flights',
+            'Travel insurance',
+            'Beverages and personal expenses',
+            'Tips and porterage',
+            'Optional activities not mentioned',
+            'Any services not listed in the inclusions',
+            'Peak season supplements',
+            'Gratuities',
+        ],
+    },
+    {
+        id: 'sahara-imperial-cities-7-days',
+        title: 'Sahara Imperial Cities Tour – 7 Days',
+        duration: '7 Days',
+        nights: '6 Nights',
+        startingPoint: 'Casablanca',
+        description:
+            "This 7-day journey through Morocco combines the charm of imperial cities with the magic of the Sahara Desert. Starting in Casablanca, you'll travel to the vibrant city of Marrakech, then cross the High Atlas Mountains to visit the UNESCO-listed Ait Ben Haddou before continuing through scenic valleys to the Sahara Desert in Merzouga. The journey continues through Fes, Chefchaouen, and concludes in Rabat before returning to Casablanca.",
+        tripType: 'Cultural & Desert Adventure',
+        difficulty: 'Moderate',
+        arrivalCity: 'Casablanca',
+        guide: 'Local guides in Marrakech, Fes, and Chefchaouen',
+        languages: 'English, French, Spanish',
+        itinerary: [
+            {
+                day: 'Day 1',
+                title: 'Casablanca – Marrakech',
+                description:
+                    'Arriving at Casablanca airport, meet your driver at the terminal exit. Transfer to Marrakech, arrive at hotel and check in. After some rest, transfer to Jemaa el-Fna square for a short sightseeing stop. Afterward, proceed to dinner at a local restaurant with a belly dance show. Overnight at Hotel Adam Park.',
+            },
+            {
+                day: 'Day 2',
+                title: 'Marrakech – Ait Ben Haddou',
+                description:
+                    'Breakfast at the hotel. At 09:00, meet your local guide and begin a half-day sightseeing tour of Marrakech, visiting Bahia Palace, Koutoubia Mosque, and the Souk. After lunch at a restaurant with Italian specialty, proceed to Ait Ben Haddou, with a toilet stop at Argan Tichka along the way. Upon arrival, check in to your riad. Dinner at hotel or riad. Overnight at Riad Tamedakhte.',
+            },
+            {
+                day: 'Day 3',
+                title: 'Ait Ben Haddou – Dades – Erfoud – Merzouga',
+                description:
+                    'After breakfast, have a short sightseeing at the kasbah of Ait Ben Haddou and enjoy mint tea at a local house. Afterward, transfer to Erfoud. On the way, lunch at a local restaurant in Dades. Upon arrival in Erfoud, change to 4WD vehicles and continue to your camp. Camel trek in the desert camp included (for sunset or sunrise). Sunset and sunrise over the dunes. Local music entertainment after dinner. Overnight at Luxury Camp with Air Conditioning.',
+            },
+            {
+                day: 'Day 4',
+                title: 'Merzouga – Erfoud – Midelt – Fez',
+                description:
+                    'Early morning, enjoy sunrise over the dunes. Breakfast at the camp. After breakfast, transfer to Erfoud by 4WD, stopping for tea at a nomad tent along the way. Upon arrival in Erfoud, change to your private car and transfer to Fez. Lunch at a local restaurant in Midelt. After lunch, proceed to Fez. Dinner and check in at Hotel Royal Mirage.',
+            },
+            {
+                day: 'Day 5',
+                title: 'Fez – Chefchaouen',
+                description:
+                    'After breakfast, enjoy a half-day sightseeing tour of Fez with your local guide, visiting the Tanneries, Bab Boujloud, the Souk, and the Medina. Lunch at a local restaurant in Fes. After lunch, proceed to Chefchaouen. Upon arrival, check in to your hotel. Free time until dinner. Dinner served at the hotel. Overnight at Hotel Parador.',
+            },
+            {
+                day: 'Day 6',
+                title: 'Chefchaouen – Rabat',
+                description:
+                    'After breakfast, enjoy a half-day sightseeing tour of Chefchaouen on foot, visiting the blue Medina. Lunch at a local restaurant. After lunch, transfer to Rabat. Upon arrival, dinner at a local restaurant in Rabat and check in to your hotel. Overnight at Hotel Helnan Chellah.',
+            },
+            {
+                day: 'Day 7',
+                title: 'Rabat – Casablanca – Departure',
+                description:
+                    'Breakfast at the hotel. Enjoy a short sightseeing tour of Rabat, visiting the Tour Hassan and the Mohamed V Mausoleum. After the visits, transfer to Casablanca Airport (CMN) for your departure flight. End of services.',
+            },
+        ],
+        included: [
+            'Airport pick-up and drop-off in Casablanca',
+            'Private transportation with professional driver throughout the tour',
+            'Local guides in Marrakech, Fes, and Chefchaouen',
+            'Accommodation: Marrakech (1 night), Ait Ben Haddou (1 night), Merzouga Desert Camp (1 night – luxury camp with private facilities & A/C), Fes (1 night), Chefchaouen (1 night), Rabat (1 night)',
+            'Daily breakfasts, lunches, and dinners as mentioned in the itinerary',
+            'Visit to Ait Ben Haddou Kasbah',
+            '4WD desert transfers between Erfoud and Merzouga',
+            'Camel trekking experience (sunset or sunrise) in the Sahara Desert',
+            'Traditional music entertainment at the desert camp',
+            'Tea stop with nomadic family in the desert',
+            'Free time to explore medinas and scenic locations',
+        ],
+        excluded: [
+            'International flights',
+            'Travel insurance',
+            'Beverages and personal expenses',
+            'Tips and porterage',
+            'Optional activities not mentioned',
+            'Any services not listed in the inclusions',
+            'Peak season supplements',
+            'Gratuities',
+        ],
+    },
+    {
+        id: 'south-morocco-tour-6-days',
+        title: 'South Morocco Tour – 6 Days',
+        duration: '6 Days',
+        nights: '5 Nights',
+        startingPoint: 'Casablanca',
+        description:
+            'This 6-day journey through southern Morocco offers a perfect blend of cultural discovery, scenic landscapes, and relaxation. Starting in Casablanca, you\'ll travel to Marrakech, explore its iconic landmarks, journey through the High Atlas Mountains to the UNESCO-listed Ait Ben Haddou, experience the desert atmosphere in Zagora with a camel ride at the Tinfou Dunes, and discover Ouarzazate, the "Hollywood of Morocco."',
+        tripType: 'Cultural & Desert',
+        difficulty: 'Easy',
+        arrivalCity: 'Casablanca',
+        guide: 'Local guide for city tours in Marrakech',
+        languages: 'English, French, Spanish',
+        itinerary: [
+            {
+                day: 'Day 1',
+                title: 'Arrival in Casablanca & Transfer to Marrakech',
+                description:
+                    'Upon arrival at Casablanca Mohammed V International Airport (CMN), you will be met by your English-speaking driver and transfer directly to Marrakech. On the way, there will be a short stop at a supermarket. After arriving in Marrakech, check in to your hotel. Dinner served at the hotel. Stay at Hotel Adam Park.',
+            },
+            {
+                day: 'Day 2',
+                title: 'Full Day Sightseeing in Marrakech',
+                description:
+                    'After breakfast, meet your local English-speaking guide for a full day of sightseeing in Marrakech. The tour begins with a visit to the Majorelle Garden, followed by lunch at an Italian restaurant. After lunch, continue with a visit to the Bahia Palace then Ben Youssef Madrasa. In the evening, enjoy dinner at a restaurant featuring a traditional belly dance show. Stay at Hotel Adam Park.',
+            },
+            {
+                day: 'Day 3',
+                title: 'Marrakech – Ait Ben Haddou – Zagora',
+                description:
+                    "After breakfast, meet your driver and transfer to Zagora. Along the way, have a WC stop at Tizi n'Tichka Pass, followed by lunch at a local restaurant in Ait Ben Haddou. After lunch, visit Ait Ben Haddou to explore one of Morocco's most iconic historical sites. Afterwards, proceed to Zagora. Upon arrival, check in to your hotel and enjoy dinner. Stay at Riad Lamane in Zagora.",
+            },
+            {
+                day: 'Day 4',
+                title: 'Zagora – Ouarzazate – Marrakech',
+                description:
+                    'Early in the morning, enjoy the sunrise over the Tinfou Dunes with your driver, including a camel ride. After breakfast, meet your driver and transfer toward Ouarzazate. Upon arrival, enjoy lunch at a local restaurant. After lunch, visit Taourirt Kasbah and continue the journey back to Marrakech. On arrival, check in to your riad. Dinner at the riad. Optional: visit the Atlas Film Studios (pay on spot). Stay at Riad Palais Sebban in Marrakech.',
+            },
+            {
+                day: 'Day 5',
+                title: 'Spa & Half Day Sightseeing in Marrakech',
+                description:
+                    'Enjoy a relaxed morning at your leisure. At 12:00, your local guide will meet you and escort you into the heart of the old medina for a traditional lunch, where you will savor Tanjia. After lunch, continue discovering the vibrant atmosphere of the medina. At 16:00, indulge in a traditional Moroccan wellness ritual with a relaxing session at a Hammam, including a cleansing steam bath and soothing massage. Later, dinner at a local restaurant overlooking Jemaa el-Fnaa. Stay at Riad Palais Sebban in Marrakech.',
+            },
+            {
+                day: 'Day 6',
+                title: 'Marrakech – Casablanca Airport',
+                description:
+                    'After breakfast at the Riad, meet your driver and transfer by private car to Casablanca Mohammed V International Airport (CMN). Upon arrival at the airport, clients will check in independently for their flight.',
+            },
+        ],
+        included: [
+            'Airport pick-up and drop-off in Casablanca',
+            'Private transportation with English-speaking driver throughout the tour (except Day 5)',
+            'Local guide for city tours in Marrakech on Day 2 and Day 5',
+            'Accommodation: Marrakech (2 nights at hotel), Zagora (1 night), Marrakech (2 nights at Riad)',
+            'Daily breakfasts, lunches, and dinners as mentioned in the itinerary',
+            'Visit to Majorelle Garden',
+            'Visit to Bahia Palace and Ben Youssef Madrasa',
+            'Visit to Ait Ben Haddou Kasbah',
+            'Camel ride experience at Tinfou Dunes',
+            'Visit to Taourirt Kasbah',
+            'Spa experience in Marrakech (45 min Traditional Hammam and Massage)',
+            'Free time to explore medinas and local markets',
+        ],
+        excluded: [
+            'International flights',
+            'Travel insurance',
+            'Optional visit to Atlas Film Studios (pay on spot)',
+            'Beverages and personal expenses',
+            'Tips and porterage',
+            'Optional activities not mentioned',
+            'Any services not listed in the inclusions',
+            'Peak season supplements',
+            'Gratuities',
+        ],
+    },
+    {
         id: '3-days-from-fes-and-back-to-marrakech',
         title: '3 Days From Fes and back to Marrakech',
         duration: '3 Days',
-        nights: '4 Nights',
-        startingPoint: 'Marrakech',
+        nights: '2 Nights',
+        startingPoint: 'Fes',
         description:
             "This 3-day tour offers an incredible opportunity to explore the diverse landscapes and rich culture of Morocco. Starting in Fes, you'll venture into the Sahara Desert, experiencing the breathtaking beauty...",
         url: 'https://mct-tours.com/trip/3-days-from-fes-and-back-to-marrakech/',
+        accommodation: 'Camp and Hotel',
         tripType: 'Short tours',
         difficulty: 'Easy',
         arrivalCity: 'Marrakech',

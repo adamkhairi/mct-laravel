@@ -40,7 +40,11 @@ export default function Show({ tour }: { tour: any }) {
             <MetaTags
                 title={__(tour.title)}
                 description={__(tour.description)}
-                image={resolvedImage.startsWith('http') ? resolvedImage : `https://www.moroccanclubtravel.com${resolvedImage}`}
+                image={
+                    resolvedImage.startsWith('http')
+                        ? resolvedImage
+                        : `https://www.moroccanclubtravel.com${resolvedImage}`
+                }
                 url={`https://www.moroccanclubtravel.com/tours/${tour.slug}`}
                 type="article"
             />
@@ -218,7 +222,9 @@ export default function Show({ tour }: { tour: any }) {
                                 ) : (
                                     <div className="border-y border-foreground/10 py-8">
                                         <p className="text-foreground/60 italic">
-                                            {__('Itinerary details coming soon.')}
+                                            {__(
+                                                'Itinerary details coming soon.',
+                                            )}
                                         </p>
                                     </div>
                                 )}
@@ -310,7 +316,9 @@ export default function Show({ tour }: { tour: any }) {
                                             {__(tour.duration)}
                                         </p>
                                         <p className="text-foreground/70">
-                                            {__(':nights Nights', { nights: tour.nights })}
+                                            {__(':nights Nights', {
+                                                nights: tour.nights,
+                                            })}
                                         </p>
                                     </div>
 
@@ -328,7 +336,9 @@ export default function Show({ tour }: { tour: any }) {
                                             {__('Type')}
                                         </p>
                                         <p className="font-display text-2xl">
-                                            {__(tour.tripType || 'General Tour')}
+                                            {__(
+                                                tour.tripType || 'General Tour',
+                                            )}
                                         </p>
                                     </div>
 
@@ -363,38 +373,42 @@ export default function Show({ tour }: { tour: any }) {
                     __html: JSON.stringify({
                         '@context': 'https://schema.org',
                         '@type': 'TouristTrip',
-                        'name': tour.title,
-                        'description': tour.description,
-                        'duration': tour.duration,
-                        'image': tour.image ? (tour.image.startsWith('/') ? tour.image : `/assets/${tour.image}`) : 'https://www.moroccanclubtravel.com/assets/tour-sahara-camp.jpg',
-                        'url': `https://www.moroccanclubtravel.com/tours/${tour.slug}`,
-                        'offers': {
+                        name: tour.title,
+                        description: tour.description,
+                        duration: tour.duration,
+                        image: tour.image
+                            ? tour.image.startsWith('/')
+                                ? tour.image
+                                : `/assets/${tour.image}`
+                            : 'https://www.moroccanclubtravel.com/assets/tour-sahara-camp.jpg',
+                        url: `https://www.moroccanclubtravel.com/tours/${tour.slug}`,
+                        offers: {
                             '@type': 'Offer',
-                            'price': tour.price || '0',
-                            'priceCurrency': 'EUR',
-                            'url': `https://www.moroccanclubtravel.com/tours/${tour.slug}`,
-                            'eligibleRegion': {
+                            price: tour.price || '0',
+                            priceCurrency: 'EUR',
+                            url: `https://www.moroccanclubtravel.com/tours/${tour.slug}`,
+                            eligibleRegion: {
                                 '@type': 'Country',
-                                'name': 'MA'
-                            }
+                                name: 'MA',
+                            },
                         },
-                        'itinerary': itinerary.map((item: any, idx: number) => ({
+                        itinerary: itinerary.map((item: any, idx: number) => ({
                             '@type': 'HowToStep',
-                            'position': idx + 1,
-                            'name': item.day || `Day ${idx + 1}`,
-                            'itemListElement': [
+                            position: idx + 1,
+                            name: item.day || `Day ${idx + 1}`,
+                            itemListElement: [
                                 {
                                     '@type': 'HowToDirection',
-                                    'text': `${item.title}: ${item.description}`
-                                }
-                            ]
+                                    text: `${item.title}: ${item.description}`,
+                                },
+                            ],
                         })),
-                        'provider': {
+                        provider: {
                             '@type': 'TravelAgency',
-                            'name': 'Moroccan Club Travel',
-                            'url': 'https://www.moroccanclubtravel.com'
-                        }
-                    })
+                            name: 'Moroccan Club Travel',
+                            url: 'https://www.moroccanclubtravel.com',
+                        },
+                    }),
                 }}
             />
 
@@ -405,26 +419,26 @@ export default function Show({ tour }: { tour: any }) {
                     __html: JSON.stringify({
                         '@context': 'https://schema.org',
                         '@type': 'BreadcrumbList',
-                        'itemListElement': [
+                        itemListElement: [
                             {
                                 '@type': 'ListItem',
-                                'position': 1,
-                                'name': 'Home',
-                                'item': 'https://www.moroccanclubtravel.com'
+                                position: 1,
+                                name: 'Home',
+                                item: 'https://www.moroccanclubtravel.com',
                             },
                             {
                                 '@type': 'ListItem',
-                                'position': 2,
-                                'name': 'Tours',
-                                'item': 'https://www.moroccanclubtravel.com/tours'
+                                position: 2,
+                                name: 'Tours',
+                                item: 'https://www.moroccanclubtravel.com/tours',
                             },
                             {
-                                'position': 3,
-                                'name': __(tour.title),
-                                'item': `https://www.moroccanclubtravel.com/tours/${tour.slug}`
-                            }
-                        ]
-                    })
+                                position: 3,
+                                name: __(tour.title),
+                                item: `https://www.moroccanclubtravel.com/tours/${tour.slug}`,
+                            },
+                        ],
+                    }),
                 }}
             />
         </SiteLayout>

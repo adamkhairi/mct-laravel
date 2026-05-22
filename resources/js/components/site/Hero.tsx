@@ -19,7 +19,10 @@ export function Hero() {
                     {__('Est. 2014 — Marrakesh')}
                 </span>
                 <h1 className="max-w-[14ch] font-display text-5xl leading-[0.92] font-bold text-balance sm:text-7xl md:text-[8.5vw] lg:text-9xl">
-                    {__('The')} <i className="font-normal text-terracotta">{__('Silent')}</i>{' '}
+                    {__('The')}{' '}
+                    <i className="font-normal text-terracotta">
+                        {__('Silent')}
+                    </i>{' '}
                     {__('Magic of the Maghreb.')}
                 </h1>
                 <div className="mt-10 flex flex-col gap-8 md:mt-14 md:flex-row md:items-center md:gap-12">
@@ -30,7 +33,9 @@ export function Hero() {
                         {__('Reserve Your Journey')}
                     </a>
                     <p className="max-w-xs text-sm leading-relaxed text-ivory/80">
-                        {__('Bespoke tours through the high Atlas, the red city, and the drifting sands of the deep south.')}
+                        {__(
+                            'Bespoke tours through the high Atlas, the red city, and the drifting sands of the deep south.',
+                        )}
                     </p>
                 </div>
             </div>

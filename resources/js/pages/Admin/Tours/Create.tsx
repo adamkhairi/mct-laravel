@@ -23,7 +23,9 @@ export default function Create() {
         arrival_city: '',
         description: '',
         is_published: false,
-        itinerary: [{ day: 'Day 1', title: '', description: '' }] as ItineraryItem[],
+        itinerary: [
+            { day: 'Day 1', title: '', description: '' },
+        ] as ItineraryItem[],
         included: [''] as string[],
         excluded: [''] as string[],
         image_file: null as File | null,
@@ -37,11 +39,19 @@ export default function Create() {
     const addItineraryDay = () => {
         setData('itinerary', [
             ...data.itinerary,
-            { day: `Day ${data.itinerary.length + 1}`, title: '', description: '' }
+            {
+                day: `Day ${data.itinerary.length + 1}`,
+                title: '',
+                description: '',
+            },
         ]);
     };
 
-    const updateItineraryDay = (index: number, field: keyof ItineraryItem, value: string) => {
+    const updateItineraryDay = (
+        index: number,
+        field: keyof ItineraryItem,
+        value: string,
+    ) => {
         const newItinerary = [...data.itinerary];
         newItinerary[index] = { ...newItinerary[index], [field]: value };
         setData('itinerary', newItinerary);
@@ -51,7 +61,7 @@ export default function Create() {
         const newItinerary = data.itinerary.filter((_, i) => i !== index);
         const renumbered = newItinerary.map((item, i) => ({
             ...item,
-            day: `Day ${i + 1}`
+            day: `Day ${i + 1}`,
         }));
         setData('itinerary', renumbered);
     };
@@ -67,7 +77,10 @@ export default function Create() {
     };
 
     const removeIncluded = (index: number) => {
-        setData('included', data.included.filter((_, i) => i !== index));
+        setData(
+            'included',
+            data.included.filter((_, i) => i !== index),
+        );
     };
 
     const addExcluded = () => {
@@ -81,7 +94,10 @@ export default function Create() {
     };
 
     const removeExcluded = (index: number) => {
-        setData('excluded', data.excluded.filter((_, i) => i !== index));
+        setData(
+            'excluded',
+            data.excluded.filter((_, i) => i !== index),
+        );
     };
 
     const slugify = (text: string) => {
@@ -105,164 +121,273 @@ export default function Create() {
     return (
         <>
             <Head title="Add New Tour" />
-            <div className="space-y-10 max-w-5xl mx-auto w-full">
+            <div className="mx-auto w-full max-w-5xl space-y-10">
                 <div>
                     <div className="flex items-center gap-3">
                         <Link
                             href={admin.tours.index().url}
-                            className="text-indigo-ink/60 hover:text-terracotta transition-colors"
+                            className="text-indigo-ink/60 transition-colors hover:text-terracotta"
                         >
                             <ArrowLeft className="h-6 w-6" />
                         </Link>
-                        <h1 className="font-display text-4xl font-bold text-indigo-ink">Add New Tour</h1>
+                        <h1 className="font-display text-4xl font-bold text-indigo-ink">
+                            Add New Tour
+                        </h1>
                     </div>
-                    <p className="text-muted-foreground mt-2">Create a new journey for your collection.</p>
+                    <p className="mt-2 text-muted-foreground">
+                        Create a new journey for your collection.
+                    </p>
                 </div>
 
-                <form onSubmit={submit} className="space-y-8 max-w-5xl">
+                <form onSubmit={submit} className="max-w-5xl space-y-8">
                     <div className="space-y-6">
-                        <h2 className="font-display text-2xl font-bold text-indigo-ink border-b border-indigo-ink/5 pb-3">Essential Details</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <h2 className="border-b border-indigo-ink/5 pb-3 font-display text-2xl font-bold text-indigo-ink">
+                            Essential Details
+                        </h2>
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div className="space-y-1">
-                                <label className="eyebrow text-indigo-ink/60 text-[10px] tracking-wider uppercase block">Journey Title</label>
+                                <label className="eyebrow block text-[10px] tracking-wider text-indigo-ink/60 uppercase">
+                                    Journey Title
+                                </label>
                                 <Input
                                     value={data.title}
-                                    onChange={(e) => handleTitleChange(e.target.value)}
-                                    className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 shadow-none h-10 focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors"
+                                    onChange={(e) =>
+                                        handleTitleChange(e.target.value)
+                                    }
+                                    className="h-10 rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                     required
                                 />
-                                {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title}</p>}
+                                {errors.title && (
+                                    <p className="mt-1 text-xs text-red-500">
+                                        {errors.title}
+                                    </p>
+                                )}
                             </div>
                             <div className="space-y-1">
-                                <label className="eyebrow text-indigo-ink/60 text-[10px] tracking-wider uppercase block">Url Slug</label>
+                                <label className="eyebrow block text-[10px] tracking-wider text-indigo-ink/60 uppercase">
+                                    Url Slug
+                                </label>
                                 <Input
                                     value={data.slug}
-                                    onChange={(e) => setData('slug', e.target.value)}
-                                    className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 shadow-none h-10 focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors"
+                                    onChange={(e) =>
+                                        setData('slug', e.target.value)
+                                    }
+                                    className="h-10 rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                     required
                                 />
-                                {errors.slug && <p className="text-red-500 text-xs mt-1">{errors.slug}</p>}
+                                {errors.slug && (
+                                    <p className="mt-1 text-xs text-red-500">
+                                        {errors.slug}
+                                    </p>
+                                )}
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                             <div className="space-y-1">
-                                <label className="eyebrow text-indigo-ink/60 text-[10px] tracking-wider uppercase block">Duration</label>
+                                <label className="eyebrow block text-[10px] tracking-wider text-indigo-ink/60 uppercase">
+                                    Duration
+                                </label>
                                 <Input
                                     placeholder="e.g. 8 Days"
                                     value={data.duration}
-                                    onChange={(e) => setData('duration', e.target.value)}
-                                    className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 shadow-none h-10 focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors"
+                                    onChange={(e) =>
+                                        setData('duration', e.target.value)
+                                    }
+                                    className="h-10 rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                     required
                                 />
-                                {errors.duration && <p className="text-red-500 text-xs mt-1">{errors.duration}</p>}
+                                {errors.duration && (
+                                    <p className="mt-1 text-xs text-red-500">
+                                        {errors.duration}
+                                    </p>
+                                )}
                             </div>
                             <div className="space-y-1">
-                                <label className="eyebrow text-indigo-ink/60 text-[10px] tracking-wider uppercase block">Nights</label>
+                                <label className="eyebrow block text-[10px] tracking-wider text-indigo-ink/60 uppercase">
+                                    Nights
+                                </label>
                                 <Input
                                     placeholder="e.g. 7 Nights"
                                     value={data.nights}
-                                    onChange={(e) => setData('nights', e.target.value)}
-                                    className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 shadow-none h-10 focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors"
+                                    onChange={(e) =>
+                                        setData('nights', e.target.value)
+                                    }
+                                    className="h-10 rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                     required
                                 />
-                                {errors.nights && <p className="text-red-500 text-xs mt-1">{errors.nights}</p>}
+                                {errors.nights && (
+                                    <p className="mt-1 text-xs text-red-500">
+                                        {errors.nights}
+                                    </p>
+                                )}
                             </div>
                             <div className="space-y-1">
-                                <label className="eyebrow text-indigo-ink/60 text-[10px] tracking-wider uppercase block">Starting Point</label>
+                                <label className="eyebrow block text-[10px] tracking-wider text-indigo-ink/60 uppercase">
+                                    Starting Point
+                                </label>
                                 <Input
                                     placeholder="e.g. Marrakech"
                                     value={data.starting_point}
-                                    onChange={(e) => setData('starting_point', e.target.value)}
-                                    className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 shadow-none h-10 focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors"
+                                    onChange={(e) =>
+                                        setData(
+                                            'starting_point',
+                                            e.target.value,
+                                        )
+                                    }
+                                    className="h-10 rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                     required
                                 />
-                                {errors.starting_point && <p className="text-red-500 text-xs mt-1">{errors.starting_point}</p>}
+                                {errors.starting_point && (
+                                    <p className="mt-1 text-xs text-red-500">
+                                        {errors.starting_point}
+                                    </p>
+                                )}
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 gap-6">
                             <div className="space-y-1">
-                                <label className="eyebrow text-indigo-ink/60 text-[10px] tracking-wider uppercase block">Arrival City</label>
+                                <label className="eyebrow block text-[10px] tracking-wider text-indigo-ink/60 uppercase">
+                                    Arrival City
+                                </label>
                                 <Input
                                     placeholder="e.g. Casablanca (Optional)"
                                     value={data.arrival_city}
-                                    onChange={(e) => setData('arrival_city', e.target.value)}
-                                    className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 shadow-none h-10 focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors"
+                                    onChange={(e) =>
+                                        setData('arrival_city', e.target.value)
+                                    }
+                                    className="h-10 rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                 />
-                                {errors.arrival_city && <p className="text-red-500 text-xs mt-1">{errors.arrival_city}</p>}
+                                {errors.arrival_city && (
+                                    <p className="mt-1 text-xs text-red-500">
+                                        {errors.arrival_city}
+                                    </p>
+                                )}
                             </div>
                         </div>
 
                         <div className="space-y-1">
-                            <label className="eyebrow text-indigo-ink/60 text-[10px] tracking-wider uppercase block">Description</label>
+                            <label className="eyebrow block text-[10px] tracking-wider text-indigo-ink/60 uppercase">
+                                Description
+                            </label>
                             <Textarea
                                 rows={4}
                                 value={data.description}
-                                onChange={(e) => setData('description', e.target.value)}
-                                className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 py-2 shadow-none focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors resize-none min-h-[80px]"
+                                onChange={(e) =>
+                                    setData('description', e.target.value)
+                                }
+                                className="min-h-[80px] resize-none rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 py-2 shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                 required
                             />
-                            {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
+                            {errors.description && (
+                                <p className="mt-1 text-xs text-red-500">
+                                    {errors.description}
+                                </p>
+                            )}
                         </div>
 
                         <div className="space-y-1 pt-4">
-                            <label className="eyebrow text-indigo-ink/60 text-[10px] tracking-wider uppercase block">Featured Image</label>
+                            <label className="eyebrow block text-[10px] tracking-wider text-indigo-ink/60 uppercase">
+                                Featured Image
+                            </label>
                             <Input
                                 type="file"
                                 accept="image/*"
-                                onChange={(e) => setData('image_file', e.target.files ? e.target.files[0] : null)}
-                                className="cursor-pointer border-dashed border-2 border-indigo-ink/10 rounded-lg p-8 h-auto hover:border-terracotta transition-colors text-center"
+                                onChange={(e) =>
+                                    setData(
+                                        'image_file',
+                                        e.target.files
+                                            ? e.target.files[0]
+                                            : null,
+                                    )
+                                }
+                                className="h-auto cursor-pointer rounded-lg border-2 border-dashed border-indigo-ink/10 p-8 text-center transition-colors hover:border-terracotta"
                             />
-                            <p className="text-[10px] text-muted-foreground mt-2 italic">Max 2MB (JPEG, PNG, JPG, GIF)</p>
-                            {errors.image_file && <p className="text-red-500 text-xs mt-1">{errors.image_file as string}</p>}
+                            <p className="mt-2 text-[10px] text-muted-foreground italic">
+                                Max 2MB (JPEG, PNG, JPG, GIF)
+                            </p>
+                            {errors.image_file && (
+                                <p className="mt-1 text-xs text-red-500">
+                                    {errors.image_file as string}
+                                </p>
+                            )}
                         </div>
                     </div>
 
                     <div className="space-y-6">
                         <div className="flex items-center justify-between border-b border-indigo-ink/5 pb-3">
-                            <h2 className="font-display text-2xl font-bold text-indigo-ink">Itinerary</h2>
+                            <h2 className="font-display text-2xl font-bold text-indigo-ink">
+                                Itinerary
+                            </h2>
                             <Button
                                 type="button"
                                 variant="outline"
                                 size="sm"
-                                className="rounded-none border-terracotta text-terracotta hover:bg-terracotta hover:text-ivory transition-colors eyebrow h-9 px-4"
+                                className="eyebrow h-9 rounded-none border-terracotta px-4 text-terracotta transition-colors hover:bg-terracotta hover:text-ivory"
                                 onClick={addItineraryDay}
                             >
-                                <Plus className="w-3 h-3 mr-2" /> Add Day
+                                <Plus className="mr-2 h-3 w-3" /> Add Day
                             </Button>
                         </div>
                         <div className="grid gap-4">
                             {data.itinerary.map((item, index) => (
-                                <div key={index} className="relative group bg-transparent py-5 border-b border-indigo-ink/10 transition-colors first:pt-2">
+                                <div
+                                    key={index}
+                                    className="group relative border-b border-indigo-ink/10 bg-transparent py-5 transition-colors first:pt-2"
+                                >
                                     <div className="flex items-start gap-6">
                                         <div className="w-24 shrink-0 space-y-1">
-                                            <span className="eyebrow text-[9px] opacity-50 block">Day</span>
+                                            <span className="eyebrow block text-[9px] opacity-50">
+                                                Day
+                                            </span>
                                             <Input
                                                 value={item.day}
-                                                onChange={(e) => updateItineraryDay(index, 'day', e.target.value)}
-                                                className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 shadow-none h-10 font-display text-xl focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors"
+                                                onChange={(e) =>
+                                                    updateItineraryDay(
+                                                        index,
+                                                        'day',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className="h-10 rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 font-display text-xl shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                                 required
                                             />
                                         </div>
                                         <div className="flex-1 space-y-4">
                                             <div className="space-y-1">
-                                                <span className="eyebrow text-[9px] opacity-50 block">Milestone</span>
+                                                <span className="eyebrow block text-[9px] opacity-50">
+                                                    Milestone
+                                                </span>
                                                 <Input
                                                     placeholder="Title of the day"
                                                     value={item.title}
-                                                    onChange={(e) => updateItineraryDay(index, 'title', e.target.value)}
-                                                    className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 shadow-none h-10 font-medium focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors"
+                                                    onChange={(e) =>
+                                                        updateItineraryDay(
+                                                            index,
+                                                            'title',
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                    className="h-10 rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 font-medium shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                                     required
                                                 />
                                             </div>
                                             <div className="space-y-1">
-                                                <span className="eyebrow text-[9px] opacity-50 block">Narrative</span>
+                                                <span className="eyebrow block text-[9px] opacity-50">
+                                                    Narrative
+                                                </span>
                                                 <Textarea
                                                     placeholder="Describe the day's experiences..."
                                                     value={item.description}
-                                                    onChange={(e) => updateItineraryDay(index, 'description', e.target.value)}
-                                                    className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 py-2 shadow-none focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors min-h-[60px] resize-none"
+                                                    onChange={(e) =>
+                                                        updateItineraryDay(
+                                                            index,
+                                                            'description',
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                    className="min-h-[60px] resize-none rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 py-2 shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                                     required
                                                 />
                                             </div>
@@ -272,10 +397,12 @@ export default function Create() {
                                                 type="button"
                                                 variant="ghost"
                                                 size="icon"
-                                                className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition-all mt-2"
-                                                onClick={() => removeItineraryDay(index)}
+                                                className="mt-2 text-muted-foreground opacity-0 transition-all group-hover:opacity-100 hover:text-destructive"
+                                                onClick={() =>
+                                                    removeItineraryDay(index)
+                                                }
                                             >
-                                                <Trash2 className="w-4 h-4" />
+                                                <Trash2 className="h-4 w-4" />
                                             </Button>
                                         )}
                                     </div>
@@ -284,28 +411,38 @@ export default function Create() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                         <div className="space-y-4">
                             <div className="flex items-center justify-between border-b border-indigo-ink/5 pb-3">
-                                <h3 className="font-display text-xl font-bold text-indigo-ink">What's Included</h3>
+                                <h3 className="font-display text-xl font-bold text-indigo-ink">
+                                    What's Included
+                                </h3>
                                 <Button
                                     type="button"
                                     variant="outline"
                                     size="sm"
-                                    className="rounded-none border-terracotta text-terracotta hover:bg-terracotta hover:text-ivory transition-colors eyebrow h-8 px-3"
+                                    className="eyebrow h-8 rounded-none border-terracotta px-3 text-terracotta transition-colors hover:bg-terracotta hover:text-ivory"
                                     onClick={addIncluded}
                                 >
-                                    <Plus className="w-3 h-3 mr-1" /> Add
+                                    <Plus className="mr-1 h-3 w-3" /> Add
                                 </Button>
                             </div>
                             <div className="space-y-2">
                                 {data.included.map((item, index) => (
-                                    <div key={index} className="flex items-center gap-2">
+                                    <div
+                                        key={index}
+                                        className="flex items-center gap-2"
+                                    >
                                         <Input
                                             value={item}
-                                            onChange={(e) => updateIncluded(index, e.target.value)}
+                                            onChange={(e) =>
+                                                updateIncluded(
+                                                    index,
+                                                    e.target.value,
+                                                )
+                                            }
                                             placeholder="e.g. Luxury Riad accommodation"
-                                            className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 shadow-none h-10 focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors flex-1"
+                                            className="h-10 flex-1 rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                         />
                                         {data.included.length > 1 && (
                                             <Button
@@ -313,9 +450,11 @@ export default function Create() {
                                                 variant="ghost"
                                                 size="icon"
                                                 className="text-muted-foreground hover:text-destructive"
-                                                onClick={() => removeIncluded(index)}
+                                                onClick={() =>
+                                                    removeIncluded(index)
+                                                }
                                             >
-                                                <Trash2 className="w-4 h-4" />
+                                                <Trash2 className="h-4 w-4" />
                                             </Button>
                                         )}
                                     </div>
@@ -325,25 +464,35 @@ export default function Create() {
 
                         <div className="space-y-4">
                             <div className="flex items-center justify-between border-b border-indigo-ink/5 pb-3">
-                                <h3 className="font-display text-xl font-bold text-indigo-ink">What's Excluded</h3>
+                                <h3 className="font-display text-xl font-bold text-indigo-ink">
+                                    What's Excluded
+                                </h3>
                                 <Button
                                     type="button"
                                     variant="outline"
                                     size="sm"
-                                    className="rounded-none border-terracotta text-terracotta hover:bg-terracotta hover:text-ivory transition-colors eyebrow h-8 px-3"
+                                    className="eyebrow h-8 rounded-none border-terracotta px-3 text-terracotta transition-colors hover:bg-terracotta hover:text-ivory"
                                     onClick={addExcluded}
                                 >
-                                    <Plus className="w-3 h-3 mr-1" /> Add
+                                    <Plus className="mr-1 h-3 w-3" /> Add
                                 </Button>
                             </div>
                             <div className="space-y-2">
                                 {data.excluded.map((item, index) => (
-                                    <div key={index} className="flex items-center gap-2">
+                                    <div
+                                        key={index}
+                                        className="flex items-center gap-2"
+                                    >
                                         <Input
                                             value={item}
-                                            onChange={(e) => updateExcluded(index, e.target.value)}
+                                            onChange={(e) =>
+                                                updateExcluded(
+                                                    index,
+                                                    e.target.value,
+                                                )
+                                            }
                                             placeholder="e.g. International flights"
-                                            className="rounded-none border-t-0 border-l-0 border-r-0 border-b border-indigo-ink/20 bg-transparent px-0 shadow-none h-10 focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-terracotta hover:border-indigo-ink/40 transition-colors flex-1"
+                                            className="h-10 flex-1 rounded-none border-t-0 border-r-0 border-b border-l-0 border-indigo-ink/20 bg-transparent px-0 shadow-none transition-colors hover:border-indigo-ink/40 focus-visible:border-b-2 focus-visible:border-terracotta focus-visible:ring-0"
                                         />
                                         {data.excluded.length > 1 && (
                                             <Button
@@ -351,9 +500,11 @@ export default function Create() {
                                                 variant="ghost"
                                                 size="icon"
                                                 className="text-muted-foreground hover:text-destructive"
-                                                onClick={() => removeExcluded(index)}
+                                                onClick={() =>
+                                                    removeExcluded(index)
+                                                }
                                             >
-                                                <Trash2 className="w-4 h-4" />
+                                                <Trash2 className="h-4 w-4" />
                                             </Button>
                                         )}
                                     </div>
@@ -363,15 +514,24 @@ export default function Create() {
                     </div>
 
                     <div className="space-y-6">
-                        <h2 className="font-display text-2xl font-bold text-indigo-ink border-b border-indigo-ink/5 pb-3">Settings & Visibility</h2>
+                        <h2 className="border-b border-indigo-ink/5 pb-3 font-display text-2xl font-bold text-indigo-ink">
+                            Settings & Visibility
+                        </h2>
                         <div className="flex items-center justify-between rounded-none border-b border-indigo-ink/10 bg-transparent py-6">
                             <div className="space-y-1">
-                                <span className="font-display text-xl block text-indigo-ink">Published</span>
-                                <span className="text-xs font-light text-muted-foreground">Make this journey visible to the public on the collection page.</span>
+                                <span className="block font-display text-xl text-indigo-ink">
+                                    Published
+                                </span>
+                                <span className="text-xs font-light text-muted-foreground">
+                                    Make this journey visible to the public on
+                                    the collection page.
+                                </span>
                             </div>
                             <Switch
                                 checked={data.is_published}
-                                onCheckedChange={(checked) => setData('is_published', checked)}
+                                onCheckedChange={(checked) =>
+                                    setData('is_published', checked)
+                                }
                                 className="data-[state=checked]:bg-terracotta"
                             />
                         </div>
@@ -380,9 +540,11 @@ export default function Create() {
                     <Button
                         type="submit"
                         disabled={processing}
-                        className="w-full bg-terracotta hover:bg-terracotta/90 text-ivory rounded-none h-14 eyebrow text-sm tracking-[0.2em] shadow-lg shadow-terracotta/10 active:scale-[0.99] transition-all"
+                        className="eyebrow h-14 w-full rounded-none bg-terracotta text-sm tracking-[0.2em] text-ivory shadow-lg shadow-terracotta/10 transition-all hover:bg-terracotta/90 active:scale-[0.99]"
                     >
-                        {processing && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                        {processing && (
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        )}
                         Confirm and Create Journey
                     </Button>
                 </form>

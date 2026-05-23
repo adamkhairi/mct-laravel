@@ -13,9 +13,9 @@ class HomeController extends Controller
     {
         $featuredIds = [
             'andalusian-heritage-tour',
-            'sahara-imperial-cities-7-days',
+            'moorish-heritage-desert-tour-11-days',
             'northern-morocco-grand-loop-7-days',
-            'atlantic-coast-marrakech-10-days',
+            'south-morocco-tour-6-days',
         ];
 
         $featuredTours = Tour::published()

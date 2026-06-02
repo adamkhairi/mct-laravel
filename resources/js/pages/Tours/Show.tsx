@@ -325,9 +325,7 @@ return tour.image;
                                             {__(tour.duration)}
                                         </p>
                                         <p className="text-foreground/70">
-                                            {__(':nights Nights', {
-                                                nights: tour.nights,
-                                            })}
+                                            {__(tour.nights)}
                                         </p>
                                     </div>
 

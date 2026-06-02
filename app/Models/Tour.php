@@ -29,6 +29,7 @@ class Tour extends Model
         'guide',
         'trip_type',
         'difficulty',
+        'languages',
         'itinerary',
         'included',
         'excluded',

@@ -200,3 +200,14 @@
 .animate-scale-in {
     animation: scale-in 1.6s var(--ease-out-expo) both;
 }
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+.animate-marquee {
+    animation: marquee 28s linear infinite;
+}

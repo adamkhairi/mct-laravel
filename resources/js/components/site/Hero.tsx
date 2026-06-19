@@ -1,4 +1,4 @@
-import heroImg from '@/assets/hero-sahara.jpg';
+import heroImg from '@/assets/hero-1.jpg';
 import { useTranslation } from '@/hooks/use-translation';
 
 export function Hero() {
@@ -12,7 +12,7 @@ export function Hero() {
                     alt={__('Sahara desert dunes at golden hour')}
                     className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-clay/85 via-clay/40 to-clay/30" />
+                <div className="absolute inset-0 bg-gradient-to-t from-clay/75 via-clay/20 to-clay/10" />
             </div>
 
             <div className="animate-fade-up relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 text-ivory [animation-delay:300ms] md:px-10 md:pb-24">

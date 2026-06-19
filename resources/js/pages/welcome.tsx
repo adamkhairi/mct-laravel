@@ -5,6 +5,7 @@ import { Footer } from '@/components/site/Footer';
 import { Header } from '@/components/site/Header';
 import { Hero } from '@/components/site/Hero';
 import { MetaTags } from '@/components/site/MetaTags';
+import { Partners } from '@/components/site/Partners';
 import { Philosophy } from '@/components/site/Philosophy';
 import { Reviews } from '@/components/site/Reviews';
 import { Tours } from '@/components/site/Tours';
@@ -51,6 +52,7 @@ export default function Welcome({ featuredTours, totalToursCount }: WelcomeProps
                 <Philosophy />
                 <Reviews />
                 <FAQ />
+                <Partners />
                 <CinematicBreak />
                 <Contact />
             </main>

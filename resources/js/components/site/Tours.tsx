@@ -1,5 +1,5 @@
-import { ArrowRight } from 'lucide-react';
 import { Link } from '@inertiajs/react';
+import { ArrowRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 
 interface Tour {
@@ -20,14 +20,15 @@ interface ToursProps {
 export function Tours({ featuredTours, totalToursCount }: ToursProps) {
     const { __ } = useTranslation();
 
-    if (!featuredTours.length) return null;
+    if (!featuredTours.length) {
+return null;
+}
 
     const [hero, second, third, ...extras] = featuredTours;
 
     return (
         <section id="tours" className="bg-sand px-6 py-24 md:px-10 md:py-32">
             <div className="mx-auto max-w-7xl">
-
                 {/* ── Section header ── */}
                 <div className="mb-16 flex flex-col gap-8 md:mb-20 md:flex-row md:items-end md:justify-between">
                     <div>
@@ -38,7 +39,7 @@ export function Tours({ featuredTours, totalToursCount }: ToursProps) {
                         <h2 className="font-display text-4xl leading-[1.0] font-bold text-indigo-ink md:text-6xl">
                             {__('Curated')}
                             <br />
-                            <span className="font-normal italic text-indigo-ink/40">
+                            <span className="font-normal text-indigo-ink/40 italic">
                                 {__('Tours')}
                             </span>
                         </h2>
@@ -62,7 +63,6 @@ export function Tours({ featuredTours, totalToursCount }: ToursProps) {
                     Right cards each fill exactly half of that height.
                 ── */}
                 <div className="grid grid-cols-1 gap-2 md:h-[640px] md:grid-cols-[1.15fr_1fr] md:gap-2">
-
                     {/* Hero — portrait on mobile, full height on desktop */}
                     {hero && (
                         <TourCard

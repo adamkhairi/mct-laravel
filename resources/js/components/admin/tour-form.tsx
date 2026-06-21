@@ -120,8 +120,8 @@ export function TourForm({ initialData }: TourFormProps) {
             });
 
             if (!response.ok) {
-throw new Error('Failed to save tour');
-}
+                throw new Error('Failed to save tour');
+            }
 
             toast.success(initialData ? 'Tour updated' : 'Tour created');
             router.push('/admin');

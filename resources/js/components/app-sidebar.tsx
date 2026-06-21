@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
 import admin from '@/routes/admin';
-import type {User} from '@/types/auth';
+import type { User } from '@/types/auth';
 
 export function AppSidebar() {
     const { auth } = usePage<{ auth: { user: User } }>().props;

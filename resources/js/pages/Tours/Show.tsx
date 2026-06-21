@@ -30,16 +30,16 @@ export default function Show({ tour }: { tour: any }) {
 
     const resolvedImage = useMemo(() => {
         if (!tour.image) {
-return '/assets/tour-sahara-camp.jpg';
-}
+            return '/assets/tour-sahara-camp.jpg';
+        }
 
         if (tour.image.startsWith('http')) {
-return tour.image;
-}
+            return tour.image;
+        }
 
         if (tour.image.startsWith('/')) {
-return tour.image;
-}
+            return tour.image;
+        }
 
         return `/assets/${tour.image}`;
     }, [tour.image]);

@@ -84,15 +84,15 @@ export default function Index({ tours: toursPaginated }: { tours: any }) {
 
     const formatDate = (dateString: string) => {
         if (!dateString) {
-return 'N/A';
-}
+            return 'N/A';
+        }
 
         try {
             const date = new Date(dateString);
 
             if (isNaN(date.getTime())) {
-return 'N/A';
-}
+                return 'N/A';
+            }
 
             return date.toLocaleDateString('en-US', {
                 month: 'short',
@@ -120,8 +120,8 @@ return 'N/A';
                 const matchesStart = startingPoint.includes(query);
 
                 if (!matchesTitle && !matchesDesc && !matchesStart) {
-return false;
-}
+                    return false;
+                }
             }
 
             if (destination !== 'all') {
@@ -138,44 +138,44 @@ return false;
                 const dest = destination.toLowerCase();
 
                 if (!startPoint.includes(dest) && !arrCity.includes(dest)) {
-return false;
-}
+                    return false;
+                }
             }
 
             if (tripType !== 'all') {
                 const tType = tour.tripType || tour.trip_type;
 
                 if (!tType) {
-return false;
-}
+                    return false;
+                }
 
                 const types = tType
                     .split(',')
                     .map((t: string) => t.trim().toLowerCase());
 
                 if (!types.includes(tripType.toLowerCase())) {
-return false;
-}
+                    return false;
+                }
             }
 
             if (duration !== 'all') {
                 const days = parseInt(tour.duration);
 
                 if (isNaN(days)) {
-return false;
-}
+                    return false;
+                }
 
                 if (duration === 'short' && (days < 1 || days > 4)) {
-return false;
-}
+                    return false;
+                }
 
                 if (duration === 'medium' && (days < 5 || days > 9)) {
-return false;
-}
+                    return false;
+                }
 
                 if (duration === 'long' && days < 10) {
-return false;
-}
+                    return false;
+                }
             }
 
             return true;
@@ -201,8 +201,8 @@ return false;
                             Tours
                         </h1>
                         <p className="mt-4 max-w-lg leading-relaxed text-muted-foreground">
-                            Curate and manage the customized journeys that define
-                            the Moroccan Club Travel experience.
+                            Curate and manage the customized journeys that
+                            define the Moroccan Club Travel experience.
                         </p>
                     </div>
                     <Button

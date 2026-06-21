@@ -8,7 +8,6 @@ import {
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue,
 } from '@/components/ui/select';
 import { useTranslation } from '@/hooks/use-translation';
 
@@ -58,7 +57,7 @@ export function Header() {
         <header
             className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
                 scrolled || isOpen
-                    ? 'border-b border-indigo-ink/10 bg-sand/90 backdrop-blur-md'
+                    ? `border-b border-indigo-ink/10 ${isOpen ? 'bg-sand' : 'bg-sand/90 backdrop-blur-md'}`
                     : 'bg-transparent'
             }`}
         >
@@ -181,7 +180,7 @@ export function Header() {
                         : 'pointer-events-none -translate-y-4 opacity-0'
                 }`}
             >
-                <div className="flex h-[calc(100vh-5rem)] flex-col justify-between overflow-y-auto p-8 pt-12 pb-24">
+                <div className="flex h-[calc(100vh-5rem)] flex-col justify-between overflow-y-auto bg-sand p-8 pt-12 pb-24">
                     <div className="flex flex-col gap-8">
                         <span className="eyebrow text-[9px] tracking-[0.25em] text-terracotta">
                             {__('Navigation')}

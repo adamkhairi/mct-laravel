@@ -52,16 +52,16 @@ function TourImage({
 }) {
     const resolvedSrc = useMemo(() => {
         if (!src) {
-return '/assets/tour-sahara-camp.jpg';
-}
+            return '/assets/tour-sahara-camp.jpg';
+        }
 
         if (src.startsWith('http')) {
-return src;
-}
+            return src;
+        }
 
         if (src.startsWith('/')) {
-return src;
-}
+            return src;
+        }
 
         return `/assets/${src}`;
     }, [src]);
@@ -124,8 +124,8 @@ export default function Index({
                     tour.description?.toLowerCase().includes(query) ?? false;
 
                 if (!matchesTitle && !matchesDesc) {
-return false;
-}
+                    return false;
+                }
             }
 
             if (destination !== 'all' && tour.startingPoint !== destination) {
@@ -134,16 +134,16 @@ return false;
 
             if (tripType !== 'all') {
                 if (!tour.tripType) {
-return false;
-}
+                    return false;
+                }
 
                 const types = tour.tripType
                     .split(',')
                     .map((t: string) => t.trim().toLowerCase());
 
                 if (!types.includes(tripType.toLowerCase())) {
-return false;
-}
+                    return false;
+                }
             }
 
             if (duration !== 'all') {

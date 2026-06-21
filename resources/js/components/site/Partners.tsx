@@ -15,7 +15,6 @@ export function Partners() {
     return (
         <section className="border-t border-ivory/5 bg-clay px-6 py-20 text-ivory md:px-10 md:py-28">
             <div className="mx-auto max-w-7xl">
-
                 {/* Header row */}
                 <div className="mb-16 flex flex-col gap-6 md:mb-20 md:flex-row md:items-end md:justify-between">
                     <div>
@@ -44,10 +43,11 @@ export function Partners() {
                     {partnerLogos.map((logo, i) => (
                         <div
                             key={logo.alt}
-                            className={`group flex items-center justify-center px-8 py-6 transition-all duration-500 ${i < partnerLogos.length - 1
-                                ? 'border-r border-ivory/8'
-                                : ''
-                                }`}
+                            className={`group flex items-center justify-center px-8 py-6 transition-all duration-500 ${
+                                i < partnerLogos.length - 1
+                                    ? 'border-r border-ivory/8'
+                                    : ''
+                            }`}
                         >
                             <img
                                 src={logo.src}

@@ -32,7 +32,10 @@ interface WelcomeProps {
     totalToursCount: number;
 }
 
-export default function Welcome({ featuredTours, totalToursCount }: WelcomeProps) {
+export default function Welcome({
+    featuredTours,
+    totalToursCount,
+}: WelcomeProps) {
     const { __ } = useTranslation();
 
     return (
@@ -48,7 +51,10 @@ export default function Welcome({ featuredTours, totalToursCount }: WelcomeProps
             <Header />
             <main>
                 <Hero />
-                <Tours featuredTours={featuredTours} totalToursCount={totalToursCount} />
+                <Tours
+                    featuredTours={featuredTours}
+                    totalToursCount={totalToursCount}
+                />
                 <Philosophy />
                 <Reviews />
                 <FAQ />

@@ -124,32 +124,32 @@ export default function About() {
                             <img
                                 src="/assets/partners/cadi-logo.png"
                                 alt={__('Cadi Ayyad')}
-                                className="h-16 w-auto opacity-80 transition-all hover:opacity-100 hover:scale-105"
+                                className="h-16 w-auto opacity-80 transition-all hover:scale-105 hover:opacity-100"
                             />
                             <img
                                 src="/assets/partners/logo-cr.png"
                                 alt={__('Partner Logo')}
-                                className="h-16 w-auto opacity-80 transition-all hover:opacity-100 hover:scale-105"
+                                className="h-16 w-auto opacity-80 transition-all hover:scale-105 hover:opacity-100"
                             />
                             <img
                                 src="/assets/partners/salam.png"
                                 alt={__('Salam')}
-                                className="h-16 w-auto opacity-80 transition-all hover:opacity-100 hover:scale-105"
+                                className="h-16 w-auto opacity-80 transition-all hover:scale-105 hover:opacity-100"
                             />
                             <img
                                 src="/assets/partners/sam.png"
                                 alt={__('SAM')}
-                                className="h-16 w-auto opacity-80 transition-all hover:opacity-100 hover:scale-105"
+                                className="h-16 w-auto opacity-80 transition-all hover:scale-105 hover:opacity-100"
                             />
                             <img
                                 src="/assets/partners/world.png"
                                 alt={__('World Travel')}
-                                className="h-16 w-auto opacity-80 transition-all hover:opacity-100 hover:scale-105"
+                                className="h-16 w-auto opacity-80 transition-all hover:scale-105 hover:opacity-100"
                             />
                             <img
                                 src="/assets/partners/world-bull.png"
                                 alt={__('World Bull')}
-                                className="h-16 w-auto opacity-80 transition-all hover:opacity-100 hover:scale-105"
+                                className="h-16 w-auto opacity-80 transition-all hover:scale-105 hover:opacity-100"
                             />
                         </div>
                     </div>

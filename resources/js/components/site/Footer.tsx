@@ -64,9 +64,24 @@ export function Footer() {
                     <a href="#" className="transition-colors hover:text-ivory">
                         {__('Journal')}
                     </a>
-                    <a href="#" className="transition-colors hover:text-ivory">
-                        {__('Privacy')}
-                    </a>
+                    <Link
+                        href="/privacy-policy"
+                        className="transition-colors hover:text-ivory"
+                    >
+                        {__('Privacy Policy')}
+                    </Link>
+                    <Link
+                        href="/cancellation-policy"
+                        className="transition-colors hover:text-ivory"
+                    >
+                        {__('Cancellation Policy')}
+                    </Link>
+                    <Link
+                        href="/terms"
+                        className="transition-colors hover:text-ivory"
+                    >
+                        {__('Terms')}
+                    </Link>
                 </div>
 
                 <div className="flex items-center gap-6">

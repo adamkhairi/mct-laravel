@@ -12,6 +12,9 @@ Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::inertia('about', 'About')->name('about');
+Route::inertia('privacy-policy', 'PrivacyPolicy')->name('privacy-policy');
+Route::inertia('cancellation-policy', 'CancellationPolicy')->name('cancellation-policy');
+Route::inertia('terms', 'Terms')->name('terms');
 
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
 

@@ -28,7 +28,7 @@ export default function About() {
                             {__('Learn about us')}
                         </span>
                         <h1 className="font-display text-5xl leading-[1.05] font-bold md:text-7xl">
-                            {__('Dare to Explore with MCT Tours Agency')}
+                            {__('Dare to Explore with Moroccan Club Travel Agency')}
                         </h1>
                     </div>
 

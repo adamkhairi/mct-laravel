@@ -2047,5 +2047,180 @@
       "Any personal costs",
       "Drinks"
     ]
+  },
+  {
+    "id": "erg-chegaga-desert-southern-morocco",
+    "title": "Erg Chegaga Desert & Southern Morocco Tour",
+    "duration": "9 Days",
+    "nights": "8 Nights",
+    "startingPoint": "Marrakech",
+    "description": "This 9-day journey through Southern Morocco combines cultural heritage, desert adventure, traditional communities, and spectacular landscapes. Beginning in Marrakech and travelling through Agadir, Taroudant, the Anti-Atlas Mountains, and the vast Sahara, the tour offers an authentic experience of Morocco's diverse regions.",
+    "url": "https://mct-tours.com/trip/erg-chegaga-desert-southern-morocco/",
+    "accommodation": "Hotels and desert camp",
+    "arrivalCity": "Marrakech",
+    "guide": "Local Guides",
+    "tripType": "Long-tours",
+    "difficulty": "Moderate",
+    "languages": "English, French, Spanish",
+    "image": "https://placehold.co/800x600?text=Erg+Chegaga",
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Marrakech – Agadir",
+        "description": "Upon arrival at Marrakech Menara Airport, you will be welcomed by your guide or driver and begin your journey south toward Agadir. The scenic drive takes approximately four hours, passing through the foothills of the Atlas Mountains and the fertile Souss region. Upon arrival in Agadir, check in to your hotel and enjoy dinner before an overnight stay."
+      },
+      {
+        "day": "Day 2",
+        "title": "Agadir – Inoumar – Taroudant",
+        "description": "After breakfast, discover the highlights of Agadir, including the bustling fishing port, the historic Kasbah Oufella overlooking the city, and the Ensemble Artisanal showcasing local handicrafts. Following lunch at a local restaurant, continue to the village of Inoumar to experience its natural surroundings and local atmosphere. Later in the afternoon, travel to Taroudant, often referred to as the “Little Marrakech,” where you will check in to your hotel. Dinner and overnight stay in Taroudant."
+      },
+      {
+        "day": "Day 3",
+        "title": "Taroudant – Taliouine – Tazenakht – Foum Zguid",
+        "description": "Following breakfast, depart for Taliouine, Morocco’s renowned saffron-producing region. Here, you will visit a local saffron cooperative to learn about the cultivation and processing of this precious spice. The journey continues to Ifri Imadiden, where you will explore the area's unique geological and natural landscapes. After lunch at a local restaurant, travel through the Anti-Atlas region toward Foum Zguid, passing palm groves and picturesque desert scenery with opportunities for photo stops along the way. Upon arrival, check in to your hotel for dinner and overnight stay."
+      },
+      {
+        "day": "Day 4",
+        "title": "Foum Zguid – Erg Chegaga Desert",
+        "description": "After breakfast, leave the paved roads behind and venture into the desert by 4x4 vehicle. Along the way, visit a nomadic family tent and enjoy traditional Moroccan tea while learning about desert life. Continue across the vast landscapes of the former Lake Iriki, stopping for photographs of the dramatic scenery. After lunch in the desert, proceed toward the magnificent dunes of Erg Chegaga. Upon arrival, meet your camel handlers and enjoy a camel ride through the dunes to your desert camp. Spend the evening under the stars with dinner and overnight accommodation in a traditional Sahara camp."
+      },
+      {
+        "day": "Day 5",
+        "title": "Erg Chegaga – M’Hamid – Tamegroute – Zagora",
+        "description": "Wake early to enjoy the peaceful beauty of the Sahara sunrise before breakfast at camp. Depart by 4x4 toward M’Hamid El Ghizlane, where you will visit the Ostrich Nature Reserve and discover the unique desert ecosystem. Continue through palm groves and oasis landscapes, stopping for photographs before lunch at a local restaurant in M’Hamid. In the afternoon, visit the Ouled Driss Museum to gain insight into the region’s cultural heritage. The journey then continues to Tamegroute, famous for its historic Quranic Library and centuries-old manuscripts. Later, arrive in Zagora for dinner and overnight stay."
+      },
+      {
+        "day": "Day 6",
+        "title": "Zagora – Agdez – Ouarzazate – Aït Ben Haddou",
+        "description": "Enjoy another sunrise over the desert before breakfast. Depart for Aït Ben Haddou, travelling through the scenic Draa Valley. A brief stop is made in Agdez before continuing to Ouarzazate, known as the “Gateway to the Sahara.” After lunch, visit the historic Taourirt Kasbah, one of Morocco’s most impressive fortified residences. Continue to the UNESCO-listed ksar of Aït Ben Haddou, renowned for its earthen architecture and appearances in numerous international films. Upon arrival, check in to your hotel, followed by dinner and overnight stay."
+      },
+      {
+        "day": "Day 7",
+        "title": "Aït Ben Haddou – Tizi n’Tichka Pass – Marrakech",
+        "description": "After breakfast, explore the ancient Kasbah of Aït Ben Haddou on foot, discovering its narrow alleys and impressive fortified structures. Afterwards, depart for Marrakech, crossing the spectacular High Atlas Mountains via the Tizi n’Tichka Pass. Following lunch at a local restaurant, continue the journey to Marrakech. Upon arrival, enjoy a short visit to the famous Jemaa el-Fnaa Square before checking in to your hotel. In the evening, experience a traditional Moroccan dinner at the renowned Dar Essalam restaurant, accompanied by live entertainment and a belly dance performance. Return to your hotel for overnight stay."
+      },
+      {
+        "day": "Day 8",
+        "title": "Marrakech City Tour",
+        "description": "Today is dedicated to exploring the vibrant city of Marrakech. Visit some of its most important historical and cultural landmarks, including the Ben Youssef Madrasa, the beautiful Bahia Palace, the ancient Medina, the lively Jemaa el-Fnaa Square, and the peaceful Menara Gardens. After lunch at a local restaurant, continue your sightseeing through the city's bustling souks and artisan quarters. Return to your hotel in the late afternoon. Dinner and overnight stay in Marrakech."
+      },
+      {
+        "day": "Day 9",
+        "title": "Marrakech Departure",
+        "description": "After breakfast, transfer to Marrakech Menara Airport for your departure flight, marking the end of your unforgettable journey through southern Morocco, from the Atlantic coast and saffron valleys to the magnificent dunes of Erg Chegaga and the cultural treasures of Marrakech."
+      }
+    ],
+    "included": [
+      "8 nights’ accommodation in selected hotels and desert camp",
+      "Daily breakfast and dinner",
+      "Lunches at local restaurants as specified in the itinerary",
+      "Traditional tea experience with a nomadic family in the desert",
+      "Arrival and departure transfers",
+      "Private air-conditioned vehicle throughout the tour",
+      "4x4 transportation between Foum Zguid, Erg Chegaga, and the desert region",
+      "Guided sightseeing tour of Agadir",
+      "Visit to a saffron cooperative in Taliouine",
+      "Camel ride through the dunes of Erg Chegaga",
+      "Overnight stay in a Sahara desert camp",
+      "Traditional Moroccan dinner with entertainment at Dar Essalam in Marrakech"
+    ]
+  },
+  {
+    "id": "garden-sahara-tour",
+    "title": "Garden & Sahara Tour (Nature & Discovery)",
+    "duration": "14 Days",
+    "nights": "13 Nights",
+    "startingPoint": "Casablanca",
+    "description": "This itinerary is a well-balanced north-to-south exploration of Morocco, combining the country's major cultural cities, botanical gardens, mountain landscapes, and Sahara Desert experiences.",
+    "url": "https://mct-tours.com/trip/garden-sahara-tour/",
+    "accommodation": "Hotels and luxury/traditional desert camp",
+    "arrivalCity": "Casablanca",
+    "guide": "Local Guides",
+    "tripType": "Long-tours",
+    "difficulty": "Moderate",
+    "languages": "English, French, Spanish",
+    "image": "https://placehold.co/800x600?text=Garden+Sahara",
+    "itinerary": [
+      {
+        "day": "Day 1",
+        "title": "Casablanca – Rabat",
+        "description": "Upon arrival at Casablanca Mohammed V Airport, you will be welcomed and transferred to Rabat, the capital of Morocco. The journey begins with a visit to the historic Chellah Necropolis, where ancient ruins are surrounded by peaceful Andalusian-style gardens filled with birds and greenery. You will also visit the Bouknadel Exotic Gardens, a beautifully designed botanical space dedicated to environmental awareness and plant conservation. Dinner and overnight stay in Rabat."
+      },
+      {
+        "day": "Day 2",
+        "title": "Rabat – Tangier",
+        "description": "After breakfast, depart along the Atlantic coastline toward Tangier, passing fertile agricultural plains and scenic landscapes. Upon arrival, enjoy a relaxed lunch before exploring the Kasbah district, the Grand Socco, and Petit Socco, where Andalusian and Moroccan influences blend in a vibrant cultural atmosphere. Dinner and overnight in Tangier."
+      },
+      {
+        "day": "Day 3",
+        "title": "Tangier – Garden Discovery",
+        "description": "This day is dedicated entirely to Tangier’s natural beauty and gardens. You will explore the lush Donabo Botanical Garden, known for its forest setting and panoramic Atlantic views. The journey continues to the peaceful Parc Perdicaris (Rmilat Forest), offering shaded walking trails and ocean viewpoints. You will also visit other green spaces and museum gardens, enjoying a calm day immersed in nature. Dinner and overnight in Tangier."
+      },
+      {
+        "day": "Day 4",
+        "title": "Tangier – Tetouan – Chefchaouen",
+        "description": "After breakfast, travel to Tetouan, a UNESCO-listed city known for its Andalusian heritage and whitewashed medina. The journey continues into the Rif Mountains toward Chefchaouen, the famous blue city. Along the way, you will visit a local cheese cooperative supporting rural farming communities. In Chefchaouen, enjoy a guided walk through the medina and visit the Kasbah gardens, offering peaceful views over the blue-washed streets. Dinner and overnight in Chefchaouen."
+      },
+      {
+        "day": "Day 5",
+        "title": "Chefchaouen – Meknes – Fes",
+        "description": "Check out after breakfast and drive to Meknes, whose medina is classified as a UNESCO World Heritage Site. Upon arrival, begin the visit with one of Morocco’s renowned wineries, known for producing high-quality red, white, and rosé wines, where you will enjoy a guided tasting session. Lunch will be served at the winery in a relaxed setting. After lunch, continue the visit to Meknes’ main monuments, including the granaries and stables of Moulay Ismail and the majestic Bab Mansour gate. Later in the afternoon, depart for Fes. Dinner and overnight in Fes"
+      },
+      {
+        "day": "Day 6",
+        "title": "Fes – Old Medina & Cultural Gardens",
+        "description": "The day is devoted to exploring the spiritual and cultural heart of Morocco, Fes. You will discover the ancient medina, including the tanneries, the Attarine Medersa, the Nejjarine Fountain, and the Al Quaraouiyine area (viewed from outside). You will also enjoy the calm atmosphere of Bou Jeloud Gardens, once used by Moroccan dynasties for relaxation, after the visit you will be transported to your hotel. Dinner and overnight in Fes."
+      },
+      {
+        "day": "Day 7",
+        "title": "Fes – Ifrane – Midelt",
+        "description": "After breakfast, depart through the Middle Atlas Mountains, stopping in Ifrane, known for its alpine-style architecture and cedar forests in Ifrane National Park. You will enjoy the fresh mountain air and may see wild Barbary macaques in their natural habitat. The journey continues to Midelt for dinner and overnight stay."
+      },
+      {
+        "day": "Day 8",
+        "title": "Midelt – Errachidia – Erfoud – Merzouga",
+        "description": "Today you travel through the spectacular Ziz Valley, passing palm groves and oasis landscapes. In Errachidia, you will enjoy a special picnic lunch in the heart of the Ziz Valley, surrounded by palm trees and traditional Berber scenery. The journey continues to Erfoud for a visit to a fossil workshop before heading to Khamlia village for a Gnawa music performance. Later, you arrive at Merzouga, where you settle into a desert camp for dinner, stargazing, and overnight stay in the Sahara."
+      },
+      {
+        "day": "Day 9",
+        "title": "Merzouga – Tinghir – Ouarzazate",
+        "description": "An optional early camel trek offers the chance to witness sunrise over the dunes before departing toward Tinghir and the dramatic Todra Gorge. After time to explore the towering canyon walls, the journey continues through the scenic Dades Valley and the Road of a Thousand Kasbahs toward Ouarzazate. Dinner and overnight in Ouarzazate."
+      },
+      {
+        "day": "Day 10",
+        "title": "Ouarzazate – Aït Ben Haddou – Marrakech",
+        "description": "Begin the day with a visit to Taourirt Kasbah before continuing to the UNESCO-listed village of Aït Ben Haddou, one of Morocco’s most iconic fortified ksars. Here, you will enjoy a picnic lunch overlooking the Kasbah, surrounded by desert landscapes and cinematic scenery. In the afternoon, cross the High Atlas Mountains via the Tizi n’Tichka pass before arriving in Marrakech for dinner and overnight stay."
+      },
+      {
+        "day": "Day 11",
+        "title": "Marrakech City Tour",
+        "description": "The day is dedicated to exploring Marrakech, beginning with the peaceful Menara Gardens and the famous Majorelle Garden. After lunch, visit museums and artisan areas before continuing to the vibrant Jemaa el-Fnaa square and surrounding souks, where the city’s energy comes alive. Dinner and overnight in Marrakech"
+      },
+      {
+        "day": "Day 12",
+        "title": "Marrakech – Ourika Valley - Marrakech",
+        "description": "Today you travel to the scenic Ourika Valley in the Atlas foothills. You will visit the artistic Anima garden designed by a German artist, after the visit continue to Ourika valley and visit Le Jardin Bio-Aromatique de l'Ourika , a showcasing traditional Moroccan plants and herbal practices have a relaxed lunch and enjoy the garden setting before returning to Marrakech in the afternoon"
+      },
+      {
+        "day": "Day 13",
+        "title": "Marrakech – Casablanca Departure",
+        "description": "After breakfast, transfer to Casablanca for your departure flight, marking the end of your Moroccan journey filled with gardens, mountains, desert landscapes, and cultural discovery."
+      }
+    ],
+    "included": [
+      "Airport transfers in Casablanca",
+      "12 nights accommodation (hotels and 1 night luxury/traditional desert camp)",
+      "Daily breakfast and dinner",
+      "Selected lunches and picnic experiences as per itinerary",
+      "Private air-conditioned transportation throughout",
+      "Guided sightseeing tours",
+      "Entrance fees to monuments, gardens, museums, and sites mentioned in the program",
+      "Winery visit and tasting",
+      "Cheese cooperative visit",
+      "Gnawa music performance in Khamlia",
+      "Fossil workshop visit in Erfoud",
+      "Desert camp experience and stargazing",
+      "Services of professional local guides and driver"
+    ]
   }
 ]

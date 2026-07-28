@@ -29,3 +29,4 @@ yarn-error.log
 .sisyphus/
 .kiro/
 .antigravitycli/
+.chrome-data/

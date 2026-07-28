@@ -40,6 +40,8 @@ class TourSeeder extends Seeder
             'northern-morocco-grand-loop-7-days',
             'sahara-imperial-cities-7-days',
             'south-morocco-tour-6-days',
+            'erg-chegaga-desert-southern-morocco',
+            'garden-sahara-tour',
         ];
 
         // Transform and insert each tour

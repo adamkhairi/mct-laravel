@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Tour;
-use Illuminate\Support\Str;
 
 class NewToursSeeder extends Seeder
 {

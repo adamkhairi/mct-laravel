@@ -2123,6 +2123,12 @@
       "Camel ride through the dunes of Erg Chegaga",
       "Overnight stay in a Sahara desert camp",
       "Traditional Moroccan dinner with entertainment at Dar Essalam in Marrakech"
+    ],
+    "excluded": [
+      "International flights",
+      "Any personal costs",
+      "Drinks and Lunches (unless specified)",
+      "Tips for guides and drivers"
     ]
   },
   {
@@ -2221,6 +2227,12 @@
       "Fossil workshop visit in Erfoud",
       "Desert camp experience and stargazing",
       "Services of professional local guides and driver"
+    ],
+    "excluded": [
+      "International flights",
+      "Any personal costs",
+      "Drinks and Lunches (unless specified)",
+      "Tips for guides and drivers"
     ]
   }
 ]

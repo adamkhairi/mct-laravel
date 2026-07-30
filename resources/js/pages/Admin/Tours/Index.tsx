@@ -1,4 +1,4 @@
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm, router } from '@inertiajs/react';
 import {
     Plus,
     Edit,
@@ -13,7 +13,7 @@ import {
     X,
     SlidersHorizontal,
 } from 'lucide-react';
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import DeleteTourDialog from '@/components/delete-tour-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -53,7 +53,18 @@ const DURATIONS = [
     { label: 'Extended (10+ Days)', value: 'long', min: 10, max: 99 },
 ];
 
-export default function Index({ tours: toursPaginated }: { tours: any }) {
+export default function Index({
+    tours: toursPaginated,
+    filters,
+}: {
+    tours: any;
+    filters: {
+        search?: string;
+        destination?: string;
+        tripType?: string;
+        duration?: string;
+    };
+}) {
     const { delete: destroy } = useForm();
 
     const tourList = toursPaginated?.data || [];
@@ -62,14 +73,38 @@ export default function Index({ tours: toursPaginated }: { tours: any }) {
     const hasMultiplePages = meta?.last_page > 1;
     const total = meta?.total || 0;
 
-    const [searchQuery, setSearchQuery] = useState('');
-    const [destination, setDestination] = useState<string>('all');
-    const [tripType, setTripType] = useState<string>('all');
-    const [duration, setDuration] = useState<string>('all');
+    const [searchQuery, setSearchQuery] = useState(filters.search || '');
+    const [destination, setDestination] = useState(filters.destination || 'all');
+    const [tripType, setTripType] = useState(filters.tripType || 'all');
+    const [duration, setDuration] = useState(filters.duration || 'all');
     const [tourToDelete, setTourToDelete] = useState<{
         id: string;
         title: string;
     } | null>(null);
+
+    const isFirstRender = useRef(true);
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
+        router.get(
+            '/admin/tours',
+            {
+                search: searchQuery || undefined,
+                destination: destination !== 'all' ? destination : undefined,
+                tripType: tripType !== 'all' ? tripType : undefined,
+                duration: duration !== 'all' ? duration : undefined,
+            },
+            {
+                preserveState: true,
+                preserveScroll: true,
+                replace: true,
+            },
+        );
+    }, [searchQuery, destination, tripType, duration]);
 
     const clearFilters = () => {
         setSearchQuery('');
@@ -104,83 +139,7 @@ export default function Index({ tours: toursPaginated }: { tours: any }) {
         }
     };
 
-    const filteredTours = useMemo(() => {
-        return tourList.filter((tour: any) => {
-            if (searchQuery) {
-                const query = searchQuery.toLowerCase();
-                const matchesTitle =
-                    tour.title?.toLowerCase().includes(query) || false;
-                const matchesDesc =
-                    tour.description?.toLowerCase().includes(query) || false;
-                const startingPoint = (
-                    tour.startingPoint ||
-                    tour.starting_point ||
-                    ''
-                ).toLowerCase();
-                const matchesStart = startingPoint.includes(query);
-
-                if (!matchesTitle && !matchesDesc && !matchesStart) {
-                    return false;
-                }
-            }
-
-            if (destination !== 'all') {
-                const startPoint = (
-                    tour.startingPoint ||
-                    tour.starting_point ||
-                    ''
-                ).toLowerCase();
-                const arrCity = (
-                    tour.arrivalCity ||
-                    tour.arrival_city ||
-                    ''
-                ).toLowerCase();
-                const dest = destination.toLowerCase();
-
-                if (!startPoint.includes(dest) && !arrCity.includes(dest)) {
-                    return false;
-                }
-            }
-
-            if (tripType !== 'all') {
-                const tType = tour.tripType || tour.trip_type;
-
-                if (!tType) {
-                    return false;
-                }
-
-                const types = tType
-                    .split(',')
-                    .map((t: string) => t.trim().toLowerCase());
-
-                if (!types.includes(tripType.toLowerCase())) {
-                    return false;
-                }
-            }
-
-            if (duration !== 'all') {
-                const days = parseInt(tour.duration);
-
-                if (isNaN(days)) {
-                    return false;
-                }
-
-                if (duration === 'short' && (days < 1 || days > 4)) {
-                    return false;
-                }
-
-                if (duration === 'medium' && (days < 5 || days > 9)) {
-                    return false;
-                }
-
-                if (duration === 'long' && days < 10) {
-                    return false;
-                }
-            }
-
-            return true;
-        });
-    }, [tourList, searchQuery, destination, tripType, duration]);
+    const filteredTours = tourList;
 
     const activeFiltersCount =
         (destination !== 'all' ? 1 : 0) +

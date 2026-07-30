@@ -27,6 +27,19 @@ class HandleInertiaRequests extends Middleware
     }
 
     /**
+     * Handle the incoming request.
+     */
+    public function handle(Request $request, \Closure $next)
+    {
+        $response = parent::handle($request, $next);
+
+        $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
+        $response->headers->set('Pragma', 'no-cache');
+
+        return $response;
+    }
+
+    /**
      * Define the props that are shared by default.
      *
      * @see https://inertiajs.com/shared-data

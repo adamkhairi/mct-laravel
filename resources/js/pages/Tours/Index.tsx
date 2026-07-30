@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import {
     Search,
     X,
@@ -6,7 +6,7 @@ import {
     ChevronLeft,
     ChevronRight,
 } from 'lucide-react';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { Footer } from '@/components/site/Footer';
 import { Header } from '@/components/site/Header';
 import { MetaTags } from '@/components/site/MetaTags';
@@ -88,8 +88,15 @@ interface PaginatedTours {
 
 export default function Index({
     tours: toursPaginated,
+    filters,
 }: {
     tours: PaginatedTours;
+    filters: {
+        search?: string;
+        destination?: string;
+        tripType?: string;
+        duration?: string;
+    };
 }) {
     const { __ } = useTranslation();
     const tours = toursPaginated?.data || [];
@@ -97,10 +104,34 @@ export default function Index({
     const paginationLinks = meta?.links || [];
     const hasMultiplePages = meta?.last_page > 1;
 
-    const [searchQuery, setSearchQuery] = useState('');
-    const [destination, setDestination] = useState<string>('all');
-    const [tripType, setTripType] = useState<string>('all');
-    const [duration, setDuration] = useState<string>('all');
+    const [searchQuery, setSearchQuery] = useState(filters.search || '');
+    const [destination, setDestination] = useState(filters.destination || 'all');
+    const [tripType, setTripType] = useState(filters.tripType || 'all');
+    const [duration, setDuration] = useState(filters.duration || 'all');
+
+    const isFirstRender = useRef(true);
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
+        router.get(
+            '/tours',
+            {
+                search: searchQuery || undefined,
+                destination: destination !== 'all' ? destination : undefined,
+                tripType: tripType !== 'all' ? tripType : undefined,
+                duration: duration !== 'all' ? duration : undefined,
+            },
+            {
+                preserveState: true,
+                preserveScroll: true,
+                replace: true,
+            },
+        );
+    }, [searchQuery, destination, tripType, duration]);
 
     const activeFiltersCount =
         (destination !== 'all' ? 1 : 0) +
@@ -115,55 +146,7 @@ export default function Index({
         setDuration('all');
     };
 
-    const filteredTours = useMemo(() => {
-        return tours.filter((tour) => {
-            if (searchQuery) {
-                const query = searchQuery.toLowerCase();
-                const matchesTitle = tour.title.toLowerCase().includes(query);
-                const matchesDesc =
-                    tour.description?.toLowerCase().includes(query) ?? false;
-
-                if (!matchesTitle && !matchesDesc) {
-                    return false;
-                }
-            }
-
-            if (destination !== 'all' && tour.startingPoint !== destination) {
-                return false;
-            }
-
-            if (tripType !== 'all') {
-                if (!tour.tripType) {
-                    return false;
-                }
-
-                const types = tour.tripType
-                    .split(',')
-                    .map((t: string) => t.trim().toLowerCase());
-
-                if (!types.includes(tripType.toLowerCase())) {
-                    return false;
-                }
-            }
-
-            if (duration !== 'all') {
-                const daysMatch = tour.duration.match(/(\d+)/);
-                const days = daysMatch ? parseInt(daysMatch[1], 10) : 0;
-                const durationRange = DURATIONS.find(
-                    (d) => d.value === duration,
-                );
-
-                if (
-                    durationRange &&
-                    (days < durationRange.min || days > durationRange.max)
-                ) {
-                    return false;
-                }
-            }
-
-            return true;
-        });
-    }, [tours, searchQuery, destination, tripType, duration]);
+    const filteredTours = tours;
 
     return (
         <SiteLayout>

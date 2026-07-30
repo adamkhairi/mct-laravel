@@ -51,7 +51,7 @@ return new class extends Migration
                 }
             }
 
-            if (!empty($updates)) {
+            if (! empty($updates)) {
                 DB::table('tours')->where('id', $tour->id)->update($updates);
             }
         }
@@ -102,7 +102,7 @@ return new class extends Migration
                     }
                 }
             }
-            if (!empty($updates)) {
+            if (! empty($updates)) {
                 DB::table('tours')->where('id', $tour->id)->update($updates);
             }
         }

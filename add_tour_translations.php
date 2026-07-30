@@ -4,7 +4,6 @@
  * Script to add all missing tour field translations to lang/*.json files.
  * These cover trip types, difficulties, guide descriptions, accommodations, nights, etc.
  */
-
 $newTranslations = [
     // === TRIP TYPES ===
     'Cultural & Historical' => [
@@ -587,25 +586,26 @@ $newTranslations = [
 ];
 
 $locales = ['es', 'fr', 'de', 'it', 'pt', 'ru', 'nl', 'zh'];
-$langDir = __DIR__ . '/lang';
+$langDir = __DIR__.'/lang';
 $updated = 0;
 
 foreach ($locales as $locale) {
     $path = "{$langDir}/{$locale}.json";
-    if (!file_exists($path)) {
+    if (! file_exists($path)) {
         echo "SKIP: {$path} not found\n";
+
         continue;
     }
     $existing = json_decode(file_get_contents($path), true);
     $added = 0;
     foreach ($newTranslations as $en => $localeMap) {
-        if (!isset($existing[$en]) && isset($localeMap[$locale])) {
+        if (! isset($existing[$en]) && isset($localeMap[$locale])) {
             $existing[$en] = $localeMap[$locale];
             $added++;
         }
     }
     if ($added > 0) {
-        file_put_contents($path, json_encode($existing, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n");
+        file_put_contents($path, json_encode($existing, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)."\n");
         echo "Updated {$locale}.json: +{$added} strings\n";
         $updated++;
     } else {

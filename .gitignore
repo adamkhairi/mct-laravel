@@ -30,3 +30,4 @@ yarn-error.log
 .kiro/
 .antigravitycli/
 .chrome-data/
+/storage/app/viator_*.json

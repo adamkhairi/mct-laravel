@@ -6,7 +6,9 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const WebSocket = require('ws');
 
-const WS_BROWSER_URL = 'ws://127.0.0.1:9222/devtools/browser/be0815a5-f5c3-48f6-9360-0df775006e99';
+const res = await fetch('http://127.0.0.1:9222/json/version');
+const data = await res.json();
+const WS_BROWSER_URL = data.webSocketDebuggerUrl;
 const TOURS_FILE = '/tmp/published_tours.json';
 const VIATOR_PRODUCTS_URL = 'https://supplier.viator.com/products/';
 

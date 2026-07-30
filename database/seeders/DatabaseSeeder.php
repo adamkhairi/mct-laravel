@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TourSeeder::class,
             TourTranslationSeeder::class,
+            NewToursSeeder::class,
         ]);
     }
 }

@@ -1,17 +1,12 @@
 'use client';
 import { Link } from '@inertiajs/react';
 import { Instagram, Facebook } from 'lucide-react';
-import { useEffect, useState } from 'react';
 import logo from '@/assets/logo-full-white.png';
 import { useTranslation } from '@/hooks/use-translation';
 
 export function Footer() {
     const { __ } = useTranslation();
-    const [year, setYear] = useState<string | null>(null);
-
-    useEffect(() => {
-        setYear(String(new Date().getFullYear()));
-    }, []);
+    const year = new Date().getFullYear();
 
     return (
         <footer className="border-t border-ivory/5 bg-clay px-6 py-14 text-ivory/55 md:px-10">
@@ -28,6 +23,9 @@ export function Footer() {
                         </p>
                         <p className="eyebrow text-[10px] text-ivory/40">
                             booking@moroccanclubtravel.com
+                        </p>
+                        <p className="eyebrow text-[10px] text-ivory/40">
+                            contact@mct-tours.com
                         </p>
                         <p className="eyebrow max-w-xs text-[10px] leading-relaxed text-ivory/40">
                             Av. Allal El Fassi Complexe Ahbas IMM B 1ère étage
@@ -154,7 +152,7 @@ export function Footer() {
 
             <div className="mx-auto mt-12 max-w-7xl border-t border-ivory/5 pt-8 text-center">
                 <p className="eyebrow text-ivory/40">
-                    © {year ?? '2026'} &middot; {__('All rights reserved')}
+                    © {year} &middot; {__('All rights reserved')}
                 </p>
             </div>
         </footer>

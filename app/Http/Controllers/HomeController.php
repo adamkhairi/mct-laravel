@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TourResource;
+use App\Models\Review;
 use App\Models\Tour;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -26,9 +27,35 @@ class HomeController extends Controller
             })
             ->values();
 
+        $reviews = Review::published()
+            ->where('locale', app()->getLocale())
+            ->orderByDesc('reviewed_at')
+            ->orderByDesc('id')
+            ->limit(6)
+            ->get();
+
+        if ($reviews->isEmpty() && app()->getLocale() !== 'en') {
+            $reviews = Review::published()
+                ->where('locale', 'en')
+                ->orderByDesc('reviewed_at')
+                ->orderByDesc('id')
+                ->limit(6)
+                ->get();
+        }
+
         return Inertia::render('welcome', [
             'featuredTours' => TourResource::collection($featuredTours)->resolve(),
             'totalToursCount' => Tour::published()->count(),
+            'homepageReviews' => $reviews->map(fn (Review $review): array => [
+                'id' => $review->id,
+                'name' => $review->reviewer_name,
+                'country' => $review->country,
+                'flag' => $review->flag,
+                'trip' => $review->trip_name,
+                'quote' => $review->quote,
+                'rating' => $review->rating,
+                'verified' => $review->is_verified,
+            ])->all(),
         ]);
     }
 }

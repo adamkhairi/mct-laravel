@@ -1,4 +1,3 @@
-import { useForm } from '@inertiajs/react';
 import { AlertTriangle } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
@@ -26,7 +25,6 @@ export default function DeleteTourDialog({
     children,
 }: DeleteTourDialogProps) {
     const [open, setOpen] = useState(false);
-    const { delete: destroy } = useForm();
     const [isDeleting, setIsDeleting] = useState(false);
 
     const handleDelete = () => {

@@ -1,4 +1,5 @@
 import { ChevronLeft } from 'lucide-react';
+import { Breadcrumbs } from '@/components/site/Breadcrumbs';
 import { Footer } from '@/components/site/Footer';
 import { Header } from '@/components/site/Header';
 import { MetaTags } from '@/components/site/MetaTags';
@@ -13,11 +14,16 @@ export default function Terms() {
             <MetaTags
                 title={__('Terms & Conditions | Moroccan Club Travel')}
                 description={__('Read the general terms and conditions governing travel bookings with Moroccan Club Travel.')}
-                url="https://www.moroccanclubtravel.com/terms"
             />
             <Header />
             <main className="px-6 pt-32 pb-24 md:px-10 md:pt-40 md:pb-32">
                 <div className="mx-auto max-w-4xl">
+                    <Breadcrumbs
+                        items={[
+                            { label: __('Home'), href: '/' },
+                            { label: __('Terms & Conditions') },
+                        ]}
+                    />
                     <button
                         onClick={() => window.history.back()}
                         className="eyebrow mb-10 flex items-center gap-2 text-foreground/50 transition-colors hover:text-foreground"

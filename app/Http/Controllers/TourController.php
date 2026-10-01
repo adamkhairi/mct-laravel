@@ -18,8 +18,8 @@ class TourController extends Controller
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%")
-                  ->orWhere('starting_point', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('starting_point', 'like', "%{$search}%");
             });
         }
 
@@ -27,7 +27,7 @@ class TourController extends Controller
             $dest = $request->input('destination');
             $query->where(function ($q) use ($dest) {
                 $q->where('starting_point', $dest)
-                  ->orWhere('arrival_city', $dest);
+                    ->orWhere('arrival_city', $dest);
             });
         }
 
@@ -54,7 +54,7 @@ class TourController extends Controller
         ]);
     }
 
-    public function show(Tour $tour): Response
+    public function show(string $locale, Tour $tour): Response
     {
         if (! $tour->is_published && (! auth()->check() || auth()->user()->role !== 'ADMIN')) {
             abort(404);
@@ -62,6 +62,12 @@ class TourController extends Controller
 
         return Inertia::render('Tours/Show', [
             'tour' => (new TourResource($tour))->resolve(),
+            'tourReviews' => $tour->reviews()
+                ->published()
+                ->where('is_verified', true)
+                ->whereIn('locale', array_unique([$locale, 'en']))
+                ->orderByDesc('reviewed_at')
+                ->get(['id', 'reviewer_name', 'country', 'quote', 'rating', 'locale', 'reviewed_at']),
         ]);
     }
 }

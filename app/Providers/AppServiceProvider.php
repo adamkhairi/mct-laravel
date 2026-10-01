@@ -5,8 +5,11 @@ namespace App\Providers;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Inertia\ExceptionResponse;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +27,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        URL::defaults(['locale' => config('seo.default_locale')]);
+
+        Inertia::handleExceptionsUsing(function (ExceptionResponse $response) {
+            if ($response->statusCode() === 404) {
+                if (! $response->request->header('X-Inertia')) {
+                    return response()->view('errors.404', status: 404);
+                }
+
+                return $response->render('ErrorPage', ['status' => 404])
+                    ->withSharedData();
+            }
+        });
     }
 
     /**

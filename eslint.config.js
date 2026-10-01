@@ -27,6 +27,14 @@ const paddingAroundControl = [
 /** @type {import('eslint').Linter.Config[]} */
 export default [
     js.configs.recommended,
+    {
+        files: ['**/*.cjs', 'scripts/**/*.js', 'scripts/**/*.mjs', '*.mjs'],
+        languageOptions: {
+            globals: {
+                ...globals.node,
+            },
+        },
+    },
     reactHooks.configs.flat['recommended-latest'],
     ...typescript.configs.recommended,
     {
@@ -127,6 +135,12 @@ export default [
         rules: {
             curly: ['error', 'all'],
             '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: false }],
+        },
+    },
+    {
+        files: ['**/*.cjs'],
+        rules: {
+            '@typescript-eslint/no-require-imports': 'off',
         },
     },
 ];

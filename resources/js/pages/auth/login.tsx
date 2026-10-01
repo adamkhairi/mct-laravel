@@ -12,13 +12,11 @@ import { request } from '@/routes/password';
 type Props = {
     status?: string;
     canResetPassword: boolean;
-    canRegister: boolean;
 };
 
 export default function Login({
     status,
     canResetPassword,
-    canRegister,
 }: Props) {
     return (
         <>
@@ -57,7 +55,7 @@ export default function Login({
                                     </label>
                                     {canResetPassword && (
                                         <TextLink
-                                            href={request()}
+                                            href={request().url}
                                             className="ml-auto text-xs text-terracotta transition-colors hover:text-terracotta/80"
                                             tabIndex={5}
                                         >

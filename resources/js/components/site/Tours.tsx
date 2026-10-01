@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
+import { localizedPath } from '@/lib/localized-path';
 
 interface Tour {
     id: string;
@@ -18,7 +19,7 @@ interface ToursProps {
 }
 
 export function Tours({ featuredTours, totalToursCount }: ToursProps) {
-    const { __ } = useTranslation();
+    const { __, currentLocale } = useTranslation();
 
     if (!featuredTours.length) {
 return null;
@@ -110,7 +111,7 @@ return null;
                 {/* ── CTA ── */}
                 <div className="mt-10 md:mt-12">
                     <Link
-                        href="/tours"
+                        href={localizedPath('/tours', currentLocale)}
                         className="group flex items-center justify-between border border-indigo-ink/12 bg-transparent px-8 py-6 transition-all duration-500 hover:border-terracotta hover:bg-terracotta"
                     >
                         <span className="font-display text-xl text-indigo-ink transition-colors duration-500 group-hover:text-ivory md:text-2xl">
@@ -136,11 +137,11 @@ interface TourCardProps {
 }
 
 function TourCard({ tour, index, className = '' }: TourCardProps) {
-    const { __ } = useTranslation();
+    const { __, currentLocale } = useTranslation();
 
     return (
         <Link
-            href={`/tours/${tour.slug}`}
+            href={localizedPath(`/tours/${tour.slug}`, currentLocale)}
             className={`group relative block overflow-hidden bg-indigo-ink/10 ${className}`}
         >
             {/* Image */}

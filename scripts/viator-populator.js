@@ -14,6 +14,7 @@ const TOURS_FILE = path.join(projectRoot, 'storage', 'app', 'viator_tours.json')
 const args = process.argv.slice(2).reduce((acc, arg) => {
     const [key, val] = arg.split('=');
     acc[key.replace(/^--/, '')] = val || true;
+
     return acc;
 }, {});
 
@@ -42,10 +43,12 @@ async function run() {
     }
 
     console.log(`📋 Loaded ${targetTours.length} tour(s) to process.`);
+
     if (isDryRun) {
         console.log('🔍 [DRY-RUN MODE] Displaying extracted data sample:');
         console.log(JSON.stringify(targetTours[0], null, 2));
         console.log('✅ Dry-run complete. Omit --dry-run to start browser populator.');
+
         return;
     }
 
@@ -100,12 +103,14 @@ async function run() {
             console.log('📝 Filling Title & Basic Info...');
 
             const titleSelector = 'input[name="title"], input[id*="title"], input[placeholder*="Title"]';
+
             if (await page.$(titleSelector)) {
                 await page.fill(titleSelector, tour.title);
             }
 
             // Step 2: Description
             const descSelector = 'textarea[name="description"], textarea[id*="description"], div[contenteditable="true"]';
+
             if (await page.$(descSelector)) {
                 await page.fill(descSelector, tour.description);
             }
@@ -113,6 +118,7 @@ async function run() {
             // Step 3: Itinerary steps if available
             if (Array.isArray(tour.itinerary) && tour.itinerary.length > 0) {
                 console.log(`📍 Processing ${tour.itinerary.length} itinerary day(s)...`);
+
                 for (const item of tour.itinerary) {
                     console.log(`   • ${item.day}: ${item.title}`);
                 }

@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>https://www.moroccanclubtravel.com/</loc>
-        <lastmod>{{ now()->toDateString() }}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>1.0</priority>
-    </url>
-    <url>
-        <loc>https://www.moroccanclubtravel.com/tours</loc>
-        <lastmod>{{ now()->toDateString() }}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    @foreach ($tours as $tour)
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    @foreach ($urls as $url)
         <url>
-            <loc>https://www.moroccanclubtravel.com/tours/{{ $tour->slug }}</loc>
-            <lastmod>{{ $tour->updated_at->toDateString() }}</lastmod>
-            <changefreq>monthly</changefreq>
-            <priority>0.7</priority>
+            <loc>{{ $url['loc'] }}</loc>
+            <lastmod>{{ $url['lastmod'] }}</lastmod>
+            <changefreq>{{ $url['changefreq'] }}</changefreq>
+            <priority>{{ $url['priority'] }}</priority>
+            @foreach ($url['alternates'] as $locale => $alternate)
+                <xhtml:link rel="alternate" hreflang="{{ $locale }}" href="{{ $alternate }}" />
+            @endforeach
         </url>
     @endforeach
 </urlset>

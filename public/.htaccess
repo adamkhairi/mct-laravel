@@ -5,6 +5,10 @@
 
     RewriteEngine On
 
+    # Redirect the www host to the canonical non-www domain.
+    RewriteCond %{HTTP_HOST} ^www\.moroccanclubtravel\.com$ [NC]
+    RewriteRule ^ https://moroccanclubtravel.com%{REQUEST_URI} [R=301,L,NE]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

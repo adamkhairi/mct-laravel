@@ -1,5 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import { TrendingUp, FileText, Eye, Clock, Calendar } from 'lucide-react';
+import { FileText, Eye, Clock, Calendar } from 'lucide-react';
 import { dashboard } from '@/routes';
 import admin from '@/routes/admin';
 
@@ -185,7 +185,7 @@ Dashboard.layout = {
     breadcrumbs: [
         {
             title: 'Dashboard',
-            href: dashboard(),
+            href: dashboard().url,
         },
     ],
 };

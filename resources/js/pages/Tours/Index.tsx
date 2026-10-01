@@ -7,6 +7,7 @@ import {
     ChevronRight,
 } from 'lucide-react';
 import { useState, useMemo, useEffect, useRef } from 'react';
+import { Breadcrumbs } from '@/components/site/Breadcrumbs';
 import { Footer } from '@/components/site/Footer';
 import { Header } from '@/components/site/Header';
 import { MetaTags } from '@/components/site/MetaTags';
@@ -21,6 +22,7 @@ import {
 } from '@/components/ui/select';
 import { useTranslation } from '@/hooks/use-translation';
 import SiteLayout from '@/layouts/site-layout';
+import { localizedPath } from '@/lib/localized-path';
 
 const DESCRIPTION =
     "Discover our curated collection of private journeys through Morocco's imperial cities, Sahara deserts, and mountain villages.";
@@ -98,7 +100,7 @@ export default function Index({
         duration?: string;
     };
 }) {
-    const { __ } = useTranslation();
+    const { __, currentLocale } = useTranslation();
     const tours = toursPaginated?.data || [];
     const meta = toursPaginated?.meta;
     const paginationLinks = meta?.links || [];
@@ -114,6 +116,7 @@ export default function Index({
     useEffect(() => {
         if (isFirstRender.current) {
             isFirstRender.current = false;
+
             return;
         }
 
@@ -153,11 +156,16 @@ export default function Index({
             <MetaTags
                 title={__('Private Morocco Tours')}
                 description={__(DESCRIPTION)}
-                url="https://www.moroccanclubtravel.com/tours"
             />
             <Header />
             <main className="px-6 pt-32 pb-24 md:px-10 md:pt-40 md:pb-32">
                 <div className="mx-auto max-w-7xl">
+                    <Breadcrumbs
+                        items={[
+                            { label: __('Home'), href: '/' },
+                            { label: __('Tours') },
+                        ]}
+                    />
                     <div className="animate-fade-up mb-10 flex flex-col items-end justify-between gap-8 md:flex-row">
                         <div className="max-w-2xl">
                             <span className="eyebrow mb-6 block text-terracotta">
@@ -345,7 +353,10 @@ export default function Index({
                                     }}
                                 >
                                     <Link
-                                        href={`/tours/${tour.slug}`}
+                                        href={localizedPath(
+                                            `/tours/${tour.slug}`,
+                                            currentLocale,
+                                        )}
                                         className="flex h-full flex-col"
                                     >
                                         <div className="relative mb-6 aspect-[4/5] overflow-hidden bg-muted">

@@ -9,7 +9,6 @@ import { Partners } from '@/components/site/Partners';
 import { Philosophy } from '@/components/site/Philosophy';
 import { Reviews } from '@/components/site/Reviews';
 import { Tours } from '@/components/site/Tours';
-import { Toaster } from '@/components/ui/sonner';
 import { useTranslation } from '@/hooks/use-translation';
 import SiteLayout from '@/layouts/site-layout';
 
@@ -30,11 +29,22 @@ interface Tour {
 interface WelcomeProps {
     featuredTours: Tour[];
     totalToursCount: number;
+    homepageReviews: {
+        id: number;
+        name: string;
+        country: string;
+        flag: string | null;
+        trip: string;
+        quote: string;
+        rating: number;
+        verified: boolean;
+    }[];
 }
 
 export default function Welcome({
     featuredTours,
     totalToursCount,
+    homepageReviews,
 }: WelcomeProps) {
     const { __ } = useTranslation();
 
@@ -45,7 +55,6 @@ export default function Welcome({
                     'Moroccan Club Travel | Marrakesh-based Private Tours',
                 )}
                 description={__(DESCRIPTION)}
-                url="https://www.moroccanclubtravel.com"
                 type="website"
             />
             <Header />
@@ -56,7 +65,7 @@ export default function Welcome({
                     totalToursCount={totalToursCount}
                 />
                 <Philosophy />
-                <Reviews />
+                <Reviews reviews={homepageReviews} />
                 <FAQ />
                 <Partners />
                 <CinematicBreak />
@@ -64,42 +73,6 @@ export default function Welcome({
             </main>
             <Footer />
 
-            {/* Structured Data */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        '@context': 'https://schema.org',
-                        '@type': 'TravelAgency',
-                        name: 'Moroccan Club Travel',
-                        description: DESCRIPTION,
-                        url: 'https://www.moroccanclubtravel.com',
-                        address: {
-                            '@type': 'PostalAddress',
-                            streetAddress:
-                                'Av. Allal El Fassi Complexe Ahbas IMM B 1ère étage App 8',
-                            addressLocality: 'Daoudiat',
-                            addressRegion: 'Marrakech',
-                            addressCountry: 'MA',
-                        },
-                        contactPoint: {
-                            '@type': 'ContactPoint',
-                            telephone: '+212-524-311-743',
-                            contactType: 'customer service',
-                        },
-                        offers: featuredTours.slice(0, 5).map((tour) => ({
-                            '@type': 'TouristTrip',
-                            name: tour.title,
-                            description: tour.description,
-                            duration: tour.duration,
-                            provider: {
-                                '@type': 'TravelAgency',
-                                name: 'Moroccan Club Travel',
-                            },
-                        })),
-                    }),
-                }}
-            />
         </SiteLayout>
     );
 }

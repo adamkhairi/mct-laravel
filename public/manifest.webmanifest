@@ -1,0 +1,24 @@
+{
+    "name": "Moroccan Club Travel",
+    "short_name": "MCT Travel",
+    "description": "Private journeys through Morocco with Moroccan Club Travel.",
+    "start_url": "/en",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#f3eee5",
+    "theme_color": "#cb5f35",
+    "icons": [
+        {
+            "src": "/icons/mct-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icons/mct-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

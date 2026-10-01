@@ -1,5 +1,5 @@
 'use client';
-import { Link, router } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import { Menu, X, Globe } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import logoMark from '@/assets/logo-mark.png';
@@ -10,6 +10,7 @@ import {
     SelectTrigger,
 } from '@/components/ui/select';
 import { useTranslation } from '@/hooks/use-translation';
+import { localizedPath } from '@/lib/localized-path';
 
 const LANGUAGE_MAP: Record<string, { name: string; flag: React.ReactNode }> = {
     en: { name: 'English', flag: <span className="text-base">🇬🇧</span> },
@@ -27,9 +28,10 @@ export function Header() {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const { __, currentLocale, locales } = useTranslation();
+    const currentUrl = usePage().url;
 
     const changeLanguage = (locale: string) => {
-        router.post('/language', { locale });
+        router.visit(localizedPath(currentUrl, locale));
     };
 
     useEffect(() => {
@@ -63,7 +65,7 @@ export function Header() {
         >
             <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 md:px-10">
                 <Link
-                    href="/"
+                    href={localizedPath('/', currentLocale)}
                     className="group z-50 flex items-center gap-3"
                     onClick={() => setIsOpen(false)}
                 >
@@ -86,31 +88,31 @@ export function Header() {
                 {/* Desktop Navigation */}
                 <div className="eyebrow hidden gap-10 md:flex">
                     <Link
-                        href="/about"
+                        href={localizedPath('/about', currentLocale)}
                         className="transition-colors hover:text-terracotta"
                     >
                         {__('About')}
                     </Link>
                     <Link
-                        href="/tours"
+                        href={localizedPath('/tours', currentLocale)}
                         className="transition-colors hover:text-terracotta"
                     >
                         {__('Tours')}
                     </Link>
                     <a
-                        href="/#philosophy"
+                        href={localizedPath('/#philosophy', currentLocale)}
                         className="transition-colors hover:text-terracotta"
                     >
                         {__('Philosophy')}
                     </a>
                     <a
-                        href="/#reviews"
+                        href={localizedPath('/#reviews', currentLocale)}
                         className="transition-colors hover:text-terracotta"
                     >
                         {__('Reviews')}
                     </a>
                     <a
-                        href="/#faq"
+                        href={localizedPath('/#faq', currentLocale)}
                         className="transition-colors hover:text-terracotta"
                     >
                         {__('FAQ')}
@@ -151,7 +153,7 @@ export function Header() {
                     </div>
 
                     <a
-                        href="/#contact"
+                        href={localizedPath('/#contact', currentLocale)}
                         onClick={() => setIsOpen(false)}
                         className="eyebrow border-b border-foreground/30 pb-1 transition-colors hover:border-terracotta hover:text-terracotta"
                     >
@@ -187,35 +189,35 @@ export function Header() {
                         </span>
                         <div className="flex flex-col gap-6">
                             <Link
-                                href="/about"
+                                href={localizedPath('/about', currentLocale)}
                                 onClick={() => setIsOpen(false)}
                                 className="border-b border-foreground/5 py-2 font-display text-4xl transition-colors hover:text-terracotta"
                             >
                                 {__('About')}
                             </Link>
                             <Link
-                                href="/tours"
+                                href={localizedPath('/tours', currentLocale)}
                                 onClick={() => setIsOpen(false)}
                                 className="border-b border-foreground/5 py-2 font-display text-4xl transition-colors hover:text-terracotta"
                             >
                                 {__('Tours')}
                             </Link>
                             <a
-                                href="/#philosophy"
+                                href={localizedPath('/#philosophy', currentLocale)}
                                 onClick={() => setIsOpen(false)}
                                 className="border-b border-foreground/5 py-2 font-display text-4xl transition-colors hover:text-terracotta"
                             >
                                 {__('Philosophy')}
                             </a>
                             <a
-                                href="/#reviews"
+                                href={localizedPath('/#reviews', currentLocale)}
                                 onClick={() => setIsOpen(false)}
                                 className="border-b border-foreground/5 py-2 font-display text-4xl transition-colors hover:text-terracotta"
                             >
                                 {__('Reviews')}
                             </a>
                             <a
-                                href="/#faq"
+                                href={localizedPath('/#faq', currentLocale)}
                                 onClick={() => setIsOpen(false)}
                                 className="border-b border-foreground/5 py-2 font-display text-4xl transition-colors hover:text-terracotta"
                             >

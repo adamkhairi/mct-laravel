@@ -3,9 +3,10 @@ import { Link } from '@inertiajs/react';
 import { Instagram, Facebook } from 'lucide-react';
 import logo from '@/assets/logo-full-white.png';
 import { useTranslation } from '@/hooks/use-translation';
+import { localizedPath } from '@/lib/localized-path';
 
 export function Footer() {
-    const { __ } = useTranslation();
+    const { __, currentLocale } = useTranslation();
     const year = new Date().getFullYear();
 
     return (
@@ -36,46 +37,49 @@ export function Footer() {
 
                 <div className="eyebrow flex flex-wrap justify-center gap-x-8 gap-y-4 md:gap-10">
                     <Link
-                        href="/about"
+                        href={localizedPath('/about', currentLocale)}
                         className="transition-colors hover:text-ivory"
                     >
                         {__('About')}
                     </Link>
                     <Link
-                        href="/tours"
+                        href={localizedPath('/tours', currentLocale)}
                         className="transition-colors hover:text-ivory"
                     >
                         {__('Tours')}
                     </Link>
                     <a
-                        href="/#reviews"
+                        href={localizedPath('/#reviews', currentLocale)}
                         className="transition-colors hover:text-ivory"
                     >
                         {__('Reviews')}
                     </a>
                     <a
-                        href="/#faq"
+                        href={localizedPath('/#faq', currentLocale)}
                         className="transition-colors hover:text-ivory"
                     >
                         {__('FAQ')}
                     </a>
-                    <a href="#" className="transition-colors hover:text-ivory">
-                        {__('Journal')}
-                    </a>
                     <Link
-                        href="/privacy-policy"
+                        href={localizedPath('/blog', currentLocale)}
+                        className="transition-colors hover:text-ivory"
+                    >
+                        {__('Journal')}
+                    </Link>
+                    <Link
+                        href={localizedPath('/privacy-policy', currentLocale)}
                         className="transition-colors hover:text-ivory"
                     >
                         {__('Privacy Policy')}
                     </Link>
                     <Link
-                        href="/cancellation-policy"
+                        href={localizedPath('/cancellation-policy', currentLocale)}
                         className="transition-colors hover:text-ivory"
                     >
                         {__('Cancellation Policy')}
                     </Link>
                     <Link
-                        href="/terms"
+                        href={localizedPath('/terms', currentLocale)}
                         className="transition-colors hover:text-ivory"
                     >
                         {__('Terms')}

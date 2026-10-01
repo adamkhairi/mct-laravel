@@ -2,70 +2,19 @@ import { Heart } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useTranslation } from '@/hooks/use-translation';
 
-export function Reviews() {
+interface ReviewItem {
+    id: number;
+    name: string;
+    country: string;
+    flag: string | null;
+    trip: string;
+    quote: string;
+    rating: number;
+    verified: boolean;
+}
+
+export function Reviews({ reviews }: { reviews: ReviewItem[] }) {
     const { __ } = useTranslation();
-    const reviews = [
-        {
-            name: 'Sarah M.',
-            country: __('Australia'),
-            flag: '🇦🇺',
-            trip: __('7-Day Grand Morocco Journey'),
-            quote: __(
-                'Honestly the best travel experience of my life. Our guide was extraordinary — he knew every hidden alley of Fes. The Sahara night camp was jaw-dropping. I cried when we had to leave.',
-            ),
-            initial: 'S',
-        },
-        {
-            name: 'Hiroshi T.',
-            country: __('Japan'),
-            flag: '🇯🇵',
-            trip: __('5-Day Private Morocco Tour'),
-            quote: __(
-                'We were a group of 8 from Japan and the entire trip was perfectly organized. Communication was superb, every detail accounted for. We will absolutely return to Morocco.',
-            ),
-            initial: 'H',
-        },
-        {
-            name: 'Luca & Maria',
-            country: __('Italy'),
-            flag: '🇮🇹',
-            trip: __('3-Day Sahara Desert Tour'),
-            quote: __(
-                'Booked the Sahara trip as a honeymoon surprise. The camp, the camel ride at sunset, the stargazing — my wife said it was the most romantic night of her life.',
-            ),
-            initial: 'L',
-        },
-        {
-            name: 'Emma R.',
-            country: __('United Kingdom'),
-            flag: '🇬🇧',
-            trip: __('Custom 6-Day Solo Tour'),
-            quote: __(
-                'As a solo female traveler I was nervous, but from the first WhatsApp message the team put me at ease. I explored safely and beautifully — Marrakech, Atlas and the coast.',
-            ),
-            initial: 'E',
-        },
-        {
-            name: 'David K.',
-            country: __('United States'),
-            flag: '🇺🇸',
-            trip: __('Family Morocco Adventure'),
-            quote: __(
-                'Family of 5 with young kids — they handled everything. Shorter drives, kid-friendly stops, engaging activities. The children are still talking about their camel ride 6 months later!',
-            ),
-            initial: 'D',
-        },
-        {
-            name: 'Prof. Pierre D.',
-            country: __('France'),
-            flag: '🇫🇷',
-            trip: __('University Group Tour'),
-            quote: __(
-                'Our university group of 22 students had an incredible educational tour through the imperial cities. Flawlessly managed — transport, accommodation, guided visits. Absolutely professional.',
-            ),
-            initial: 'P',
-        },
-    ];
 
     return (
         <section id="reviews" className="bg-sand px-6 py-24 md:px-10 md:py-32">
@@ -88,16 +37,17 @@ export function Reviews() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+                {reviews.length > 0 ? (
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
                     {reviews.map((review, index) => (
                         <Card
-                            key={index}
+                            key={review.id}
                             className="border-indigo-ink/10/50 animate-fade-up rounded-none bg-ivory/50 transition-all duration-500 hover:-translate-y-1 hover:border-terracotta/30"
                             style={{ animationDelay: `${index * 100}ms` }}
                         >
                             <CardContent className="p-8">
                                 <div className="mb-6 flex gap-1">
-                                    {[...Array(5)].map((_, i) => (
+                                    {Array.from({ length: review.rating }, (_, i) => (
                                         <svg
                                             key={i}
                                             className="h-3 w-3 fill-green-600"
@@ -109,29 +59,39 @@ export function Reviews() {
                                     ))}
                                 </div>
                                 <blockquote className="mb-8 leading-relaxed text-indigo-ink/75 italic">
-                                    &ldquo;{review.quote}&rdquo;
+                                    &ldquo;{__(review.quote)}&rdquo;
                                 </blockquote>
                                 <div className="flex items-center gap-4">
                                     <div className="flex h-11 w-11 items-center justify-center bg-terracotta text-sm font-bold text-ivory">
-                                        {review.initial}
+                                        {review.name.charAt(0)}
                                     </div>
                                     <div>
                                         <div className="text-sm font-bold text-indigo-ink">
                                             {review.name}
                                         </div>
                                         <div className="flex items-center gap-1.5 font-mono text-[11px] tracking-wider text-indigo-ink/40 uppercase">
-                                            <span>{review.flag}</span>
-                                            {review.country}
+                                            {review.flag && <span>{review.flag}</span>}
+                                            {__(review.country)}
                                         </div>
                                         <div className="mt-0.5 text-[11px] font-bold tracking-wide text-terracotta">
-                                            {review.trip}
+                                            {__(review.trip)}
                                         </div>
+                                        {review.verified && (
+                                            <span className="mt-1 block text-[10px] text-green-700">
+                                                {__('Verified')}
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                             </CardContent>
                         </Card>
                     ))}
                 </div>
+                ) : (
+                    <p className="border-y border-indigo-ink/10 py-8 text-center text-indigo-ink/55">
+                        {__('No traveler reviews are available yet.')}
+                    </p>
+                )}
 
                 <div className="animate-fade-up mt-20 flex flex-wrap items-center justify-center gap-12 border-t border-indigo-ink/10 pt-12 [animation-delay:800ms] md:gap-24">
                     <div className="text-center">

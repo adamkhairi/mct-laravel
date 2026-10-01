@@ -77,16 +77,12 @@ export default function Index({
     const [destination, setDestination] = useState(filters.destination || 'all');
     const [tripType, setTripType] = useState(filters.tripType || 'all');
     const [duration, setDuration] = useState(filters.duration || 'all');
-    const [tourToDelete, setTourToDelete] = useState<{
-        id: string;
-        title: string;
-    } | null>(null);
-
     const isFirstRender = useRef(true);
 
     useEffect(() => {
         if (isFirstRender.current) {
             isFirstRender.current = false;
+
             return;
         }
 

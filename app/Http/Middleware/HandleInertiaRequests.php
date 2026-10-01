@@ -62,7 +62,10 @@ class HandleInertiaRequests extends Middleware
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'locale' => $locale,
             'translations' => (object) $translations,
-            'locales' => ['en', 'es', 'fr', 'de', 'it', 'pt', 'zh', 'nl', 'ru'],
+            'locales' => config('seo.locales'),
+            'defaultLocale' => config('seo.default_locale'),
+            'siteUrl' => rtrim((string) config('seo.canonical_url'), '/'),
+            'googleSiteVerification' => config('seo.google_site_verification'),
         ];
     }
 }

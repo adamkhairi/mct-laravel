@@ -23,7 +23,7 @@ it('paginates tours on admin index page', function () {
 it('paginates published tours on public index page', function () {
     Tour::factory()->count(20)->create(['is_published' => true]);
 
-    $response = get(route('tours.index'));
+    $response = get(route('tours.index', ['locale' => 'en']));
 
     $response->assertOk();
     $response->assertInertia(fn ($page) => $page
@@ -51,7 +51,7 @@ it('can navigate to second page of admin tours', function () {
 it('can navigate to second page of public tours', function () {
     Tour::factory()->count(20)->create(['is_published' => true]);
 
-    $response = get(route('tours.index', ['page' => 2]));
+    $response = get(route('tours.index', ['locale' => 'en', 'page' => 2]));
 
     $response->assertOk();
     $response->assertInertia(fn ($page) => $page

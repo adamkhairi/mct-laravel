@@ -1,27 +1,34 @@
 import { Link } from '@inertiajs/react';
 
+import { Breadcrumbs } from '@/components/site/Breadcrumbs';
 import { Footer } from '@/components/site/Footer';
 import { Header } from '@/components/site/Header';
 import { MetaTags } from '@/components/site/MetaTags';
 import { useTranslation } from '@/hooks/use-translation';
 import SiteLayout from '@/layouts/site-layout';
+import { localizedPath } from '@/lib/localized-path';
 
 const DESCRIPTION =
     'Learn about Moroccan Club Travel - a full-service travel agency with over 20 years of experience creating unforgettable journeys through Morocco.';
 
 export default function About() {
-    const { __ } = useTranslation();
+    const { __, currentLocale } = useTranslation();
 
     return (
         <SiteLayout>
             <MetaTags
                 title={__('About Us | Moroccan Club Travel')}
                 description={__(DESCRIPTION)}
-                url="https://www.moroccanclubtravel.com/about"
             />
             <Header />
             <main className="px-6 pt-32 pb-24 md:px-10 md:pt-40 md:pb-32">
                 <div className="mx-auto max-w-7xl">
+                    <Breadcrumbs
+                        items={[
+                            { label: __('Home'), href: '/' },
+                            { label: __('About Us') },
+                        ]}
+                    />
                     {/* Hero Section */}
                     <div className="animate-fade-up mb-20">
                         <span className="eyebrow mb-6 block text-terracotta">
@@ -82,13 +89,13 @@ export default function About() {
                             </p>
                             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                                 <Link
-                                    href="/tours"
+                                    href={localizedPath('/tours', currentLocale)}
                                     className="eyebrow inline-flex items-center justify-center bg-terracotta px-10 py-5 text-ivory transition-colors hover:bg-terracotta/90"
                                 >
                                     {__('Explore Our Tours')}
                                 </Link>
                                 <a
-                                    href="/#contact"
+                                    href={localizedPath('/#contact', currentLocale)}
                                     className="eyebrow inline-flex items-center justify-center border border-foreground/20 px-10 py-5 transition-colors hover:border-terracotta hover:text-terracotta"
                                 >
                                     {__('Contact Us')}

@@ -15,20 +15,31 @@ const VIATOR_PRODUCTS_URL = 'https://supplier.viator.com/products/';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 class CDP {
-  constructor() { this.ws = null; this.msgId = 1; this.pending = new Map(); }
+  constructor() {
+ this.ws = null; this.msgId = 1; this.pending = new Map(); 
+}
   async connect(wsUrl) {
     this.ws = new WebSocket(wsUrl);
-    await new Promise((res, rej) => { this.ws.on('open', res); this.ws.on('error', rej); });
+    await new Promise((res, rej) => {
+ this.ws.on('open', res); this.ws.on('error', rej); 
+});
     this.ws.on('message', (data) => {
       try {
         const msg = JSON.parse(data.toString());
+
         if (msg.id && this.pending.has(msg.id)) {
           const { resolve, reject } = this.pending.get(msg.id);
           this.pending.delete(msg.id);
-          if (msg.error) reject(new Error(`CDP: ${msg.error.message}`));
-          else resolve(msg.result);
+
+          if (msg.error) {
+reject(new Error(`CDP: ${msg.error.message}`));
+} else {
+resolve(msg.result);
+}
         }
-      } catch {}
+      } catch {
+        // Ignore messages that are not valid JSON responses.
+      }
     });
   }
   send(method, params = {}, sessionId = null) {
@@ -36,63 +47,75 @@ class CDP {
       const id = this.msgId++;
       this.pending.set(id, { resolve, reject });
       const msg = { id, method, params };
-      if (sessionId) msg.sessionId = sessionId;
+
+      if (sessionId) {
+msg.sessionId = sessionId;
+}
+
       this.ws.send(JSON.stringify(msg));
-      setTimeout(() => { if (this.pending.has(id)) { this.pending.delete(id); reject(new Error(`Timeout: ${method}`)); } }, 30000);
+      setTimeout(() => {
+ if (this.pending.has(id)) {
+ this.pending.delete(id); reject(new Error(`Timeout: ${method}`)); 
+} 
+}, 30000);
     });
   }
   async attachToTarget(targetId) {
     const { sessionId } = await this.send('Target.attachToTarget', { targetId, flatten: true });
     await this.send('Runtime.enable', {}, sessionId);
     await this.send('Page.enable', {}, sessionId);
+
     return sessionId;
   }
   async eval(session, expr) {
     const result = await this.send('Runtime.evaluate', { expression: expr, awaitPromise: true, returnByValue: true }, session);
+
     return result?.result?.value;
   }
-  async getTargets() { const { targetInfos } = await this.send('Target.getTargets'); return targetInfos; }
-  async newTab(url) { const { targetId } = await this.send('Target.createTarget', { url }); await sleep(3000); return targetId; }
-  close() { this.ws.close(); }
-}
+  async getTargets() {
+ const { targetInfos } = await this.send('Target.getTargets');
 
-async function waitForElement(cdp, s, sel, timeout = 15000) {
-  const start = Date.now();
-  while (Date.now() - start < timeout) {
-    if (await cdp.eval(s, `!!document.querySelector(${JSON.stringify(sel)})`)) return true;
-    await sleep(500);
-  }
-  throw new Error(`Timeout waiting for: ${sel}`);
+ return targetInfos; 
+}
+  async newTab(url) {
+ const { targetId } = await this.send('Target.createTarget', { url }); await sleep(3000);
+
+ return targetId; 
+}
+  close() {
+ this.ws.close(); 
+}
 }
 
 async function clickButton(cdp, s, text, timeout = 10000) {
   const start = Date.now();
+
   while (Date.now() - start < timeout) {
     const clicked = await cdp.eval(s, `(()=>{const b=Array.from(document.querySelectorAll('button,[role="button"]')).find(el=>el.innerText.trim()===${JSON.stringify(text)});if(b){b.click();return true;}return false;})()`);
-    if (clicked) return;
+
+    if (clicked) {
+return;
+}
+
     await sleep(500);
   }
+
   throw new Error(`Button not found: "${text}"`);
 }
 
-async function fillReactInput(cdp, s, sel, value) {
-  await cdp.eval(s, `(()=>{
-    const el=document.querySelector(${JSON.stringify(sel)});
-    if(!el) return;
-    el.focus();
-    const nd=Object.getOwnPropertyDescriptor(el.nodeName==='TEXTAREA'?window.HTMLTextAreaElement.prototype:window.HTMLInputElement.prototype,'value');
-    if(nd) nd.set.call(el,${JSON.stringify(value)}); else el.value=${JSON.stringify(value)};
-    el.dispatchEvent(new Event('input',{bubbles:true}));
-    el.dispatchEvent(new Event('change',{bubbles:true}));
-  })()`);
+async function getURL(cdp, s) {
+ return cdp.eval(s, 'window.location.href'); 
 }
-
-async function getURL(cdp, s) { return cdp.eval(s, 'window.location.href'); }
 
 async function dismissModal(cdp, s) {
   const text = await cdp.eval(s, 'document.body.innerText');
+
   if (text && (text.includes('$29') || text.includes('Launch Assist'))) {
-    try { await clickButton(cdp, s, 'Continue', 4000); await sleep(2000); console.log('  → Modal dismissed'); } catch {}
+    try {
+ await clickButton(cdp, s, 'Continue', 4000); await sleep(2000); console.log('  → Modal dismissed'); 
+} catch {
+      console.warn('  → Continue button was not available; keeping the modal open.');
+    }
   }
 }
 
@@ -111,13 +134,18 @@ async function main() {
   await sleep(2000);
 
   const url = await getURL(cdp, session);
+
   if (url.includes('login') || url.includes('signin')) {
     console.log('⚠️  Not logged in. Please log in manually first, then re-run this script.');
-    cdp.close(); return;
+    cdp.close();
+
+ return;
   }
+
   console.log('✅ Logged in. Starting creation loop...');
 
   const results = [];
+
   for (let i = 0; i < tours.length; i++) {
     const tour = tours[i];
     console.log(`\n${'─'.repeat(55)}`);
@@ -175,7 +203,12 @@ async function main() {
       await sleep(500);
 
       // Try Save & continue
-      try { await clickButton(cdp, session, 'Save & continue', 5000); await sleep(3000); } catch {}
+      try {
+ await clickButton(cdp, session, 'Save & continue', 5000); await sleep(3000); 
+} catch (error) {
+  console.warn('  → Could not submit basic details:', error.message);
+}
+
       console.log('  → After basics URL:', await getURL(cdp, session));
 
       // =============================================================
@@ -200,7 +233,12 @@ async function main() {
       console.log('  → Description fill result:', descFilled);
       await sleep(500);
 
-      try { await clickButton(cdp, session, 'Save & continue', 5000); await sleep(3000); } catch {}
+      try {
+ await clickButton(cdp, session, 'Save & continue', 5000); await sleep(3000); 
+} catch (error) {
+  console.warn('  → Could not submit the description:', error.message);
+}
+
       console.log('  → After description URL:', await getURL(cdp, session));
 
       const finalURL = await getURL(cdp, session);
@@ -218,14 +256,23 @@ async function main() {
 
   console.log('\n\n📊 Results Summary:');
   console.log('─'.repeat(55));
+
   for (const r of results) {
     const icon = r.status === 'error' ? '❌' : '✅';
     console.log(`${icon} ${r.title}`);
-    if (r.error) console.log(`   Error: ${r.error}`);
-    if (r.url) console.log(`   URL: ${r.url}`);
+
+    if (r.error) {
+console.log(`   Error: ${r.error}`);
+}
+
+    if (r.url) {
+console.log(`   URL: ${r.url}`);
+}
   }
 
   cdp.close();
 }
 
-main().catch(e => { console.error('Fatal:', e.message); process.exit(1); });
+main().catch(e => {
+ console.error('Fatal:', e.message); process.exit(1); 
+});

@@ -2,9 +2,22 @@
 
 use Inertia\Testing\AssertableInertia as Assert;
 
-test('it shares translations based on the current locale', function () {
-    // Default locale should be en
+test('it serves the homepage on a locale-prefixed URL', function () {
+    $this->get('/fr')
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('welcome')
+            ->where('locale', 'fr')
+            ->where('siteUrl', 'https://moroccanclubtravel.com')
+        );
+});
+
+test('the legacy homepage redirects to the English locale URL', function () {
     $this->get('/')
+        ->assertRedirect('/en');
+});
+
+test('it shares translations based on the current locale', function () {
+    $this->get('/en')
         ->assertInertia(fn (Assert $page) => $page
             ->where('locale', 'en')
             ->has('translations', fn (Assert $page) => $page
@@ -13,12 +26,7 @@ test('it shares translations based on the current locale', function () {
             )
         );
 
-    // Change locale to es
-    $this->post('/language', ['locale' => 'es'])
-        ->assertRedirect();
-
-    // Now it should be es
-    $this->get('/')
+    $this->get('/es')
         ->assertInertia(fn (Assert $page) => $page
             ->where('locale', 'es')
             ->has('translations', fn (Assert $page) => $page
@@ -29,10 +37,7 @@ test('it shares translations based on the current locale', function () {
 });
 
 test('it returns the key if translation is missing in the hook', function () {
-    // This is more of a frontend test, but we can verify the shared data
-    $this->post('/language', ['locale' => 'es']);
-
-    $this->get('/')
+    $this->get('/es')
         ->assertInertia(fn (Assert $page) => $page
             ->has('translations', fn (Assert $page) => $page
                 ->where('Welcome to our platform', 'Bienvenido a nuestra plataforma')

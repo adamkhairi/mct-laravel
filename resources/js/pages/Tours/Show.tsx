@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import {
     Hotel,
     MapPin,
@@ -10,7 +10,8 @@ import {
     XCircle,
 } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
+import { Breadcrumbs } from '@/components/site/Breadcrumbs';
 import { Footer } from '@/components/site/Footer';
 import { Header } from '@/components/site/Header';
 import { MetaTags } from '@/components/site/MetaTags';
@@ -21,9 +22,27 @@ import {
 } from '@/components/ui/collapsible';
 import { useTranslation } from '@/hooks/use-translation';
 import SiteLayout from '@/layouts/site-layout';
+import { localizedPath } from '@/lib/localized-path';
 
-export default function Show({ tour }: { tour: any }) {
-    const { __ } = useTranslation();
+interface TourReview {
+    id: number;
+    reviewer_name: string;
+    country: string;
+    quote: string;
+    rating: number;
+    locale: string;
+    reviewed_at: string | null;
+}
+
+export default function Show({
+    tour,
+    tourReviews,
+}: {
+    tour: any;
+    tourReviews: TourReview[];
+}) {
+    const { __, currentLocale } = useTranslation();
+    const { url: requestUrl, props } = usePage<{ siteUrl: string }>();
     const itinerary = (tour.itinerary as any[]) || [];
     const included = (tour.included as string[]) || [];
     const excluded = (tour.excluded as string[]) || [];
@@ -43,31 +62,30 @@ export default function Show({ tour }: { tour: any }) {
 
         return `/assets/${tour.image}`;
     }, [tour.image]);
+    const pageUrl = new URL(
+        requestUrl.split(/[?#]/, 1)[0],
+        `${props.siteUrl}/`,
+    ).href;
+    const imageUrl = new URL(resolvedImage, `${props.siteUrl}/`).href;
 
     return (
         <SiteLayout>
             <MetaTags
                 title={__(tour.title)}
                 description={__(tour.description)}
-                image={
-                    resolvedImage.startsWith('http')
-                        ? resolvedImage
-                        : `https://www.moroccanclubtravel.com${resolvedImage}`
-                }
-                url={`https://www.moroccanclubtravel.com/tours/${tour.slug}`}
+                image={imageUrl}
                 type="article"
             />
             <Header />
             <main className="pt-32 pb-24 md:pt-40">
                 <div className="container mx-auto max-w-7xl px-4 md:px-8">
-                    <div className="mb-12">
-                        <Link
-                            href="/tours"
-                            className="eyebrow inline-flex items-center gap-2 text-terracotta transition-colors duration-300 hover:text-foreground"
-                        >
-                            <span>←</span> {__('All Tours')}
-                        </Link>
-                    </div>
+                    <Breadcrumbs
+                        items={[
+                            { label: __('Home'), href: '/' },
+                            { label: __('Tours'), href: '/tours' },
+                            { label: __(tour.title) },
+                        ]}
+                    />
 
                     <div className="mb-16 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-24">
                         <div className="lg:col-span-8">
@@ -351,7 +369,10 @@ export default function Show({ tour }: { tour: any }) {
 
                                     <div className="flex flex-col gap-4 pt-8">
                                         <a
-                                            href="/#contact"
+                                            href={localizedPath(
+                                                '/#contact',
+                                                currentLocale,
+                                            )}
                                             className="inline-flex items-center justify-center bg-foreground px-8 py-4 text-sm font-medium tracking-wide text-background uppercase transition-colors duration-300 hover:bg-terracotta"
                                         >
                                             {__('Contact Us')}
@@ -369,11 +390,32 @@ export default function Show({ tour }: { tour: any }) {
                             className="h-full w-full object-cover object-center"
                         />
                     </div>
+                    {tourReviews.length > 0 && (
+                        <section className="mb-20 border-t border-foreground/10 pt-12" aria-labelledby="tour-reviews-heading">
+                            <h2 id="tour-reviews-heading" className="mb-8 font-display text-3xl">
+                                {__('Traveler reviews')}
+                            </h2>
+                            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                                {tourReviews.map((review) => (
+                                    <article key={review.id} className="border-b border-foreground/10 pb-6">
+                                        <p className="eyebrow mb-4 text-terracotta">
+                                            {review.rating}/5
+                                        </p>
+                                        <blockquote className="leading-relaxed text-foreground/75 italic">
+                                            “{__(review.quote)}”
+                                        </blockquote>
+                                        <p className="mt-4 text-sm font-semibold">
+                                            {review.reviewer_name} · {__(review.country)}
+                                        </p>
+                                    </article>
+                                ))}
+                            </div>
+                        </section>
+                    )}
                 </div>
             </main>
             <Footer />
 
-            {/* TouristTrip Structured Data */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
@@ -382,69 +424,14 @@ export default function Show({ tour }: { tour: any }) {
                         '@type': 'TouristTrip',
                         name: tour.title,
                         description: tour.description,
-                        duration: tour.duration,
-                        image: tour.image
-                            ? tour.image.startsWith('/')
-                                ? tour.image
-                                : `/assets/${tour.image}`
-                            : 'https://www.moroccanclubtravel.com/assets/tour-sahara-camp.jpg',
-                        url: `https://www.moroccanclubtravel.com/tours/${tour.slug}`,
-                        offers: {
-                            '@type': 'Offer',
-                            price: tour.price || '0',
-                            priceCurrency: 'EUR',
-                            url: `https://www.moroccanclubtravel.com/tours/${tour.slug}`,
-                            eligibleRegion: {
-                                '@type': 'Country',
-                                name: 'MA',
-                            },
-                        },
-                        itinerary: itinerary.map((item: any, idx: number) => ({
-                            '@type': 'HowToStep',
-                            position: idx + 1,
-                            name: item.day || `Day ${idx + 1}`,
-                            itemListElement: [
-                                {
-                                    '@type': 'HowToDirection',
-                                    text: `${item.title}: ${item.description}`,
-                                },
-                            ],
-                        })),
+                        image: imageUrl,
+                        url: pageUrl,
+                        inLanguage: currentLocale,
                         provider: {
                             '@type': 'TravelAgency',
                             name: 'Moroccan Club Travel',
-                            url: 'https://www.moroccanclubtravel.com',
+                            url: props.siteUrl,
                         },
-                    }),
-                }}
-            />
-
-            {/* Breadcrumb Structured Data */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        '@context': 'https://schema.org',
-                        '@type': 'BreadcrumbList',
-                        itemListElement: [
-                            {
-                                '@type': 'ListItem',
-                                position: 1,
-                                name: 'Home',
-                                item: 'https://www.moroccanclubtravel.com',
-                            },
-                            {
-                                '@type': 'ListItem',
-                                position: 2,
-                                name: 'Tours',
-                                item: 'https://www.moroccanclubtravel.com/tours',
-                            },
-                            {
-                                position: 3,
-                                name: __(tour.title),
-                                item: `https://www.moroccanclubtravel.com/tours/${tour.slug}`,
-                            },
-                        ],
                     }),
                 }}
             />

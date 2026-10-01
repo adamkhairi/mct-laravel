@@ -1,6 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { LayoutDashboard, Map, LogOut } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { FileText, LayoutDashboard, Map, MessageSquareQuote, LogOut } from 'lucide-react';
 import {
     Sidebar,
     SidebarContent,
@@ -23,7 +22,7 @@ export function AppSidebar() {
         <Sidebar className="border-r border-indigo-ink/5 bg-sand">
             <SidebarHeader className="p-6">
                 <Link
-                    href={dashboard().url}
+                    href="/"
                     className="group flex items-center gap-3"
                 >
                     <img
@@ -71,6 +70,30 @@ export function AppSidebar() {
                             >
                                 <Map className="h-4 w-4" />
                                 <span>Tours</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton
+                            asChild
+                            isActive={url.startsWith(admin.posts.index().url)}
+                            className="font-sans text-xs font-bold tracking-widest text-indigo-ink/80 uppercase transition-all duration-300 hover:bg-ivory hover:text-terracotta data-[active=true]:bg-ivory data-[active=true]:text-terracotta"
+                        >
+                            <Link href={admin.posts.index().url} className="flex items-center gap-3">
+                                <FileText className="h-4 w-4" />
+                                <span>Journal</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton
+                            asChild
+                            isActive={url.startsWith(admin.reviews.index().url)}
+                            className="font-sans text-xs font-bold tracking-widest text-indigo-ink/80 uppercase transition-all duration-300 hover:bg-ivory hover:text-terracotta data-[active=true]:bg-ivory data-[active=true]:text-terracotta"
+                        >
+                            <Link href={admin.reviews.index().url} className="flex items-center gap-3">
+                                <MessageSquareQuote className="h-4 w-4" />
+                                <span>Reviews</span>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>

@@ -21,9 +21,13 @@ if [ "$NODE_MAJOR" -lt 22 ]; then
 fi
 
 # Rebuild client and server-rendered assets
-php artisan inertia:stop-ssr --graceful
+if php artisan inertia:check-ssr; then
+	php artisan inertia:stop-ssr
+else
+	echo "Inertia SSR server is not running; skipping stop."
+fi
 npm ci
-npm run build:ssr
+RAYON_NUM_THREADS=2 npm run build:ssr
 
 # Run migrations
 php artisan migrate --force
@@ -37,8 +41,20 @@ php artisan db:seed --class=ReviewSeeder --force
 # Optimize Laravel (config, routes, views)
 php artisan optimize
 
-# Create storage link if it doesn't exist
-php artisan storage:link
+# Create the storage link if it doesn't exist; stop if an unrelated file occupies its path.
+if [ -L public/storage ]; then
+	STORAGE_TARGET=$(readlink public/storage)
+	EXPECTED_STORAGE_TARGET="$(pwd)/storage/app/public"
+	if [ "$STORAGE_TARGET" != "$EXPECTED_STORAGE_TARGET" ]; then
+		echo "public/storage points to an unexpected target: $STORAGE_TARGET"
+		exit 1
+	fi
+elif [ -e public/storage ]; then
+	echo "public/storage exists and is not a symlink."
+	exit 1
+else
+	php artisan storage:link
+fi
 
 # Start SSR; production should also supervise this process.
 nohup php artisan inertia:start-ssr > storage/logs/ssr.log 2>&1 &

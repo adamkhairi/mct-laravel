@@ -11,6 +11,11 @@ class BlogController extends Controller
 {
     public function index(string $locale): Response
     {
+        $alternateLocales = BlogPost::published()
+            ->distinct()
+            ->pluck('locale')
+            ->all();
+
         $posts = BlogPost::query()
             ->published()
             ->where('locale', $locale)
@@ -21,6 +26,7 @@ class BlogController extends Controller
 
         return Inertia::render('Blog/Index', [
             'posts' => $posts,
+            'alternateLocales' => $alternateLocales,
         ]);
     }
 
@@ -47,7 +53,9 @@ class BlogController extends Controller
                     'allow_unsafe_links' => false,
                 ]),
             ],
-            'alternateLocales' => $translations->pluck('locale')->all(),
+            'alternateUrls' => $translations->mapWithKeys(fn (BlogPost $translation): array => [
+                $translation->locale => '/'.$translation->locale.'/blog/'.$translation->slug,
+            ])->all(),
         ]);
     }
     //

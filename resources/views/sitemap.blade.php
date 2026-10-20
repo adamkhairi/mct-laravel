@@ -3,7 +3,9 @@
     @foreach ($urls as $url)
         <url>
             <loc>{{ $url['loc'] }}</loc>
-            <lastmod>{{ $url['lastmod'] }}</lastmod>
+            @isset($url['lastmod'])
+                <lastmod>{{ $url['lastmod'] }}</lastmod>
+            @endisset
             <changefreq>{{ $url['changefreq'] }}</changefreq>
             <priority>{{ $url['priority'] }}</priority>
             @foreach ($url['alternates'] as $locale => $alternate)

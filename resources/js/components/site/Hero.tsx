@@ -10,6 +10,7 @@ export function Hero() {
                 <img
                     src={heroImg}
                     alt={__('Sahara desert dunes at golden hour')}
+                    fetchPriority="high"
                     className="h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-clay/75 via-clay/20 to-clay/10" />
@@ -20,12 +21,11 @@ export function Hero() {
                     {__('Est. 2014 — Marrakesh')}
                 </span>
                 <h1 className="max-w-[14ch] font-display text-5xl leading-[0.92] font-bold text-balance sm:text-7xl md:text-[8.5vw] lg:text-9xl">
-                    {__('The')}{' '}
-                    <i className="font-normal text-terracotta">
-                        {__('Silent')}
-                    </i>{' '}
-                    {__('Magic of the Maghreb.')}
+                    {__('Private Morocco Tours')}
                 </h1>
+                <p className="mt-5 font-display text-2xl text-ivory/90 md:text-3xl">
+                    {__('The Silent Magic of the Maghreb.')}
+                </p>
                 <div className="mt-10 flex flex-col gap-8 md:mt-14 md:flex-row md:items-center md:gap-12">
                     <a
                         href="#contact"

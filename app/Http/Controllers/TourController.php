@@ -62,6 +62,7 @@ class TourController extends Controller
 
         return Inertia::render('Tours/Show', [
             'tour' => (new TourResource($tour))->resolve(),
+            'alternateLocales' => $tour->availableLocales(),
             'tourReviews' => $tour->reviews()
                 ->published()
                 ->where('is_verified', true)

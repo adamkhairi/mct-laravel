@@ -7,7 +7,7 @@ test('it serves the homepage on a locale-prefixed URL', function () {
         ->assertInertia(fn (Assert $page) => $page
             ->component('welcome')
             ->where('locale', 'fr')
-            ->where('siteUrl', 'https://moroccanclubtravel.com')
+            ->where('siteUrl', 'https://www.moroccanclubtravel.com')
         );
 });
 

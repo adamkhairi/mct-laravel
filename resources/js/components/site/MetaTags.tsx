@@ -8,6 +8,8 @@ interface MetaTagsProps {
     type?: string;
     canonical?: string;
     alternateLocales?: string[];
+    alternateUrls?: Record<string, string>;
+    noindex?: boolean;
 }
 
 export function MetaTags({
@@ -17,17 +19,17 @@ export function MetaTags({
     type = 'website',
     canonical,
     alternateLocales,
+    alternateUrls,
+    noindex = false,
 }: MetaTagsProps) {
     const { url: requestUrl, props } = usePage<{
         locale: string;
-        locales: string[];
         defaultLocale: string;
         siteUrl: string;
         googleSiteVerification?: string | null;
     }>();
     const {
         locale,
-        locales,
         defaultLocale,
         siteUrl,
         googleSiteVerification,
@@ -39,14 +41,17 @@ export function MetaTags({
     const currentPath = requestUrl.split(/[?#]/, 1)[0] || '/';
     const canonicalUrl = new URL(canonical || currentPath, `${siteUrl}/`).href;
     const imageUrl = new URL(image, `${siteUrl}/`).href;
-    const languageAlternates = alternateLocales ?? locales;
+    const languageAlternates = alternateUrls
+        ? Object.keys(alternateUrls)
+        : (alternateLocales ?? [locale]);
     const defaultLanguageUrl = new URL(
-        localizedPath(currentPath, defaultLocale),
+        alternateUrls?.[defaultLocale] ??
+            localizedPath(currentPath, defaultLocale),
         `${siteUrl}/`,
     ).href;
     const organizationSchema = {
-        '@context': 'https://schema.org',
         '@type': 'TravelAgency',
+        '@id': `${siteUrl}/#organization`,
         name: 'Moroccan Club Travel',
         description:
             'A Marrakesh-based agency curating private tours through the Sahara, the High Atlas, the imperial cities and the Atlantic coast.',
@@ -65,6 +70,19 @@ export function MetaTags({
             contactType: 'customer service',
         },
     };
+    const siteSchema = {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'WebSite',
+                '@id': `${siteUrl}/#website`,
+                url: siteUrl,
+                name: 'Moroccan Club Travel',
+                publisher: { '@id': `${siteUrl}/#organization` },
+            },
+            organizationSchema,
+        ],
+    };
 
     return (
         <Head>
@@ -74,6 +92,9 @@ export function MetaTags({
                 name="description"
                 content={description}
             />
+            {noindex && (
+                <meta head-key="robots" name="robots" content="noindex,follow" />
+            )}
             <meta
                 head-key="author"
                 name="author"
@@ -127,7 +148,8 @@ export function MetaTags({
                     rel="alternate"
                     hrefLang={alternateLocale}
                     href={new URL(
-                        localizedPath(currentPath, alternateLocale),
+                        alternateUrls?.[alternateLocale] ??
+                            localizedPath(currentPath, alternateLocale),
                         `${siteUrl}/`,
                     ).href}
                 />
@@ -148,7 +170,7 @@ export function MetaTags({
                 />
             )}
             <script type="application/ld+json">
-                {JSON.stringify(organizationSchema)}
+                {JSON.stringify(siteSchema)}
             </script>
         </Head>
     );

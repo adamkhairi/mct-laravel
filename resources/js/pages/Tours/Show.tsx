@@ -37,9 +37,11 @@ interface TourReview {
 export default function Show({
     tour,
     tourReviews,
+    alternateLocales,
 }: {
     tour: any;
     tourReviews: TourReview[];
+    alternateLocales: string[];
 }) {
     const { __, currentLocale } = useTranslation();
     const { url: requestUrl, props } = usePage<{ siteUrl: string }>();
@@ -62,19 +64,30 @@ export default function Show({
 
         return `/assets/${tour.image}`;
     }, [tour.image]);
-    const pageUrl = new URL(
-        requestUrl.split(/[?#]/, 1)[0],
-        `${props.siteUrl}/`,
-    ).href;
+    const pagePath = requestUrl.split(/[?#]/, 1)[0];
+    const pageUrl = new URL(pagePath, `${props.siteUrl}/`).href;
     const imageUrl = new URL(resolvedImage, `${props.siteUrl}/`).href;
+    const route = [tour.startingPoint, tour.arrivalCity]
+        .filter(Boolean)
+        .join(' to ');
+    const pageTitle = [tour.title, route, tour.duration]
+        .filter(Boolean)
+        .map((value) => __(value))
+        .join(' | ');
+    const pageDescription = [tour.description, route, tour.duration]
+        .filter(Boolean)
+        .map((value) => __(value))
+        .join(' ');
 
     return (
         <SiteLayout>
             <MetaTags
-                title={__(tour.title)}
-                description={__(tour.description)}
+                title={pageTitle}
+                description={pageDescription}
                 image={imageUrl}
                 type="article"
+                alternateLocales={alternateLocales}
+                noindex={!alternateLocales.includes(currentLocale)}
             />
             <Header />
             <main className="pt-32 pb-24 md:pt-40">
@@ -92,6 +105,11 @@ export default function Show({
                             <h1 className="mb-8 font-display text-5xl leading-[1.1] tracking-tight md:text-7xl">
                                 {__(tour.title)}
                             </h1>
+                            {(tour.startingPoint || tour.arrivalCity || tour.duration) && (
+                                <p className="mb-6 text-sm font-medium tracking-wide text-foreground/60">
+                                    {[route, tour.duration].filter(Boolean).map((value) => __(value)).join(' · ')}
+                                </p>
+                            )}
                             <p className="mb-16 max-w-3xl text-xl leading-relaxed font-light text-foreground/80 md:text-2xl">
                                 {__(tour.description)}
                             </p>

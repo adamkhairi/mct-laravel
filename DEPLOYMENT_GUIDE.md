@@ -54,7 +54,8 @@ nano .env
 ```env
 APP_ENV=production
 APP_DEBUG=false
-APP_URL=https://moroccanclubtravel.com
+APP_URL=https://www.moroccanclubtravel.com
+SEO_CANONICAL_URL=https://www.moroccanclubtravel.com
 
 # Use Database for Sessions and Cache (Recommended for Hostinger)
 SESSION_DRIVER=database

@@ -2,6 +2,7 @@
 
 use App\Models\BlogPost;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Inertia\Testing\AssertableInertia as Assert;
 
 test('blog index is available on localized routes', function () {
@@ -35,6 +36,26 @@ test('blog index lists only published entries in the requested language', functi
         );
 
     $this->get('/en/blog/'.$draftPost->slug)->assertNotFound();
+});
+
+test('blog detail metadata receives actual translated article paths', function () {
+    $translationKey = (string) Str::uuid();
+    BlogPost::factory()->published()->create([
+        'locale' => 'en',
+        'slug' => 'morocco-in-spring',
+        'translation_key' => $translationKey,
+    ]);
+    $frenchPost = BlogPost::factory()->published()->create([
+        'locale' => 'fr',
+        'slug' => 'maroc-au-printemps',
+        'translation_key' => $translationKey,
+    ]);
+
+    $this->get('/fr/blog/'.$frenchPost->slug)
+        ->assertInertia(fn (Assert $page) => $page
+            ->where('alternateUrls.en', '/en/blog/morocco-in-spring')
+            ->where('alternateUrls.fr', '/fr/blog/maroc-au-printemps')
+        );
 });
 
 test('admins can create draft articles', function () {

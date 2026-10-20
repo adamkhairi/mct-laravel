@@ -40,6 +40,34 @@ test('tour show page is displayed for published tour', function () {
         ->assertStatus(200);
 });
 
+test('tour exposes only locales with complete explicit translations', function () {
+    $tour = Tour::factory()->create([
+        'title' => ['en' => 'Sahara tour', 'fr' => 'Circuit du Sahara'],
+        'description' => ['en' => 'A tour through the Sahara.', 'fr' => 'Un circuit dans le Sahara.'],
+        'duration' => ['en' => '6 days'],
+        'is_published' => true,
+    ]);
+
+    expect($tour->availableLocales())->toBe(['en']);
+});
+
+test('tour locales require explicit verification before they are advertised', function () {
+    $tour = Tour::factory()->create(['slug' => 'verified-sahara-tour']);
+
+    foreach ($tour->translatable as $field) {
+        $tour->setTranslations($field, [
+            'en' => $field === 'title' ? 'Sahara tour' : 'English content',
+            'fr' => $field === 'title' ? 'Circuit du Sahara' : 'Contenu français',
+        ]);
+    }
+
+    expect($tour->availableLocales())->toBe(['en']);
+
+    config(['seo.verified_tour_translations.verified-sahara-tour' => ['fr']]);
+
+    expect($tour->availableLocales())->toBe(['en', 'fr']);
+});
+
 test('tour detail only receives published verified reviews linked to that tour', function () {
     $tour = Tour::factory()->create([
         'slug' => 'reviewed-tour',

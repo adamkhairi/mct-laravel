@@ -22,10 +22,10 @@ interface BlogPost {
 
 export default function Show({
     post,
-    alternateLocales,
+    alternateUrls,
 }: {
     post: BlogPost;
-    alternateLocales: string[];
+    alternateUrls: Record<string, string>;
 }) {
     const { __, currentLocale } = useTranslation();
     const { url, props } = usePage<{ siteUrl: string }>();
@@ -38,7 +38,7 @@ export default function Show({
                 description={post.meta_description || post.excerpt || post.title}
                 image={post.image || undefined}
                 type="article"
-                alternateLocales={alternateLocales}
+                alternateUrls={alternateUrls}
             />
             <script
                 type="application/ld+json"

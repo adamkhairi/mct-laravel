@@ -15,7 +15,6 @@ class SitemapController extends Controller
         $pages = [
             ['path' => '/', 'changefreq' => 'monthly', 'priority' => '1.0'],
             ['path' => '/tours', 'changefreq' => 'weekly', 'priority' => '0.8'],
-            ['path' => '/blog', 'changefreq' => 'weekly', 'priority' => '0.7'],
             ['path' => '/about', 'changefreq' => 'yearly', 'priority' => '0.6'],
             ['path' => '/privacy-policy', 'changefreq' => 'yearly', 'priority' => '0.3'],
             ['path' => '/cancellation-policy', 'changefreq' => 'yearly', 'priority' => '0.3'],
@@ -34,23 +33,28 @@ class SitemapController extends Controller
             foreach ($localizedUrls as $locale => $url) {
                 $urls[] = [
                     'loc' => $url,
-                    'lastmod' => now()->toDateString(),
                     'changefreq' => $page['changefreq'],
                     'priority' => $page['priority'],
-                    'alternates' => [...$localizedUrls, 'x-default' => $localizedUrls[config('seo.default_locale')]],
+                    'alternates' => $this->alternates([$locale => $url]),
                 ];
             }
         }
 
         $tours = Tour::published()
-            ->select(['slug', 'updated_at'])
+            ->select(['id', 'slug', ...$this->tourTranslationFields(), 'updated_at'])
             ->orderByDesc('updated_at')
             ->get();
 
         foreach ($tours as $tour) {
+            $availableLocales = $tour->availableLocales();
+
+            if ($availableLocales === []) {
+                continue;
+            }
+
             $localizedUrls = [];
 
-            foreach ($locales as $locale) {
+            foreach ($availableLocales as $locale) {
                 $localizedUrls[$locale] = $canonicalUrl.'/'.$locale.'/tours/'.$tour->slug;
             }
 
@@ -60,7 +64,7 @@ class SitemapController extends Controller
                     'lastmod' => $tour->updated_at->toDateString(),
                     'changefreq' => 'monthly',
                     'priority' => '0.7',
-                    'alternates' => [...$localizedUrls, 'x-default' => $localizedUrls[config('seo.default_locale')]],
+                    'alternates' => $this->alternates($localizedUrls),
                 ];
             }
         }
@@ -70,6 +74,21 @@ class SitemapController extends Controller
             ->orderByDesc('updated_at')
             ->get();
 
+        $archiveLocales = $posts->pluck('locale')->unique()->values()->all();
+
+        foreach ($archiveLocales as $locale) {
+            $archiveUrls = collect($archiveLocales)->mapWithKeys(fn (string $archiveLocale): array => [
+                $archiveLocale => $canonicalUrl.'/'.$archiveLocale.'/blog',
+            ])->all();
+
+            $urls[] = [
+                'loc' => $archiveUrls[$locale],
+                'changefreq' => 'weekly',
+                'priority' => '0.7',
+                'alternates' => $this->alternates($archiveUrls),
+            ];
+        }
+
         foreach ($posts as $post) {
             $translations = $post->translation_key
                 ? $posts->where('translation_key', $post->translation_key)
@@ -77,18 +96,12 @@ class SitemapController extends Controller
             $localizedUrls = $translations->mapWithKeys(fn (BlogPost $translation): array => [
                 $translation->locale => $canonicalUrl.'/'.$translation->locale.'/blog/'.$translation->slug,
             ])->all();
-            $alternates = $localizedUrls;
-
-            if (isset($localizedUrls[config('seo.default_locale')])) {
-                $alternates['x-default'] = $localizedUrls[config('seo.default_locale')];
-            }
-
             $urls[] = [
                 'loc' => $localizedUrls[$post->locale],
                 'lastmod' => $post->updated_at->toDateString(),
                 'changefreq' => 'monthly',
                 'priority' => '0.6',
-                'alternates' => $alternates,
+                'alternates' => $this->alternates($localizedUrls),
             ];
         }
 
@@ -96,5 +109,26 @@ class SitemapController extends Controller
 
         return response($content, 200)
             ->header('Content-Type', 'application/xml; charset=UTF-8');
+    }
+
+    /**
+     * @param  array<string, string>  $localizedUrls
+     * @return array<string, string>
+     */
+    private function alternates(array $localizedUrls): array
+    {
+        if (isset($localizedUrls[config('seo.default_locale')])) {
+            $localizedUrls['x-default'] = $localizedUrls[config('seo.default_locale')];
+        }
+
+        return $localizedUrls;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function tourTranslationFields(): array
+    {
+        return (new Tour)->translatable;
     }
 }

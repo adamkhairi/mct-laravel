@@ -51,9 +51,7 @@ export default function Welcome({
     return (
         <SiteLayout>
             <MetaTags
-                title={__(
-                    'Moroccan Club Travel | Marrakesh-based Private Tours',
-                )}
+                title={__('Private Morocco Tours')}
                 description={__(DESCRIPTION)}
                 type="website"
             />

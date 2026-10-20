@@ -17,6 +17,7 @@ interface BlogPostSummary {
 }
 
 interface BlogIndexProps {
+    alternateLocales: string[];
     posts: {
         data: BlogPostSummary[];
         links: { url: string | null; label: string; active: boolean }[];
@@ -26,7 +27,7 @@ interface BlogIndexProps {
 const DESCRIPTION =
     'Field notes, practical advice and cultural stories for planning a journey through Morocco.';
 
-export default function Index({ posts }: BlogIndexProps) {
+export default function Index({ posts, alternateLocales }: BlogIndexProps) {
     const { __, currentLocale } = useTranslation();
 
     return (
@@ -35,6 +36,8 @@ export default function Index({ posts }: BlogIndexProps) {
                 title={__('Morocco Travel Journal')}
                 description={__(DESCRIPTION)}
                 type="website"
+                noindex={posts.data.length === 0}
+                alternateLocales={alternateLocales}
             />
             <Header />
             <main className="px-6 pt-32 pb-24 md:px-10 md:pt-40 md:pb-32">

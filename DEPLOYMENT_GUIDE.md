@@ -145,6 +145,16 @@ ln -s ../laravel-app/storage/app/public ./storage
 
 # Symlink legacy images folder (If you have images in public/images)
 ln -s ../laravel-app/public/images ./images
+
+# Keep favicons, manifest, and app icons available from the public document root
+ln -sfn ../laravel-app/public/favicon.ico ./favicon.ico
+ln -sfn ../laravel-app/public/favicon.png ./favicon.png
+ln -sfn ../laravel-app/public/apple-touch-icon.png ./apple-touch-icon.png
+ln -sfn ../laravel-app/public/manifest.webmanifest ./manifest.webmanifest
+mkdir -p ./icons
+ln -sfn ../../laravel-app/public/icons/mct-180.png ./icons/mct-180.png
+ln -sfn ../../laravel-app/public/icons/mct-192.png ./icons/mct-192.png
+ln -sfn ../../laravel-app/public/icons/mct-512.png ./icons/mct-512.png
 ```
 
 ---

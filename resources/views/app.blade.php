@@ -4,8 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="icon" href="/icons/mct-192.png" sizes="192x192" type="image/png">
-        <link rel="apple-touch-icon" href="/icons/mct-180.png" sizes="180x180">
+        <link rel="icon" href="/favicon.ico" sizes="any">
+        <link rel="icon" href="/favicon.png" sizes="192x192" type="image/png">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
         <link rel="manifest" href="/manifest.webmanifest">
         <meta name="theme-color" content="#cb5f35">
 

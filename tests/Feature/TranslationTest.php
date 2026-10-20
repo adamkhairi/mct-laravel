@@ -16,6 +16,14 @@ test('the legacy homepage redirects to the English locale URL', function () {
         ->assertRedirect('/en');
 });
 
+test('the app shell links to the branded favicon assets', function () {
+    $this->get('/en')
+        ->assertSuccessful()
+        ->assertSee('<link rel="icon" href="/favicon.ico" sizes="any">', escape: false)
+        ->assertSee('<link rel="icon" href="/favicon.png" sizes="192x192" type="image/png">', escape: false)
+        ->assertSee('<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">', escape: false);
+});
+
 test('it shares translations based on the current locale', function () {
     $this->get('/en')
         ->assertInertia(fn (Assert $page) => $page

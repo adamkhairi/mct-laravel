@@ -1,111 +1,75 @@
-## Full Deployment Guide: MCT Laravel on Hostinger (Git + SSH)
+# Production deployment: Laravel on Hostinger
 
-This guide is optimized for **Laravel 13**, **Inertia v3**, and the specific structure of the MCT project. It assumes your application is located at `/home/u472409551/domains/moroccanclubtravel.com/laravel-app`.
+Production releases are built in GitHub Actions and activated over SSH. The release is assembled once from a specific commit, checked before upload, and switched into place only after server-side checks pass. A failed health check restores the previous release. Normal deployments do not run migrations or seeders.
 
-### Prerequisites
-- PHP binary: `/opt/alt/php85/usr/bin/php` (Ensuring PHP 8.5 for Laravel 13).
-- SSH access enabled in Hostinger hPanel.
-- MySQL Database created in hPanel.
+## Deployment flow
 
----
+1. Push a change to any branch. GitHub Actions runs the project checks and builds a production artifact.
+2. A push to `main` also deploys that exact artifact to the `production` environment. Configure required reviewers for that environment in GitHub if you want an approval gate.
+3. The remote script unpacks a new release, validates its Vite manifest, links shared runtime files, caches Laravel config, switches the `current` symlink, and checks SSR (when enabled), `/up`, and the homepage.
+4. If a post-switch check fails, the script points `current` back at the prior release and restarts its SSR process when one had been running. It retains the current release, the previous release, and recent releases for rollback.
 
-## One-Time Setup
+`deploy.sh` is run remotely by the workflow. It is not a command to run from a developer checkout. The workflow serializes production deployments so two releases cannot switch at the same time.
 
-### 1. SSH and Environment Setup
-Connect to your server and set the correct PHP version as the default for your terminal session.
+## GitHub configuration
+
+Create a GitHub Actions environment named `production`. Add these environment secrets:
+
+- `HOSTINGER_HOST`: Hostinger SSH host or IP address.
+- `HOSTINGER_PORT`: SSH port.
+- `HOSTINGER_USER`: SSH username.
+- `HOSTINGER_SSH_PRIVATE_KEY`: private key whose public key is installed for this Hostinger account.
+- `HOSTINGER_KNOWN_HOSTS`: the verified SSH host key line for the host and port. Obtain and verify its fingerprint through Hostinger before saving it; do not use an unverified `ssh-keyscan` result as trust.
+
+Add these environment variables:
+
+- `HOSTINGER_APP_ROOT`: `/home/<account>/domains/moroccanclubtravel.com/laravel-app`.
+- `HOSTINGER_APP_URL`: `https://www.moroccanclubtravel.com`.
+- `HOSTINGER_PHP_BIN`: `/opt/alt/php85/usr/bin/php` (optional; this is the script default).
+
+The workflow requires key-based, non-interactive SSH. Rotate any password previously shared in chat and do not add passwords, `.env`, or database credentials to GitHub workflow files.
+
+The workflow runs for branch pushes but deploys only when the ref is `main`. A manual workflow dispatch from a non-main branch verifies and packages that branch without deploying it.
+
+## One-time Hostinger layout setup
+
+Back up the site files and database before changing the current Hostinger layout. Do not run this conversion while a release is in progress. The commands below describe the expected layout; inspect each existing path and symlink before moving it.
+
+The application root will contain:
+
+```text
+laravel-app/
+├── current -> releases/<commit-sha>
+├── releases/
+│   ├── <commit-sha>/
+│   └── legacy/
+└── shared/
+    ├── .env
+    └── storage/
+```
+
+First, preserve the existing application tree as the initial rollback release and move its mutable state to `shared/`. Adjust the paths if your account uses a different domain directory:
+
 ```bash
-ssh u472409551@your-hostinger-ip
-
-# Set PHP 8.5 as default
-echo 'export PATH=/opt/alt/php85/usr/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
-php -v # Should show 8.5.x
+cd /home/<account>/domains/moroccanclubtravel.com
+mv laravel-app laravel-app-before-releases
+mkdir -p laravel-app/releases laravel-app/shared
+mv laravel-app-before-releases laravel-app/releases/legacy
+mv laravel-app/releases/legacy/.env laravel-app/shared/.env
+mv laravel-app/releases/legacy/storage laravel-app/shared/storage
+ln -s ../../shared/.env laravel-app/releases/legacy/.env
+ln -s ../../shared/storage laravel-app/releases/legacy/storage
+ln -s releases/legacy laravel-app/current
+mkdir -p laravel-app/shared/storage/framework/cache/data
+mkdir -p laravel-app/shared/storage/framework/sessions
+mkdir -p laravel-app/shared/storage/framework/views
+mkdir -p laravel-app/shared/storage/logs
 ```
 
-### 2. Install Composer
-```bash
-cd ~
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php composer-setup.php
-rm composer-setup.php
-echo "alias composer='php ~/composer.phar'" >> ~/.bashrc
-source ~/.bashrc
-```
+Preserve uploaded files under `shared/storage/app/public`. If the current app has a populated storage directory, moving the whole directory as above preserves it. Ensure `shared/.env` keeps the production values, including `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL=https://www.moroccanclubtravel.com`, and `SEO_CANONICAL_URL=https://www.moroccanclubtravel.com`. Add `INERTIA_SSR_ENABLED=true` only if this hosting plan can keep the SSR process alive; otherwise set it to `false` to serve the client bundle without SSR.
 
-### 3. Clone and Install
-Navigate to your domain directory and clone your repository.
-```bash
-cd /home/u472409551/domains/moroccanclubtravel.com/
+Update the existing `public_html/index.php` bootstrap paths to point through `laravel-app/current`:
 
-# Clone into the laravel-app folder
-git clone https://github.com/your-username/your-repo.git laravel-app
-cd laravel-app
-composer install --no-dev --optimize-autoloader
-```
-
-### 4. Configure `.env`
-Create your environment file and update the production values.
-```bash
-cp .env.example .env
-nano .env
-```
-
-**Key production values:**
-```env
-APP_ENV=production
-APP_DEBUG=false
-APP_URL=https://www.moroccanclubtravel.com
-SEO_CANONICAL_URL=https://www.moroccanclubtravel.com
-
-# Use Database for Sessions and Cache (Recommended for Hostinger)
-SESSION_DRIVER=database
-CACHE_STORE=database
-
-# Database Connection
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_DATABASE=u472409551_dbname
-DB_USERNAME=u472409551_dbuser
-DB_PASSWORD=your_secure_password
-
-# Mail Configuration (Hostinger SMTP)
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.hostinger.com
-MAIL_PORT=465
-MAIL_USERNAME=booking@moroccanclubtravel.com
-MAIL_PASSWORD=your_email_password
-MAIL_ENCRYPTION=ssl
-MAIL_FROM_ADDRESS="contact@moroccanclubtravel.com"
-MAIL_FROM_NAME="${APP_NAME}"
-
-# The email address that receives the contact form inquiries
-# Use a different address than MAIL_FROM_ADDRESS to avoid grouping as "me" in Gmail
-MAIL_CONTACT_RECIPIENT="booking@moroccanclubtravel.com"
-```
-
-Generate the key and run migrations:
-```bash
-php artisan key:generate
-php artisan migrate --force
-
-# Optional: Seed the tours if you are setting up for the first time or want to refresh them
-# php artisan db:seed --class=TourSeeder --force
-```
-
-### 5. Deployment Structure (The "Public" Trick)
-Hostinger serves from `public_html`, but our app lives in the `laravel-app` subdirectory.
-
-**Step 1: Clean up `public_html`**
-```bash
-rm /home/u472409551/domains/moroccanclubtravel.com/public_html/default.php
-```
-
-**Step 2: Create the Modern Laravel 13 `index.php`**
-Create a new `index.php` in your `public_html` directory:
-```bash
-nano /home/u472409551/domains/moroccanclubtravel.com/public_html/index.php
-```
-Paste this **Laravel 13 specific** content:
 ```php
 <?php
 
@@ -113,96 +77,59 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-// Determine if the application is in maintenance mode...
-if (file_exists($maintenance = __DIR__.'/../laravel-app/storage/framework/maintenance.php')) {
+$applicationPath = __DIR__.'/../laravel-app/current';
+
+if (file_exists($maintenance = $applicationPath.'/storage/framework/maintenance.php')) {
     require $maintenance;
 }
 
-// Register the Composer autoloader...
-require __DIR__.'/../laravel-app/vendor/autoload.php';
+require $applicationPath.'/vendor/autoload.php';
 
-// Bootstrap Laravel and handle the request...
-(require_once __DIR__.'/../laravel-app/bootstrap/app.php')
+(require_once $applicationPath.'/bootstrap/app.php')
     ->handleRequest(Request::capture());
 ```
 
-**Step 3: Setup Routing and Symlinks**
+Repoint the `public_html` links for `build`, `assets`, `storage`, `images`, and the favicon/manifest files to `../laravel-app/current/public/...` (for `storage`, use `../laravel-app/shared/storage/app/public`). Retarget only symlinks after verifying them; do not remove real directories or uploaded files. Keep the `public_html` rewrite rules in place. The site should still load from the legacy release before enabling the workflow.
+
+## Migrations and data changes
+
+The deployment script deliberately does **not** call `artisan migrate`, any seeder, importer, or data update. For a reviewed schema change, make a separate maintenance plan:
+
+1. Review the migration and its `down()` behavior; migrations that change tour content or translations require the precise proposed diff and explicit owner approval first.
+2. Take and verify a production database backup.
+3. Run the approved migration as a separate, deliberate operation, not as part of automatic deployment.
+4. Prefer backward-compatible expand/contract migrations so the active and previous code releases can both use the schema during a rollback window.
+
+Never run `migrate:fresh`, seeders, or importers against production as part of a normal release.
+
+## SSR and health checks
+
+The app reads `INERTIA_SSR_ENABLED` from the shared `.env`; it defaults to `true` to preserve current behavior. With SSR enabled, deployment stops the prior Inertia SSR process, switches releases, starts SSR from the new release, and waits for `inertia:check-ssr` to pass. It rolls back if SSR or HTTP checks fail. For this to be dependable, the Hostinger plan must allow the `nohup` process to stay alive. If it does not, set `INERTIA_SSR_ENABLED=false` or move to a plan with supported process supervision; do not repeatedly deploy an SSR configuration that the host terminates.
+
+Laravel's `/up` route confirms the application boots. The workflow then checks the canonical homepage. An independent uptime monitor should also check `/up` and alert on failures.
+
+## Recovery
+
+To retry after a failed deploy, check `laravel-app/current`, the latest release directory, `shared/storage/logs/ssr.log`, and the workflow log first. The script restores the previous symlink automatically after failures detected during deployment. If the SSH connection is terminated abruptly during the small activation window, inspect `current` and the SSR process before manually switching it.
+
+A `.deploy-lock` directory prevents concurrent deployments. If a runner is killed and leaves the lock behind, confirm no deploy is active before removing it:
+
 ```bash
-# Navigate to public_html
-cd /home/u472409551/domains/moroccanclubtravel.com/public_html/
-
-# Copy routing rules
-cp ../laravel-app/public/.htaccess ./.htaccess
-
-# Symlink the build folder (Crucial for Inertia/Vite)
-ln -s ../laravel-app/public/build ./build
-
-# Symlink static assets (Logos, hero images, etc.)
-ln -s ../laravel-app/public/assets ./assets
-
-# Symlink storage (For dynamic tour uploads)
-ln -s ../laravel-app/storage/app/public ./storage
-
-# Symlink legacy images folder (If you have images in public/images)
-ln -s ../laravel-app/public/images ./images
-
-# Keep favicons, manifest, and app icons available from the public document root
-ln -sfn ../laravel-app/public/favicon.ico ./favicon.ico
-ln -sfn ../laravel-app/public/favicon.png ./favicon.png
-ln -sfn ../laravel-app/public/apple-touch-icon.png ./apple-touch-icon.png
-ln -sfn ../laravel-app/public/manifest.webmanifest ./manifest.webmanifest
-mkdir -p ./icons
-ln -sfn ../../laravel-app/public/icons/mct-180.png ./icons/mct-180.png
-ln -sfn ../../laravel-app/public/icons/mct-192.png ./icons/mct-192.png
-ln -sfn ../../laravel-app/public/icons/mct-512.png ./icons/mct-512.png
+rmdir /home/<account>/domains/moroccanclubtravel.com/laravel-app/.deploy-lock
 ```
 
----
+To roll back intentionally, point `laravel-app/current` to the previous directory under `releases/` using a temporary symlink and atomic `mv -T`, then restart SSR for that release if SSR is enabled. Keep database schema changes backward compatible during this rollback window; a file rollback does not undo a migration.
 
-## Deployment Workflow (Every Change)
+## Local verification
 
-### 1. Locally (Your PC)
-Regenerate your assets and push your code.
+Before merging deployment changes, run:
+
 ```bash
-npm run build
-git add .
-git commit -m "Your message"
-git push origin main
-
-# Upload the build AND assets folders
-scp -r public/build u472409551@your-ip:/home/u472409551/domains/moroccanclubtravel.com/laravel-app/public/
-scp -r public/assets u472409551@your-ip:/home/u472409551/domains/moroccanclubtravel.com/laravel-app/public/
+bash -n deploy.sh
+npm run lint:check
+npm run types:check
+npm run build:ssr
+bash tests/deployment/deploy-script-test.sh
 ```
 
-### 2. On Server (SSH) - Run the Deploy Script
-Since the `deploy.sh` script is included in your project, you just need to make it executable once and run it.
-```bash
-cd /home/u472409551/domains/moroccanclubtravel.com/laravel-app
-chmod +x deploy.sh
-
-# Run it
-./deploy.sh
-```
-
----
-
-## Important Maintenance Notes
-
-### "Me" Sender in Emails
-If your `MAIL_FROM_ADDRESS` is the same as the address receiving the emails (e.g., you send from `booking@...` to `booking@...`), Gmail and other clients will often display the sender as "me". To fix this, create a second email account in hPanel (e.g., `contact@moroccanclubtravel.com`), use it for `MAIL_FROM_ADDRESS` and `MAIL_USERNAME`, and set `MAIL_CONTACT_RECIPIENT` to your main `booking@...` address.
-
-### Dynamic Tour Images
-When adding tours via the Admin panel, images are saved to `storage/app/public/tours`. Because of the `public_html/storage` symlink, they will be accessible at `yourdomain.com/storage/tours/filename.jpg`. You **do not** need to manually upload these.
-
-### Static Assets
-Site-wide assets (logos, default icons) in `public/assets` should be managed via Git or `scp`. If you add new static files locally, remember to upload the `public/assets` folder.
-
-### Database Updates
-If you need to refresh your data (wiping everything):
-```bash
-php artisan migrate:fresh --seed --force
-```
-For standard updates without data loss:
-```bash
-php artisan migrate --force
-```
+The GitHub workflow runs static checks, a database-free deployment-script test, and packaging on branch pushes. The app's current PHPUnit suite includes database refreshes and tour/review seeders, so this workflow does not run it under the existing data-change approval gate. Production deployment requires the GitHub environment configuration above and the one-time Hostinger layout conversion.

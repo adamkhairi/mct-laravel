@@ -1,0 +1,193 @@
+name: Build and deploy
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hostinger-production
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Verify application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: mbstring, pdo_sqlite, sqlite3, pdo_mysql, intl, bcmath, gd, zip
+          coverage: none
+          tools: composer:v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          composer install --no-interaction --prefer-dist
+          npm ci
+          cp .env.example .env
+          php artisan key:generate --force
+
+      - name: Generate route helpers for static checks
+        run: npm run build
+
+      - name: Check PHP formatting
+        run: |
+          vendor/bin/pint --format agent config/inertia.php
+          git diff --exit-code -- config/inertia.php
+
+      - name: Run static checks
+        run: |
+          npm run lint:check
+          npm run types:check
+          find app bootstrap config routes -type f -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Check deployment script syntax
+        run: |
+          bash -n deploy.sh
+          bash -n tests/deployment/deploy-script-test.sh
+          bash tests/deployment/deploy-script-test.sh
+
+  package:
+    name: Build immutable release artifact
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: mbstring, pdo_mysql, intl, bcmath, gd, zip
+          coverage: none
+          tools: composer:v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install production PHP dependencies
+        run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Build client and SSR bundles
+        run: |
+          cp .env.example .env
+          php artisan key:generate --force
+          npm ci
+          npm run build:ssr
+
+      - name: Package release
+        env:
+          RELEASE_SHA: ${{ github.sha }}
+        run: |
+          printf '%s\n' "$RELEASE_SHA" > .release-sha
+          tar -czf "$RUNNER_TEMP/mct-release.tar.gz" \
+            --exclude='./.git' \
+            --exclude='./.github' \
+            --exclude='./node_modules' \
+            --exclude='./tests' \
+            --exclude='./storage' \
+            --exclude='./.env' \
+            --exclude='./.phpunit.cache' \
+            --exclude='./database/*.sqlite' \
+            .
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mct-release-${{ github.sha }}
+          path: ${{ runner.temp }}/mct-release.tar.gz
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy:
+    name: Deploy to Hostinger production
+    needs: package
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Check out deployment script
+        uses: actions/checkout@v4
+
+      - name: Download release artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: mct-release-${{ github.sha }}
+          path: release-artifact
+
+      - name: Validate deployment settings
+        env:
+          HOST: ${{ secrets.HOSTINGER_HOST }}
+          PORT: ${{ secrets.HOSTINGER_PORT }}
+          USER: ${{ secrets.HOSTINGER_USER }}
+          PRIVATE_KEY: ${{ secrets.HOSTINGER_SSH_PRIVATE_KEY }}
+          KNOWN_HOSTS: ${{ secrets.HOSTINGER_KNOWN_HOSTS }}
+          APP_ROOT: ${{ vars.HOSTINGER_APP_ROOT }}
+          APP_URL: ${{ vars.HOSTINGER_APP_URL }}
+        run: |
+          for name in HOST PORT USER PRIVATE_KEY KNOWN_HOSTS APP_ROOT APP_URL; do
+            if [[ -z "${!name}" ]]; then
+              echo "Missing GitHub production setting: $name" >&2
+              exit 1
+            fi
+          done
+
+      - name: Install SSH credentials
+        env:
+          PRIVATE_KEY: ${{ secrets.HOSTINGER_SSH_PRIVATE_KEY }}
+          KNOWN_HOSTS: ${{ secrets.HOSTINGER_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d "$HOME/.ssh"
+          printf '%s\n' "$PRIVATE_KEY" > "$HOME/.ssh/id_ed25519"
+          printf '%s\n' "$KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/id_ed25519" "$HOME/.ssh/known_hosts"
+
+      - name: Upload artifact and activate release
+        env:
+          HOST: ${{ secrets.HOSTINGER_HOST }}
+          PORT: ${{ secrets.HOSTINGER_PORT }}
+          USER: ${{ secrets.HOSTINGER_USER }}
+          APP_ROOT: ${{ vars.HOSTINGER_APP_ROOT }}
+          APP_URL: ${{ vars.HOSTINGER_APP_URL }}
+          PHP_BIN: ${{ vars.HOSTINGER_PHP_BIN }}
+          RELEASE_SHA: ${{ github.sha }}
+        run: |
+          archive="$RUNNER_TEMP/mct-release-$RELEASE_SHA.tar.gz"
+          cp release-artifact/mct-release.tar.gz "$archive"
+          remote_archive="/tmp/mct-release-$RELEASE_SHA.tar.gz"
+          scp -P "$PORT" -i "$HOME/.ssh/id_ed25519" \
+            -o BatchMode=yes -o StrictHostKeyChecking=yes \
+            "$archive" "$USER@$HOST:$remote_archive"
+
+          printf -v remote_environment 'APP_ROOT=%q APP_URL=%q PHP_BIN=%q' \
+            "$APP_ROOT" "$APP_URL" "${PHP_BIN:-/opt/alt/php85/usr/bin/php}"
+          if ssh -p "$PORT" -i "$HOME/.ssh/id_ed25519" \
+            -o BatchMode=yes -o StrictHostKeyChecking=yes "$USER@$HOST" \
+            "$remote_environment bash -s -- '$remote_archive' '$RELEASE_SHA'" \
+            < deploy.sh; then
+            deploy_status=0
+          else
+            deploy_status=$?
+          fi
+
+          ssh -p "$PORT" -i "$HOME/.ssh/id_ed25519" \
+            -o BatchMode=yes -o StrictHostKeyChecking=yes "$USER@$HOST" \
+            "rm -f -- '$remote_archive'" || echo 'Could not remove the uploaded temporary release archive.' >&2
+          exit "$deploy_status"

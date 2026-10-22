@@ -18,7 +18,7 @@ export function Hero() {
 
             <div className="animate-fade-up relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 text-ivory [animation-delay:300ms] md:px-10 md:pb-24">
                 <span className="eyebrow mb-6 block italic opacity-80">
-                    {__('Est. 2014 — Marrakesh')}
+                    {__('Est. 2004 — Marrakesh')}
                 </span>
                 <h1 className="max-w-[14ch] font-display text-5xl leading-[0.92] font-bold text-balance sm:text-7xl md:text-[8.5vw] lg:text-9xl">
                     {__('The')}{' '}
